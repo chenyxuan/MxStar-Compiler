@@ -1,0 +1,44 @@
+@ ASTRootNode (2:1):
+>>> decls:
+	@ VarDeclListNode (2:1):
+	>>> decls
+		@ VaeDeclNode (2:10):
+		>>> type:
+			@ TypeNode (2:1):
+			>>> type: ArrayType(ArrayType(ArrayType(mxstar.type.IntType@1e397ed7)))
+		>>> name: A
+		>>> init:
+			@ NewExprNode (2:18):
+			>>> newType:
+				@ TypeNode (2:18):
+				>>> type: ArrayType(ArrayType(ArrayType(mxstar.type.IntType@1e397ed7)))
+			>>> dims:
+				@ IntConstExprNode (2:22):
+				>>> value: 3
+				@ IntConstExprNode (2:25):
+				>>> value: 2
+				@ IntConstExprNode (2:28):
+				>>> value: 4
+			>>> end of dims
+	>>> end of decls
+	@ VarDeclListNode (4:1):
+	>>> decls
+		@ VaeDeclNode (4:5):
+		>>> type:
+			@ TypeNode (4:1):
+			>>> type: mxstar.type.IntType@1e397ed7
+		>>> name: adssa
+		>>> init:
+			@ IntConstExprNode (4:13):
+			>>> value: 0
+	>>> end of decls
+	@ FuncDeclNode (5:1):
+	>>> returnType:
+		@ TypeNode (5:1):
+		>>> type: mxstar.type.IntType@1e397ed7
+	>>> name: main
+	>>> parameterList: null
+	>>> body:
+		@ BlockStmtNode (5:12):
+		>>> compound: null
+>>> end of decls
