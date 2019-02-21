@@ -1,6 +1,0 @@
-
-	int[][][]A = new int[3][2][4];
-	
-	int adssa = 0;
-	int main() {
-}

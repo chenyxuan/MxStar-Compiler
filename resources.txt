@@ -1,9 +1,0 @@
-antlr4 (-visitor -listener)
-IntelliJ IDEA https://www.jetbrains.com/student/
-
-'()' <> ('('')') , '[]' <> ('['']')
-else (reserved keywords) 
-
-https://courses.cs.washington.edu/courses/csep501/11au/
-https://cs.stackexchange.com/questions/43/language-theoretic-comparison-of-ll-and-lr-grammars
-https://cs.wmich.edu/~gupta/teaching/cs4850/sumII06/The%20syntax%20of%20C%20in%20Backus-Naur%20form.htm
