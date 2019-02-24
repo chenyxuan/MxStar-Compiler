@@ -3,8 +3,8 @@ package mxstar.backend;
 import mxstar.ast.*;
 import mxstar.frontend.SemanticAnalyser;
 import mxstar.ir.*;
-import mxstar.scope.*;
-import mxstar.type.*;
+import mxstar.symbol.scope.*;
+import mxstar.symbol.type.*;
 
 import java.util.ArrayList;
 import java.util.List;
