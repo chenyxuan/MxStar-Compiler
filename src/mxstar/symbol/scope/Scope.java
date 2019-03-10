@@ -1,4 +1,4 @@
-package mxstar.scope;
+package mxstar.symbol.scope;
 
 import mxstar.utility.Location;
 import mxstar.utility.error.SemanticError;

@@ -1,6 +1,6 @@
 package mxstar.ast;
 
-import mxstar.scope.Entity;
+import mxstar.symbol.scope.Entity;
 
 abstract public class EntityExprNode extends ExprNode {
 	private Entity entity = null;

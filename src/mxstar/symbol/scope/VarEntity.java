@@ -1,8 +1,8 @@
-package mxstar.scope;
+package mxstar.symbol.scope;
 
 import mxstar.ast.VarDeclNode;
 import mxstar.ir.IRRegister;
-import mxstar.type.Type;
+import mxstar.symbol.type.Type;
 
 public class VarEntity extends Entity {
 	private int addrOffset = 0;

@@ -1,7 +1,7 @@
-package mxstar.scope;
+package mxstar.symbol.scope;
 
 import mxstar.ast.*;
-import mxstar.type.*;
+import mxstar.symbol.type.*;
 
 import java.util.ArrayList;
 import java.util.List;

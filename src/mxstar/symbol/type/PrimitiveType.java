@@ -1,4 +1,4 @@
-package mxstar.type;
+package mxstar.symbol.type;
 
 abstract public class PrimitiveType extends Type {
 }

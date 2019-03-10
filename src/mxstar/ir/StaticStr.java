@@ -2,10 +2,10 @@ package mxstar.ir;
 
 import static mxstar.utility.GlobalSymbols.*;
 
-public class StaticString extends StaticData {
+public class StaticStr extends StaticData {
 	private String value;
 
-	public StaticString(String value) {
+	public StaticStr(String value) {
 		super(STATIC_STR, REG_SIZE);
 		this.value = value;
 	}

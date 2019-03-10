@@ -1,4 +1,4 @@
-package mxstar.backend;
+package mxstar.frontend;
 
 import mxstar.ast.*;
 import mxstar.frontend.SemanticAnalyser;
@@ -14,8 +14,8 @@ import static mxstar.utility.GlobalSymbols.*;
 public class IRBuilder extends ASTBaseVisitor {
 	private Scope globalScope;
 
-	private Scope currentScope = null;
 	private IRRoot ir = new IRRoot();
+	private Scope currentScope = null;
 	private IRFunction currentFunction = null;
 	private BasicBlock currentBB = null;
 	private boolean isParaDecl = false;
@@ -42,8 +42,8 @@ public class IRBuilder extends ASTBaseVisitor {
 		super.visit(node);
 		currentFunction = ir.getFunction(INIT_STATIC_VAR);
 		currentBB = currentFunction.getBeginBB();
-		for(GlobalInit e : globalInits) {
-			if(e.getSrc().isBoolExpr()) {
+		for (GlobalInit e : globalInits) {
+			if (e.getSrc().isBoolExpr()) {
 				e.getSrc().initFlowBB(currentFunction);
 			}
 			e.getSrc().accept(this);
@@ -56,11 +56,10 @@ public class IRBuilder extends ASTBaseVisitor {
 	public void visit(FuncDefNode node) {
 		FuncEntity funcEntity = node.getFuncEntity();
 
-		if(!funcEntity.isMember()) {
+		if (!funcEntity.isMember()) {
 			currentFunction = new IRFunction(funcEntity);
 			ir.addFunction(currentFunction);
-		}
-		else {
+		} else {
 			currentFunction = ir.getFunction(IRFunction.parseName(funcEntity));
 		}
 
@@ -68,12 +67,12 @@ public class IRBuilder extends ASTBaseVisitor {
 		currentBB = currentFunction.getBeginBB();
 
 		isParaDecl = true;
-		for(Node e : node.getParameterList()) {
+		for (Node e : node.getParameterList()) {
 			e.accept(this);
 		}
 		isParaDecl = false;
 
-		if(currentFunction.isMain()) {
+		if (currentFunction.isMain()) {
 			currentBB.appendInst(new IRFuncCall(ir.getFunction(INIT_STATIC_VAR), null, new ArrayList<>(), currentBB));
 		}
 
@@ -81,17 +80,17 @@ public class IRBuilder extends ASTBaseVisitor {
 
 		boolean isVoidFunc = funcEntity.isConstruct() || funcEntity.getReturnType() instanceof VoidType;
 
-		if(!currentBB.isEscaped()) currentBB.setJumpInst(new IRReturn(isVoidFunc ? null : new IntImm(0), currentBB));
+		if (!currentBB.isEscaped()) currentBB.setJumpInst(new IRReturn(isVoidFunc ? null : new IntImm(0), currentBB));
 
 		List<IRReturn> irReturnList = new ArrayList<>(currentFunction.getIRReturns());
 
-		if(irReturnList.size() > 1) {
+		if (irReturnList.size() > 1) {
 			BasicBlock endBB = new BasicBlock(currentFunction, currentFunction.getName() + FUNC_EXIT);
 			VirtualReg retReg = isVoidFunc ? null : new VirtualReg(FUNC_RET_VAL);
 
-			for(IRReturn irReturn : irReturnList) {
+			for (IRReturn irReturn : irReturnList) {
 				BasicBlock block = irReturn.getParentBB();
-				if(!isVoidFunc) {
+				if (!isVoidFunc) {
 					block.prependInst(irReturn, new IRMove(retReg, irReturn.getRetValue(), block));
 				}
 				block.removeJumpInst();
@@ -101,8 +100,7 @@ public class IRBuilder extends ASTBaseVisitor {
 
 			endBB.setJumpInst(new IRReturn(retReg, endBB));
 			currentFunction.setEndBB(endBB);
-		}
-		else {
+		} else {
 			currentFunction.setEndBB(irReturnList.get(0).getParentBB());
 		}
 	}
@@ -116,13 +114,14 @@ public class IRBuilder extends ASTBaseVisitor {
 			thisEntity.setIRRegister(new VirtualReg(THIS_NAME));
 		}
 	}
+
 	@Override
 	public void visit(ClassDeclNode node) {
 		currentScope = node.getScope();
 
 		classFuncInit(node);
 
-		for(Node e : node.getFuncMember()) {
+		for (Node e : node.getFuncMember()) {
 			e.accept(this);
 		}
 
@@ -138,29 +137,26 @@ public class IRBuilder extends ASTBaseVisitor {
 	public void visit(VarDeclNode node) {
 		VarEntity varEntity = node.getVarEntity();
 
-		if(currentScope == globalScope) {
+		if (currentScope == globalScope) {
 			StaticVar staticVar = new StaticVar(node.getName(), node.getType().getType().getVarSize());
 			ir.getStaticDataList().add(staticVar);
 			varEntity.setIRRegister(staticVar);
 
-			if(node.getInitVal() != null) {
+			if (node.getInitVal() != null) {
 				globalInits.add(new GlobalInit(staticVar, node.getInitVal()));
 			}
-		}
-		else {
+		} else {
 			VirtualReg varReg = new VirtualReg(node.getName());
 			varEntity.setIRRegister(varReg);
 
-			if(node.getInitVal() == null) {
-				if(isParaDecl) {
+			if (node.getInitVal() == null) {
+				if (isParaDecl) {
 					currentFunction.getParaRegs().add(varReg);
-				}
-				else {
+				} else {
 					currentBB.appendInst(new IRMove(varReg, new IntImm(0), currentBB));
 				}
-			}
-			else {
-				if(node.getInitVal().isBoolExpr()) {
+			} else {
+				if (node.getInitVal().isBoolExpr()) {
 					node.getInitVal().initFlowBB(currentFunction);
 				}
 				node.getInitVal().accept(this);
@@ -172,9 +168,9 @@ public class IRBuilder extends ASTBaseVisitor {
 	@Override
 	public void visit(BlockStmtNode node) {
 		currentScope = node.getScope();
-		for(Node e : node.getCompound()) {
+		for (Node e : node.getCompound()) {
 			safeAccept(e);
-			if(currentBB.isEscaped()) break;
+			if (currentBB.isEscaped()) break;
 		}
 		currentScope = currentScope.getParent();
 	}
@@ -188,18 +184,18 @@ public class IRBuilder extends ASTBaseVisitor {
 		node.getCond().setTrueBB(thenBB);
 		node.getCond().setFalseBB(elseBB != null ? elseBB : afterBB);
 		node.getCond().accept(this);
-		if(node.getCond() instanceof BoolConstNode) {
+		if (node.getCond() instanceof BoolConstNode) {
 			currentBB.setJumpInst(new IRBranch(node.getCond(), currentBB));
 		}
 
 		currentBB = thenBB;
 		safeAccept(node.getThenStmt());
-		if(!currentBB.isEscaped()) currentBB.setJumpInst(new IRJump(afterBB, currentBB));
+		if (!currentBB.isEscaped()) currentBB.setJumpInst(new IRJump(afterBB, currentBB));
 
-		if(node.getElseStmt() != null) {
+		if (node.getElseStmt() != null) {
 			currentBB = elseBB;
 			node.getElseStmt().accept(this);
-			if(!currentBB.isEscaped()) currentBB.setJumpInst(new IRJump(afterBB, currentBB));
+			if (!currentBB.isEscaped()) currentBB.setJumpInst(new IRJump(afterBB, currentBB));
 		}
 
 		currentBB = afterBB;
@@ -223,13 +219,13 @@ public class IRBuilder extends ASTBaseVisitor {
 		node.getCond().setTrueBB(condBB);
 		node.getCond().setFalseBB(afterBB);
 		node.getCond().accept(this);
-		if(node.getCond() instanceof BoolConstNode) {
+		if (node.getCond() instanceof BoolConstNode) {
 			currentBB.setJumpInst(new IRBranch(node.getCond(), currentBB));
 		}
 
 		currentBB = bodyBB;
 		safeAccept(node.getStmt());
-		if(!currentBB.isEscaped()) currentBB.setJumpInst(new IRJump(condBB, currentBB));
+		if (!currentBB.isEscaped()) currentBB.setJumpInst(new IRJump(condBB, currentBB));
 
 		currentLoopStepBB = outerLoopStepBB;
 		currentLoopAfterBB = outerLoopAfterBB;
@@ -249,39 +245,36 @@ public class IRBuilder extends ASTBaseVisitor {
 		currentLoopStepBB = stepBB;
 		currentLoopAfterBB = afterBB;
 
-		if(node.getInit() != null) {
+		if (node.getInit() != null) {
 			node.getInit().accept(this);
 		}
 		currentBB.setJumpInst(new IRJump(condBB, currentBB));
 
 		currentBB = condBB;
-		if(node.getCond() != null) {
+		if (node.getCond() != null) {
 			node.getCond().setTrueBB(bodyBB);
 			node.getCond().setFalseBB(afterBB);
 			node.getCond().accept(this);
-			if(node.getCond() instanceof BoolConstNode) {
+			if (node.getCond() instanceof BoolConstNode) {
 				currentBB.setJumpInst(new IRBranch(node.getCond(), currentBB));
 			}
-		}
-		else {
+		} else {
 			currentBB.setJumpInst(new IRJump(bodyBB, currentBB));
 		}
 
 		currentBB = bodyBB;
-		if(node.getStmt() != null) {
+		if (node.getStmt() != null) {
 			node.getStmt().accept(this);
-			if(!currentBB.isEscaped()) currentBB.setJumpInst(new IRJump(stepBB, currentBB));
-		}
-		else {
+			if (!currentBB.isEscaped()) currentBB.setJumpInst(new IRJump(stepBB, currentBB));
+		} else {
 			currentBB.setJumpInst(new IRJump(stepBB, currentBB));
 		}
 
 		currentBB = stepBB;
-		if(node.getStep() != null) {
+		if (node.getStep() != null) {
 			node.getStep().accept(this);
 			currentBB.setJumpInst(new IRJump(condBB, currentBB));
-		}
-		else {
+		} else {
 			currentBB.setJumpInst(new IRJump(condBB, currentBB));
 		}
 
@@ -305,33 +298,31 @@ public class IRBuilder extends ASTBaseVisitor {
 		Type returnType = currentFunction.getFuncEntity().getReturnType();
 		boolean isVoidFunc = returnType == null || returnType instanceof VoidType;
 
-		if(isVoidFunc) {
+		if (isVoidFunc) {
 			currentBB.setJumpInst(new IRReturn(null, currentBB));
-		}
-		else {
-			if(node.getExpr().isBoolExpr()) {
+		} else {
+			if (node.getExpr().isBoolExpr()) {
 				node.getExpr().initFlowBB(currentFunction);
 				node.getExpr().accept(this);
 				VirtualReg resReg = new VirtualReg(null);
 				IRAssign(resReg, 0, node.getExpr(), false);
 				currentBB.setJumpInst(new IRReturn(resReg, currentBB));
-			}
-			else {
+			} else {
 				node.getExpr().accept(this);
 				currentBB.setJumpInst(new IRReturn(node.getExpr().getRegValue(), currentBB));
 			}
 		}
 	}
 
-	private  boolean isMemoryAccess(ExprNode node) {
-		if(node instanceof SubscriptExprNode) return true;
-		if(node instanceof MemberAccessExprNode) return true;
-		if(node instanceof IdentifierExprNode) {
+	private boolean isMemoryAccess(ExprNode node) {
+		if (node instanceof SubscriptExprNode) return true;
+		if (node instanceof MemberAccessExprNode) return true;
+		if (node instanceof IdentifierExprNode) {
 			Entity idEntity = ((IdentifierExprNode) node).getEntity();
 
 			return idEntity instanceof VarEntity &&
-				((VarEntity) idEntity).isMember() &&
-				((VarEntity) idEntity).getIRRegister() == null;
+					((VarEntity) idEntity).isMember() &&
+					((VarEntity) idEntity).getIRRegister() == null;
 		}
 		return false;
 	}
@@ -350,7 +341,7 @@ public class IRBuilder extends ASTBaseVisitor {
 
 	private IRRegister assignToReg(ExprNode exprNode, IRBinaryOp.Ops op) {
 		currentBB.appendInst(new IRBinaryOp(op, (IRRegister) exprNode.getRegValue(), exprNode.getRegValue(),
-											new IntImm(1), currentBB));
+				new IntImm(1), currentBB));
 		return (IRRegister) exprNode.getRegValue();
 	}
 
@@ -368,10 +359,9 @@ public class IRBuilder extends ASTBaseVisitor {
 		currentBB.appendInst(new IRMove(tmpReg, exprNode.getRegValue(), currentBB));
 		node.setRegValue(tmpReg);
 
-		if(toMemory) {
+		if (toMemory) {
 			assignToMemory(exprNode, op);
-		}
-		else {
+		} else {
 			assignToReg(exprNode, op);
 		}
 		wantAddr = outerWantAddr;
@@ -390,10 +380,9 @@ public class IRBuilder extends ASTBaseVisitor {
 				wantAddr = false;
 				exprNode.accept(this);
 
-				if(toMemory) {
+				if (toMemory) {
 					node.setRegValue(assignToMemory(exprNode, op));
-				}
-				else {
+				} else {
 					node.setRegValue(assignToReg(exprNode, op));
 				}
 
@@ -434,7 +423,7 @@ public class IRBuilder extends ASTBaseVisitor {
 		switch (node.getOp()) {
 			case LOG_AND:
 			case LOG_OR:
-				if(node.hasFlowBB()) {
+				if (node.hasFlowBB()) {
 					if (node.getOp() == BinaryExprNode.Ops.LOG_AND) {
 						node.getLhs().setTrueBB(new BasicBlock(currentFunction, LOGIC_INTERRUPT));
 						node.getLhs().setFalseBB(node.getFalseBB());
@@ -452,27 +441,39 @@ public class IRBuilder extends ASTBaseVisitor {
 				node.getRhs().accept(this);
 				break;
 
-			case BIT_XOR: case BIT_AND: case BIT_OR:
-			case SHR: case SHL: case MUL: case MOD: case DIV:
-			case ADD: case SUB:
+			case BIT_XOR:
+			case BIT_AND:
+			case BIT_OR:
+			case SHR:
+			case SHL:
+			case MUL:
+			case MOD:
+			case DIV:
+			case ADD:
+			case SUB:
 				VirtualReg resReg = new VirtualReg(null);
 
 				node.getLhs().accept(this);
 				node.getRhs().accept(this);
 				node.setRegValue(resReg);
 				currentBB.appendInst(new IRBinaryOp(IRBinaryOp.trans(node.getOp()), resReg,
-					node.getLhs().getRegValue(), node.getRhs().getRegValue(), currentBB));
+						node.getLhs().getRegValue(), node.getRhs().getRegValue(), currentBB));
 				break;
 
-			case LEQ: case GEQ: case LT: case GT:
-			case NEQ: case EQ:
-				VirtualReg relReg = new VirtualReg(null);
+			case LEQ:
+			case GEQ:
+			case LT:
+			case GT:
+			case NEQ:
+			case EQ:
+				VirtualReg relReg = new VirtualReg
+						(null);
 
 				node.getLhs().accept(this);
 				node.getRhs().accept(this);
 				currentBB.appendInst(new IRComp(IRComp.trans(node.getOp()), relReg,
-					node.getLhs().getRegValue(), node.getRhs().getRegValue(), currentBB));
-				if(node.hasFlowBB()) {
+						node.getLhs().getRegValue(), node.getRhs().getRegValue(), currentBB));
+				if (node.hasFlowBB()) {
 					currentBB.setJumpInst(new IRBranch(relReg, node.getTrueBB(), node.getFalseBB(), currentBB));
 				}
 				break;
@@ -496,14 +497,13 @@ public class IRBuilder extends ASTBaseVisitor {
 		currentBB.appendInst(new IRBinaryOp(IRBinaryOp.Ops.MUL, reg, eSize, node.getPostfix().getRegValue(), currentBB));
 		currentBB.appendInst(new IRBinaryOp(IRBinaryOp.Ops.ADD, reg, reg, node.getArray().getRegValue(), currentBB));
 
-		if(wantAddr) {
+		if (wantAddr) {
 			node.setAddrValue(reg);
 			node.setAddrOffset(SIZE_PERCH);
-		}
-		else {
+		} else {
 			currentBB.appendInst(new IRLoad(reg, reg, SIZE_PERCH, currentBB));
 			node.setRegValue(reg);
-			if(node.hasFlowBB()) {
+			if (node.hasFlowBB()) {
 				currentBB.setJumpInst(new IRBranch(node, currentBB));
 			}
 		}
@@ -514,19 +514,18 @@ public class IRBuilder extends ASTBaseVisitor {
 		FuncEntity funcEntity = node.getFuncEntity();
 		List<RegValue> args = new ArrayList<>();
 
-		if(funcEntity.isMember()) {
-			if(node.getFunc() instanceof MemberAccessExprNode) {
+		if (funcEntity.isMember()) {
+			if (node.getFunc() instanceof MemberAccessExprNode) {
 				ExprNode thisReg = ((MemberAccessExprNode) node.getFunc()).getExpr();
 				thisReg.accept(this);
 				args.add(thisReg.getRegValue());
-			}
-			else {
+			} else {
 				VarEntity thisEntity = funcEntity.getThisEntity();
- 				args.add(thisEntity.getIRRegister());
+				args.add(thisEntity.getIRRegister());
 			}
 		}
 
-		for(ExprNode arg : node.getArgs()) {
+		for (ExprNode arg : node.getArgs()) {
 			arg.accept(this);
 			args.add(arg.getRegValue());
 		}
@@ -537,7 +536,7 @@ public class IRBuilder extends ASTBaseVisitor {
 		currentBB.appendInst(new IRFuncCall(irFunction, resReg, args, currentBB));
 		node.setRegValue(resReg);
 
-		if(node.hasFlowBB()) {
+		if (node.hasFlowBB()) {
 			currentBB.setJumpInst(new IRBranch(node, currentBB));
 		}
 	}
@@ -552,17 +551,16 @@ public class IRBuilder extends ASTBaseVisitor {
 		RegValue classAddr = node.getExpr().getRegValue();
 		Entity entity = node.getEntity();
 //		System.err.println(classAddr == null);
-		if(entity instanceof VarEntity) {
+		if (entity instanceof VarEntity) {
 //			System.err.println(((VarEntity) entity).getAddrOffset());
-			if(wantAddr) {
+			if (wantAddr) {
 				node.setAddrValue(classAddr);
 				node.setAddrOffset(((VarEntity) entity).getAddrOffset());
-			}
-			else {
+			} else {
 				VirtualReg reg = new VirtualReg(null);
 				node.setRegValue(reg);
 				currentBB.appendInst(new IRLoad(reg, classAddr, ((VarEntity) entity).getAddrOffset(), currentBB));
-				if(node.hasFlowBB()) {
+				if (node.hasFlowBB()) {
 					currentBB.setJumpInst(new IRBranch(node, currentBB));
 				}
 			}
@@ -574,50 +572,45 @@ public class IRBuilder extends ASTBaseVisitor {
 		assert node.getEntity() instanceof VarEntity;
 		VarEntity varEntity = (VarEntity) node.getEntity();
 
-		if(varEntity.getIRRegister() == null) {
+		if (varEntity.getIRRegister() == null) {
 			IRRegister thisReg = currentFunction.getFuncEntity().getThisEntity().getIRRegister();
 /*
 			System.err.println(varEntity.getAddrOffset());
 			System.err.println("OK");
 			System.err.println(thisReg == null);
 */
-			if(wantAddr) {
+			if (wantAddr) {
 				node.setAddrValue(thisReg);
 				node.setAddrOffset(varEntity.getAddrOffset());
-			}
-			else {
+			} else {
 				VirtualReg resReg = new VirtualReg(null);
 				node.setRegValue(resReg);
 				currentBB.appendInst(new IRLoad(resReg, thisReg, varEntity.getAddrOffset(), currentBB));
-				if(node.hasFlowBB()) currentBB.setJumpInst(new IRBranch(node, currentBB));
+				if (node.hasFlowBB()) currentBB.setJumpInst(new IRBranch(node, currentBB));
 			}
-		}
-		else {
+		} else {
 			node.setRegValue(varEntity.getIRRegister());
 			if (node.hasFlowBB()) currentBB.setJumpInst(new IRBranch(node, currentBB));
 		}
 	}
 
 	private void IRAssign(RegValue dest, int offset, ExprNode src, boolean toMemory) {
-		if(src.hasFlowBB()) {
+		if (src.hasFlowBB()) {
 			BasicBlock finBB = new BasicBlock(currentFunction, null);
-			if(toMemory) {
+			if (toMemory) {
 				src.getTrueBB().appendInst(new IRStore(dest, offset, new IntImm(1), src.getTrueBB()));
 				src.getFalseBB().appendInst(new IRStore(dest, offset, new IntImm(0), src.getFalseBB()));
-			}
-			else {
+			} else {
 				src.getTrueBB().appendInst(new IRMove((IRRegister) dest, new IntImm(1), src.getTrueBB()));
 				src.getFalseBB().appendInst(new IRMove((IRRegister) dest, new IntImm(0), src.getFalseBB()));
 			}
-			if(!src.getTrueBB().isEscaped()) src.getTrueBB().setJumpInst(new IRJump(finBB, src.getTrueBB()));
-			if(!src.getFalseBB().isEscaped()) src.getFalseBB().setJumpInst(new IRJump(finBB, src.getFalseBB()));
+			if (!src.getTrueBB().isEscaped()) src.getTrueBB().setJumpInst(new IRJump(finBB, src.getTrueBB()));
+			if (!src.getFalseBB().isEscaped()) src.getFalseBB().setJumpInst(new IRJump(finBB, src.getFalseBB()));
 			currentBB = finBB;
-		}
-		else {
-			if(toMemory) {
+		} else {
+			if (toMemory) {
 				currentBB.appendInst(new IRStore(dest, offset, src.getRegValue(), currentBB));
-			}
-			else {
+			} else {
 				currentBB.appendInst(new IRMove((IRRegister) dest, src.getRegValue(), currentBB));
 			}
 		}
@@ -632,15 +625,14 @@ public class IRBuilder extends ASTBaseVisitor {
 		node.getLhs().accept(this);
 		wantAddr = outerWantAddr;
 
-		if(node.isBoolExpr()) {
+		if (node.isBoolExpr()) {
 			node.initFlowBB(currentFunction);
 		}
 		node.getRhs().accept(this);
 
-		if(toMemory) {
+		if (toMemory) {
 			IRAssign(node.getLhs().getAddrValue(), node.getLhs().getAddrOffset(), node.getRhs(), true);
-		}
-		else {
+		} else {
 			IRAssign(node.getLhs().getRegValue(), 0, node.getRhs(), false);
 		}
 	}
@@ -649,14 +641,14 @@ public class IRBuilder extends ASTBaseVisitor {
 		currentBB.appendInst(new IRHeapAlloc(dest, sizeRegs.get(post), currentBB));
 		currentBB.appendInst(new IRStore(dest, 0, dimRegs.get(post), currentBB));
 
-		if(post + 1 < dimRegs.size()) {
+		if (post + 1 < dimRegs.size()) {
 			VirtualReg currentPost = new VirtualReg("currentPost" + "_" + post);
 			VirtualReg endPost = new VirtualReg("endPost" + "_" + post);
 			currentBB.appendInst(new IRMove(currentPost, dest, currentBB));
 			currentBB.appendInst(new IRBinaryOp(IRBinaryOp.Ops.ADD, endPost, currentPost, sizeRegs.get(post), currentBB));
-			if(nType.getBaseType().getVarSize() != SIZE_PERCH) {
+			if (nType.getBaseType().getVarSize() != SIZE_PERCH) {
 				currentBB.appendInst(new IRBinaryOp(IRBinaryOp.Ops.ADD, endPost, endPost,
-													new IntImm(nType.getBaseType().getVarSize() - SIZE_PERCH), currentBB));
+						new IntImm(nType.getBaseType().getVarSize() - SIZE_PERCH), currentBB));
 			}
 			BasicBlock loopBB = new BasicBlock(currentFunction, "loop_compound");
 			BasicBlock afterBB = new BasicBlock(currentFunction, "loop_after");
@@ -670,7 +662,7 @@ public class IRBuilder extends ASTBaseVisitor {
 			IRNewArray(tmpReg, (ArrayType) nType.getBaseType(), dimRegs, sizeRegs, post + 1);
 			currentBB.appendInst(new IRStore(currentPost, SIZE_PERCH, tmpReg, currentBB));
 			currentBB.appendInst(new IRBinaryOp(IRBinaryOp.Ops.ADD, currentPost, currentPost,
-													new IntImm(nType.getBaseType().getVarSize()), currentBB));
+					new IntImm(nType.getBaseType().getVarSize()), currentBB));
 			currentBB.appendInst(new IRComp(IRComp.Ops.NEQ, cmpReg, currentPost, endPost, currentBB));
 			currentBB.setJumpInst(new IRBranch(cmpReg, loopBB, afterBB, currentBB));
 
@@ -683,24 +675,23 @@ public class IRBuilder extends ASTBaseVisitor {
 		VirtualReg reg = new VirtualReg(null);
 		Type newType = node.getNewType().getType();
 
-		if(newType instanceof ClassType) {
+		if (newType instanceof ClassType) {
 			currentBB.appendInst(new IRHeapAlloc(reg, new IntImm(node.getClassSize()), currentBB));
 			String className = ((ClassType) newType).getName();
 			IRFunction irFunc = ir.getFunction(className + '.' + className);
-			if(irFunc != null) {
+			if (irFunc != null) {
 				List<RegValue> args = new ArrayList<>();
 				args.add(reg);
 				currentBB.appendInst(new IRFuncCall(irFunc, null, args, currentBB));
 			}
-		}
-		else {
+		} else {
 			assert newType instanceof ArrayType;
 
 			List<RegValue> dimRegs = new ArrayList<>();
 			List<IRRegister> sizeRegs = new ArrayList<>();
 			ArrayType nType = (ArrayType) newType;
 
-			for(int post = 0; post < node.getDims().size(); post++) {
+			for (int post = 0; post < node.getDims().size(); post++) {
 				ExprNode e = node.getDims().get(post);
 
 				boolean outerWantAddr = wantAddr;
@@ -717,7 +708,7 @@ public class IRBuilder extends ASTBaseVisitor {
 				sizeRegs.add(sizeReg);
 			}
 
-			IRNewArray(reg, (ArrayType) newType, dimRegs, sizeRegs,0);
+			IRNewArray(reg, (ArrayType) newType, dimRegs, sizeRegs, 0);
 		}
 		node.setRegValue(reg);
 	}
@@ -730,7 +721,7 @@ public class IRBuilder extends ASTBaseVisitor {
 
 	@Override
 	public void visit(StringConstNode node) {
-		node.setRegValue(new StaticString(node.getValue()));
+		node.setRegValue(new StaticStr(node.getValue()));
 	}
 
 	@Override

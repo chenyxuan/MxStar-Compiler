@@ -1,4 +1,4 @@
-package mxstar.type;
+package mxstar.symbol.type;
 
 public class NullLiteral extends Type {
 	static private NullLiteral instance = new NullLiteral();

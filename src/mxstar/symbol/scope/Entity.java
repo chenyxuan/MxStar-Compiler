@@ -1,6 +1,6 @@
-package mxstar.scope;
+package mxstar.symbol.scope;
 
-import mxstar.type.Type;
+import mxstar.symbol.type.Type;
 
 abstract public class Entity {
 	private Type type;

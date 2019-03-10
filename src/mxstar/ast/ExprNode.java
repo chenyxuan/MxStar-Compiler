@@ -3,9 +3,8 @@ package mxstar.ast;
 import mxstar.ir.BasicBlock;
 import mxstar.ir.IRFunction;
 import mxstar.ir.RegValue;
-import mxstar.scope.FuncEntity;
-import mxstar.type.BoolType;
-import mxstar.type.Type;
+import mxstar.symbol.type.BoolType;
+import mxstar.symbol.type.Type;
 
 abstract public class ExprNode extends StmtNode {
 	private Type type = null;

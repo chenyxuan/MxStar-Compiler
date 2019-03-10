@@ -1,4 +1,4 @@
-package mxstar.backend;
+package mxstar.frontend;
 
 import mxstar.ir.*;
 
@@ -298,13 +298,14 @@ public class IRPrinter implements IRVisitor {
 	}
 
 	@Override
-	public void visit(StaticString node) {
-		if (isStaticDef) out.printf("asciiz @%s %s\n", getStaticDataID(node), node.getValue());
+	public void visit(StaticStr node) {
+		if (isStaticDef) out.printf("value @%s %s\n", getStaticDataID(node), node.getValue());
 		else out.print("@" + getStaticDataID(node));
 	}
 
 	@Override
 	public void visit(PhysicalReg node) {
-
+		System.err.println("Can't visit PhysicalReg in IRPrinter");
+		System.exit(1);
 	}
 }

@@ -5,7 +5,7 @@ import mxstar.parser.MxStarBaseVisitor;
 import mxstar.parser.MxStarParser;
 import mxstar.utility.*;
 import mxstar.utility.error.CompilationError;
-import mxstar.type.*;
+import mxstar.symbol.type.*;
 import org.antlr.v4.runtime.ParserRuleContext;
 
 import java.util.ArrayList;
@@ -97,7 +97,7 @@ public class ASTBuilder extends MxStarBaseVisitor<Node> {
 
 	public Node visitArrayType(MxStarParser.ArrayTypeContext ctx) {
 		return new TypeNode(ArrayType.gen(((TypeNode) visit(ctx.nonArrayType())).getType(),
-				                   (ctx.getChildCount() - 1) / 2), Location.fromCtx(ctx));
+				(ctx.getChildCount() - 1) / 2), Location.fromCtx(ctx));
 	}
 
 	public Node visitBlockStatement(MxStarParser.BlockStatementContext ctx) {
@@ -335,7 +335,7 @@ public class ASTBuilder extends MxStarBaseVisitor<Node> {
 
 	public Node visitNonArrayCreator(MxStarParser.NonArrayCreatorContext ctx) {
 		TypeNode newType = new TypeNode(TypeOfCtx.typeOfCtx(ctx.ID(), ctx.INT(), ctx.BOOL(), ctx.STRING()),
-										Location.fromCtx(ctx));
+				Location.fromCtx(ctx));
 		return new NewExprNode(newType, null, Location.fromCtx(ctx));
 	}
 
@@ -343,13 +343,13 @@ public class ASTBuilder extends MxStarBaseVisitor<Node> {
 		TypeNode newType = ((NewExprNode) visit(ctx.nonArrayCreator())).getNewType();
 		List<ExprNode> dims = new ArrayList<>();
 
-		if(ctx.expression() != null) {
+		if (ctx.expression() != null) {
 			for (ParserRuleContext dim : ctx.expression()) {
 				dims.add((ExprNode) visit(dim));
 			}
 		}
 		newType.setType(ArrayType.gen(newType.getType(),
-		                      (ctx.getChildCount() - 1 - dims.size()) / 2));
+				(ctx.getChildCount() - 1 - dims.size()) / 2));
 		return new NewExprNode(newType, dims, Location.fromCtx(ctx));
 	}
 
@@ -358,7 +358,7 @@ public class ASTBuilder extends MxStarBaseVisitor<Node> {
 	}
 
 	public Node visitStatement(MxStarParser.StatementContext ctx) {
-		if(ctx.expression() != null) return visit(ctx.expression());
+		if (ctx.expression() != null) return visit(ctx.expression());
 		return super.visitStatement(ctx);
 	}
 

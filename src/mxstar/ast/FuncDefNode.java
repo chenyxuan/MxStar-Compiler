@@ -1,7 +1,7 @@
 package mxstar.ast;
 
 
-import mxstar.scope.FuncEntity;
+import mxstar.symbol.scope.FuncEntity;
 import mxstar.utility.Location;
 
 import java.util.List;

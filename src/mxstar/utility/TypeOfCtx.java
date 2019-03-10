@@ -1,7 +1,7 @@
 package mxstar.utility;
 
 
-import mxstar.type.*;
+import mxstar.symbol.type.*;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 public class TypeOfCtx {

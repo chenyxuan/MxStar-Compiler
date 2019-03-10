@@ -1,4 +1,4 @@
-package mxstar.type;
+package mxstar.symbol.type;
 
 public class VoidType extends PrimitiveType {
 	private static VoidType instance = new VoidType();

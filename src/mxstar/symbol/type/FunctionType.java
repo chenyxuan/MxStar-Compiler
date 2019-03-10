@@ -1,4 +1,4 @@
-package mxstar.type;
+package mxstar.symbol.type;
 
 public class FunctionType extends Type {
 	private String name;

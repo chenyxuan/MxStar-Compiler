@@ -1,4 +1,4 @@
-package mxstar.type;
+package mxstar.symbol.type;
 import static mxstar.utility.GlobalSymbols.*;
 
 public class BoolType extends PrimitiveType {

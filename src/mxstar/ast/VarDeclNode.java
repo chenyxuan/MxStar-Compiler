@@ -1,6 +1,6 @@
 package mxstar.ast;
 
-import mxstar.scope.VarEntity;
+import mxstar.symbol.scope.VarEntity;
 import mxstar.utility.Location;
 
 public class VarDeclNode extends DeclNode{

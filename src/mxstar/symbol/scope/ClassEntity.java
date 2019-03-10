@@ -1,8 +1,8 @@
-package mxstar.scope;
+package mxstar.symbol.scope;
 
 import mxstar.ast.ClassDeclNode;
-import mxstar.type.ClassType;
-import mxstar.type.Type;
+import mxstar.symbol.type.ClassType;
+import mxstar.symbol.type.Type;
 
 public class ClassEntity extends Entity {
 	private Scope scope = null;

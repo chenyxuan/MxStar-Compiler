@@ -1,12 +1,9 @@
 package mxstar.ir;
 
-import mxstar.scope.FuncEntity;
+import mxstar.symbol.scope.FuncEntity;
 import static mxstar.utility.GlobalSymbols.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class IRFunction {
 	private FuncEntity funcEntity;
@@ -74,6 +71,16 @@ public class IRFunction {
 			dfs(getBeginBB(), new HashSet<>());
 		}
 		return allBB;
+	}
+
+	private Map<VirtualReg, StackSlot> slotMap = new HashMap<>();
+
+	public void addSlot(VirtualReg virtualReg, StackSlot stackSlot) {
+		slotMap.put(virtualReg, stackSlot);
+	}
+	public StackSlot getSlot(VirtualReg virtualReg) {
+		if(slotMap.containsKey(virtualReg)) return slotMap.get(virtualReg);
+		return null;
 	}
 
 	public void accept(IRVisitor visitor) {

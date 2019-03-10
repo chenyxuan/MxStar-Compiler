@@ -1,6 +1,5 @@
 package mxstar.ast;
 
-import mxstar.scope.Entity;
 import mxstar.utility.Location;
 
 public class IdentifierExprNode extends EntityExprNode {

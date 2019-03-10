@@ -1,12 +1,11 @@
 package mxstar.frontend;
 
 import mxstar.ast.*;
-import mxstar.scope.*;
+import mxstar.symbol.scope.*;
 import mxstar.utility.Location;
 import mxstar.utility.error.SemanticError;
-import mxstar.type.*;
+import mxstar.symbol.type.*;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 import static mxstar.utility.GlobalSymbols.*;

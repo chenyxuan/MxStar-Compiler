@@ -17,7 +17,7 @@ public interface IRVisitor {
 	void visit(IRStore node);
 	void visit(IRUnaryOp node);
 	void visit(StaticVar node);
-	void visit(StaticString node);
+	void visit(StaticStr node);
 	void visit(VirtualReg node);
 	void visit(PhysicalReg node);
 }

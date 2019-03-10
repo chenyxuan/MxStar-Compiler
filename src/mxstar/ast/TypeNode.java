@@ -1,7 +1,7 @@
 package mxstar.ast;
 
 import mxstar.utility.Location;
-import mxstar.type.Type;
+import mxstar.symbol.type.Type;
 
 public class TypeNode extends Node {
 	private Type type;

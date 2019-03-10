@@ -1,6 +1,6 @@
 package mxstar.ast;
 
-import mxstar.scope.Scope;
+import mxstar.symbol.scope.Scope;
 import mxstar.utility.Location;
 
 import java.util.List;

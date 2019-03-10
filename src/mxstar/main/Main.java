@@ -1,7 +1,7 @@
 package mxstar.main;
 
 import mxstar.ast.*;
-import mxstar.backend.*;
+import mxstar.backend.FuncArgProcessor;
 import mxstar.frontend.*;
 import mxstar.ir.*;
 import mxstar.parser.*;
@@ -96,6 +96,7 @@ public class Main {
 		SemanticAnalyse();
 		ir = buildIR();
 		if(irOutS != null) (new IRPrinter(irOutS)).visit(ir);
+		(new FuncArgProcessor(ir)).run();
 	}
 
 	private static ASTRootNode buildAST() throws Exception {

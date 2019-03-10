@@ -1,6 +1,6 @@
 package mxstar.ir;
 
-import mxstar.scope.FuncEntity;
+import mxstar.symbol.scope.FuncEntity;
 
 import java.util.*;
 
