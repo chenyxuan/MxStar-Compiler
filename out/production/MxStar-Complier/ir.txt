@@ -48,7 +48,40 @@ func __init_static_var_ {
 func main {
 %main__entry_:
     call __init_static_var_ 
-    $vreg = call println @__static_string_ 
+    $vreg = alloc 24
+    $a = move $vreg
+    store $a 16 0
+    $vreg_2 = load $a 16
+    $vreg_3 = call toString $vreg_2 
+    $vreg_4 = call println $vreg_3 
+    store $a 0 $a
+    $vreg_5 = load $a 0
+    $vreg_6 = load $vreg_5 0
+    $vreg_7 = load $vreg_6 0
+    $vreg_8 = load $vreg_7 0
+    $vreg_9 = load $vreg_8 0
+    $vreg_10 = load $vreg_9 0
+    $vreg_11 = load $vreg_10 0
+    $vreg_12 = load $vreg_11 0
+    $vreg_13 = load $vreg_12 0
+    $vreg_14 = load $vreg_13 0
+    $vreg_15 = load $vreg_14 16
+    $vreg_16 = call toString $vreg_15 
+    $vreg_17 = call println $vreg_16 
+    $vreg_18 = alloc 24
+    $b = move $vreg_18
+    store $b 0 $a
+    store $b 8 $b
+    store $a 8 $b
+    $vreg_19 = load $a 8
+    $vreg_20 = load $vreg_19 0
+    $vreg_21 = load $vreg_20 8
+    $vreg_22 = load $vreg_21 0
+    $vreg_23 = load $vreg_22 8
+    $vreg_24 = load $vreg_23 0
+    $vreg_25 = load $vreg_24 16
+    $vreg_26 = call toString $vreg_25 
+    $vreg_27 = call println $vreg_26 
     ret 0
 
 }

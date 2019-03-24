@@ -1,25 +1,224 @@
-@ ASTRootNode (1:0):
+@ ASTRootNode (2:0):
 >>> decls:
-	@ FuncDeclNode (1:0):
+	@ FuncDeclNode (2:0):
 	>>> returnType:
-		@ TypeNode (1:0):
-		>>> type: mxstar.symbol.type.IntType@74650e52
+		@ TypeNode (2:0):
+		>>> type: mxstar.symbol.type.IntType@ea1a8d5
 	>>> name: main
 	>>> parameterList: null
 	>>> body:
-		@ BlockStmtNode (1:10):
+		@ BlockStmtNode (3:0):
 		>>> compound:
-			@ FuncCallExprNode (2:2):
+			@ VarDeclListNode (4:1):
+			>>> decls
+				@ VaeDeclNode (4:7):
+				>>> type:
+					@ TypeNode (4:1):
+					>>> type: ClassType(CLASS)
+				>>> name: a
+				>>> init:
+					@ NewExprNode (4:15):
+					>>> newType:
+						@ TypeNode (4:15):
+						>>> type: ClassType(CLASS)
+			>>> end of decls
+			@ AssignExprNode (5:1):
+			>>> lhs:
+				@ MemberAccessExprNode (5:1):
+				>>> expr:
+					@ IdentifierExprNode (5:1):
+					>>> identifier: a
+				>>> member: c
+			>>> rhs:
+				@ IntConstExprNode (5:7):
+				>>> value: 0
+			@ FuncCallExprNode (6:1):
 			>>> func:
-				@ IdentifierExprNode (2:2):
+				@ IdentifierExprNode (6:1):
 				>>> identifier: println
 			>>> args:
-				@ StringConstExprNode (2:10):
-				>>> value: "hi"
+				@ FuncCallExprNode (6:9):
+				>>> func:
+					@ IdentifierExprNode (6:9):
+					>>> identifier: toString
+				>>> args:
+					@ MemberAccessExprNode (6:18):
+					>>> expr:
+						@ IdentifierExprNode (6:18):
+						>>> identifier: a
+					>>> member: c
+				>>> end of args
 			>>> end of args
-			@ ReturnStmtNode (3:2):
+			@ AssignExprNode (7:1):
+			>>> lhs:
+				@ MemberAccessExprNode (7:1):
+				>>> expr:
+					@ IdentifierExprNode (7:1):
+					>>> identifier: a
+				>>> member: a
+			>>> rhs:
+				@ IdentifierExprNode (7:7):
+				>>> identifier: a
+			@ FuncCallExprNode (8:1):
+			>>> func:
+				@ IdentifierExprNode (8:1):
+				>>> identifier: println
+			>>> args:
+				@ FuncCallExprNode (8:9):
+				>>> func:
+					@ IdentifierExprNode (8:9):
+					>>> identifier: toString
+				>>> args:
+					@ MemberAccessExprNode (8:18):
+					>>> expr:
+						@ MemberAccessExprNode (8:18):
+						>>> expr:
+							@ MemberAccessExprNode (8:18):
+							>>> expr:
+								@ MemberAccessExprNode (8:18):
+								>>> expr:
+									@ MemberAccessExprNode (8:18):
+									>>> expr:
+										@ MemberAccessExprNode (8:18):
+										>>> expr:
+											@ MemberAccessExprNode (8:18):
+											>>> expr:
+												@ MemberAccessExprNode (8:18):
+												>>> expr:
+													@ MemberAccessExprNode (8:18):
+													>>> expr:
+														@ MemberAccessExprNode (8:18):
+														>>> expr:
+															@ MemberAccessExprNode (8:18):
+															>>> expr:
+																@ IdentifierExprNode (8:18):
+																>>> identifier: a
+															>>> member: a
+														>>> member: a
+													>>> member: a
+												>>> member: a
+											>>> member: a
+										>>> member: a
+									>>> member: a
+								>>> member: a
+							>>> member: a
+						>>> member: a
+					>>> member: c
+				>>> end of args
+			>>> end of args
+			@ VarDeclListNode (9:1):
+			>>> decls
+				@ VaeDeclNode (9:7):
+				>>> type:
+					@ TypeNode (9:1):
+					>>> type: ClassType(CLASS)
+				>>> name: b
+				>>> init:
+					@ NewExprNode (9:15):
+					>>> newType:
+						@ TypeNode (9:15):
+						>>> type: ClassType(CLASS)
+			>>> end of decls
+			@ AssignExprNode (10:1):
+			>>> lhs:
+				@ MemberAccessExprNode (10:1):
+				>>> expr:
+					@ IdentifierExprNode (10:1):
+					>>> identifier: b
+				>>> member: a
+			>>> rhs:
+				@ IdentifierExprNode (10:7):
+				>>> identifier: a
+			@ AssignExprNode (11:1):
+			>>> lhs:
+				@ MemberAccessExprNode (11:1):
+				>>> expr:
+					@ IdentifierExprNode (11:1):
+					>>> identifier: b
+				>>> member: b
+			>>> rhs:
+				@ IdentifierExprNode (11:7):
+				>>> identifier: b
+			@ AssignExprNode (12:1):
+			>>> lhs:
+				@ MemberAccessExprNode (12:1):
+				>>> expr:
+					@ IdentifierExprNode (12:1):
+					>>> identifier: a
+				>>> member: b
+			>>> rhs:
+				@ IdentifierExprNode (12:7):
+				>>> identifier: b
+			@ FuncCallExprNode (13:1):
+			>>> func:
+				@ IdentifierExprNode (13:1):
+				>>> identifier: println
+			>>> args:
+				@ FuncCallExprNode (13:9):
+				>>> func:
+					@ IdentifierExprNode (13:9):
+					>>> identifier: toString
+				>>> args:
+					@ MemberAccessExprNode (13:18):
+					>>> expr:
+						@ MemberAccessExprNode (13:18):
+						>>> expr:
+							@ MemberAccessExprNode (13:18):
+							>>> expr:
+								@ MemberAccessExprNode (13:18):
+								>>> expr:
+									@ MemberAccessExprNode (13:18):
+									>>> expr:
+										@ MemberAccessExprNode (13:18):
+										>>> expr:
+											@ MemberAccessExprNode (13:18):
+											>>> expr:
+												@ IdentifierExprNode (13:18):
+												>>> identifier: a
+											>>> member: b
+										>>> member: a
+									>>> member: b
+								>>> member: a
+							>>> member: b
+						>>> member: a
+					>>> member: c
+				>>> end of args
+			>>> end of args
+			@ ReturnStmtNode (14:1):
 			>>> expr:
-				@ IntConstExprNode (3:9):
+				@ IntConstExprNode (14:8):
 				>>> value: 0
 		>>> end of compound
+	@ ClassDeclNode (17:0):
+	>>> name: CLASS
+	>>> varMember:
+		@ VarDeclListNode (19:1):
+		>>> decls
+			@ VaeDeclNode (19:7):
+			>>> type:
+				@ TypeNode (19:1):
+				>>> type: ClassType(CLASS)
+			>>> name: a
+			>>> init: null
+		>>> end of decls
+		@ VarDeclListNode (20:1):
+		>>> decls
+			@ VaeDeclNode (20:7):
+			>>> type:
+				@ TypeNode (20:1):
+				>>> type: ClassType(CLASS)
+			>>> name: b
+			>>> init: null
+		>>> end of decls
+		@ VarDeclListNode (21:1):
+		>>> decls
+			@ VaeDeclNode (21:5):
+			>>> type:
+				@ TypeNode (21:1):
+				>>> type: mxstar.symbol.type.IntType@ea1a8d5
+			>>> name: c
+			>>> init: null
+		>>> end of decls
+	>>> end of varMem
+	>>> funcMember: null
 >>> end of decls
