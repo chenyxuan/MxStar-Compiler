@@ -44,6 +44,7 @@
 
 TODO List
 -----
+ - Semi-check
  - VirtualRegisiter -> PhysicalRegister 
  - Function convention
  - BuiltInFunctions
