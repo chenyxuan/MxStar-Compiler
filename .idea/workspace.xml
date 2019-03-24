@@ -5,11 +5,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/MxStar-Complier/ast.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/ast.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/MxStar-Complier/input.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/input.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/MxStar-Complier/ir.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/ir.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/frontend/SemanticAnalyser$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/frontend/SemanticAnalyser$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/frontend/SemanticAnalyser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/frontend/SemanticAnalyser.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mxstar/frontend/SemanticAnalyser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mxstar/frontend/SemanticAnalyser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mxstar/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mxstar/main/Main.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,18 +18,17 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/mxstar/frontend/SemanticAnalyser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="665">
-              <caret line="120" column="56" lean-forward="true" selection-start-line="120" selection-start-column="56" selection-end-line="120" selection-end-column="56" />
+            <state relative-caret-position="546">
+              <caret line="281" column="9" selection-start-line="281" selection-start-column="9" selection-end-line="281" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#6802#6803#0" expanded="true" />
-                <element signature="e#10328#10329#0" expanded="true" />
-                <element signature="e#10661#10662#0" expanded="true" />
-                <element signature="e#10797#10798#0" expanded="true" />
-                <element signature="e#20194#20195#0" expanded="true" />
+                <element signature="e#5218#5219#0" expanded="true" />
+                <element signature="e#9485#9486#0" expanded="true" />
+                <element signature="e#9621#9622#0" expanded="true" />
+                <element signature="e#19018#19019#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -59,6 +56,18 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/mxstar/parser/MxStar.g4">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="65" column="12" selection-start-line="65" selection-start-column="8" selection-end-line="65" selection-end-column="12" />
+              <folding>
+                <element signature="e#17#48#1" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/mxstar/symbol/scope/FuncEntity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="510">
@@ -75,19 +84,6 @@
               <folding>
                 <element signature="e#372#373#0" expanded="true" />
                 <element signature="e#425#426#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/mxstar/ir/IRUnaryOp.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="39" column="34" selection-start-line="39" selection-start-column="34" selection-end-line="39" selection-end-column="34" />
-              <folding>
-                <element signature="e#515#516#0" expanded="true" />
-                <element signature="e#533#534#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -124,7 +120,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/mxstar/main/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="395">
@@ -147,7 +143,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>IRStore</find>
       <find>memberAccessExprNode</find>
       <find>Store</find>
       <find>thisExpr</find>
@@ -177,6 +172,7 @@
       <find>e</find>
       <find>VarDeclNode</find>
       <find>VarMember</find>
+      <find>cond</find>
     </findStrings>
     <replaceStrings>
       <replace>node</replace>
@@ -238,8 +234,8 @@
         <option value="$PROJECT_DIR$/src/mxstar/ir/IRReturn.java" />
         <option value="$PROJECT_DIR$/src/mxstar/ir/IRStore.java" />
         <option value="$PROJECT_DIR$/src/mxstar/ir/IRUnaryOp.java" />
-        <option value="$PROJECT_DIR$/src/mxstar/frontend/SemanticAnalyser.java" />
         <option value="$PROJECT_DIR$/src/mxstar/main/Main.java" />
+        <option value="$PROJECT_DIR$/src/mxstar/frontend/SemanticAnalyser.java" />
       </list>
     </option>
   </component>
@@ -298,6 +294,13 @@
             </path>
             <path>
               <item name="MxStar-Compiler" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MxStar-Compiler" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="mxstar" type="462c0819:PsiDirectoryNode" />
+              <item name="parser" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MxStar-Compiler" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
@@ -313,7 +316,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553420094626" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553421046799" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../EM-Compiler" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -392,7 +395,7 @@
       <workItem from="1551605793218" duration="640000" />
       <workItem from="1552174619768" duration="14464000" />
       <workItem from="1552316018057" duration="243000" />
-      <workItem from="1553405977013" duration="7001000" />
+      <workItem from="1553405977013" duration="7937000" />
     </task>
     <task id="LOCAL-00001" summary="AddFuncArgProcessor">
       <created>1552178760163</created>
@@ -405,7 +408,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="372715000" />
+    <option name="totallyTimeSpent" value="373651000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -822,16 +825,6 @@
     <entry file="file://$PROJECT_DIR$/src/mxstar/parser/MxStar.interp">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/mxstar/parser/MxStar.g4">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2227">
-          <caret line="131" column="19" selection-start-line="131" selection-start-column="19" selection-end-line="131" selection-end-column="19" />
-          <folding>
-            <element signature="e#17#48#1" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/mxstar/ir/IRMove.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
@@ -967,27 +960,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/mxstar/frontend/SemanticAnalyser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="665">
-          <caret line="120" column="56" lean-forward="true" selection-start-line="120" selection-start-column="56" selection-end-line="120" selection-end-column="56" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#6802#6803#0" expanded="true" />
-            <element signature="e#10328#10329#0" expanded="true" />
-            <element signature="e#10661#10662#0" expanded="true" />
-            <element signature="e#10797#10798#0" expanded="true" />
-            <element signature="e#20194#20195#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/mxstar/main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="395">
           <caret line="102" column="8" selection-start-line="102" selection-start-column="8" selection-end-line="102" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mxstar/parser/MxStar.g4">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="65" column="12" selection-start-line="65" selection-start-column="8" selection-end-line="65" selection-end-column="12" />
+          <folding>
+            <element signature="e#17#48#1" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mxstar/frontend/SemanticAnalyser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="546">
+          <caret line="281" column="9" selection-start-line="281" selection-start-column="9" selection-end-line="281" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5218#5219#0" expanded="true" />
+            <element signature="e#9485#9486#0" expanded="true" />
+            <element signature="e#9621#9622#0" expanded="true" />
+            <element signature="e#19018#19019#0" expanded="true" />
           </folding>
         </state>
       </provider>

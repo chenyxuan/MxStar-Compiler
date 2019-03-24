@@ -107,23 +107,7 @@ public class SemanticAnalyser extends ASTBaseVisitor {
 		}
 
 		for(Node declNode : node.getDecls()) {
-			if(declNode instanceof VarDeclListNode) {
-				for(VarDeclNode varDeclNode : ((VarDeclListNode) declNode).getDecls()) {
-					Type declType = varDeclNode.getType().getType();
-					if(declType instanceof ClassType) {
-						globalScope.assertContains(CLASS_PREFIX + ((ClassType) declType).getName(), varDeclNode.location());
-					}
-					if(declType instanceof VoidType) {
-						throw new SemanticError("Unexpected VoidType", varDeclNode.location());
-					}
-
-					VarEntity varEntity = new VarEntity(varDeclNode);
-					varDeclNode.setVarEntity(varEntity);
-
-					globalScope.assertInsert(VAR_PREFIX + varDeclNode.getName(), varEntity, varDeclNode.location());
-				}
-			}
-			else if(declNode instanceof FuncDefNode) {
+			if(declNode instanceof FuncDefNode) {
 				FuncDefNode funcDefNode = (FuncDefNode) declNode;
 				FuncEntity funcEntity = new FuncEntity(funcDefNode, null);
 
@@ -133,37 +117,7 @@ public class SemanticAnalyser extends ASTBaseVisitor {
 		}
 
 		for(Node declNode : node.getDecls()) {
-			if(declNode instanceof ClassDeclNode) {
-				declNode.accept(this);
-			}
-		}
-
-		for(Node declNode : node.getDecls()) {
-			if (declNode instanceof VarDeclListNode) {
-				for (VarDeclNode varDeclNode : ((VarDeclListNode) declNode).getDecls()) {
-					Type declType = varDeclNode.getType().getType();
-
-					if(varDeclNode.getInitVal() != null) {
-						varDeclNode.getInitVal().accept(this);
-						Type initType = varDeclNode.getInitVal().getType();
-
-						if(initType instanceof NullLiteral) {
-							if(!(declType instanceof ArrayType || declType instanceof ClassType))
-								throw new SemanticError("Unexpected InitValue", varDeclNode.location());
-						}
-						else {
-							if(!(initType.equals(declType)))
-								throw new SemanticError("Unexpected InitValue", varDeclNode.location());
-						}
-					}
-				}
-			}
-		}
-
-		for(Node declNode : node.getDecls()) {
-			if(declNode instanceof FuncDefNode) {
-				declNode.accept(this);
-			}
+			declNode.accept(this);
 		}
 
 		FuncEntity mainFunc = (FuncEntity) globalScope.find(FUNC_PREFIX + "main");
@@ -304,12 +258,18 @@ public class SemanticAnalyser extends ASTBaseVisitor {
 	@Override
 	public void visit(CondStmtNode node) {
 		super.visit(node);
+		if(!(node.getCond().getType() instanceof BoolType)) {
+			throw new SemanticError("BoolType Condition Expected", node.location());
+		}
 	}
 
 	@Override
 	public void visit(WhileStmtNode node) {
 		++inLoop;
 		super.visit(node);
+		if(!(node.getCond().getType() instanceof BoolType)) {
+			throw new SemanticError("BoolType Condition Expected", node.location());
+		}
 		--inLoop;
 	}
 
@@ -317,6 +277,9 @@ public class SemanticAnalyser extends ASTBaseVisitor {
 	public void visit(ForStmtNode node) {
 		++inLoop;
 		super.visit(node);
+		if(!(node.getCond().getType() instanceof BoolType)) {
+			throw new SemanticError("BoolType Condition Expected", node.location());
+		}
 		--inLoop;
 	}
 
