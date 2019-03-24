@@ -48,6 +48,7 @@ TODO List
  - Function convention
  - BuiltInFunctions
  - ErrorRecorder
+ - Optimizer
 
 tools
 -----
