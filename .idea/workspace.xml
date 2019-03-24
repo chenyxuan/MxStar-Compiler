@@ -2,193 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f6a6e9b8-b606-4407-a6fe-e35b1d5f4b03" name="Default Changelist" comment="AddFuncArgProcessor">
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/ASTBaseVisitor.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/ASTRootNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/ASTVisitor.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/AssignExprNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/BinaryExprNode$Ops.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/BinaryExprNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/BlockStmtNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/BoolConstNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/BreakStmtNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/ClassDeclNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/CondStmtNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/ConstNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/ContinueStmtNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/DeclNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/EntityExprNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/ExprNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/ForStmtNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/FuncCallExprNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/FuncDefNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/IdentifierExprNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/IntConstNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/JumpStmtNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/LoopStmtNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/MemberAccessExprNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/NewExprNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/Node.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/NullLiteralNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/PrefixExprNode$Ops.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/PrefixExprNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/ReturnStmtNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/StmtNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/StringConstNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/SubscriptExprNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/SuffixExprNode$Ops.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/SuffixExprNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/ThisExprNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/TypeNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/VarDeclListNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/VarDeclNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ast/WhileStmtNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/backend/IRBuilder$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/backend/IRBuilder.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/backend/IRPrinter$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/backend/IRPrinter.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/frontend/ASTBuilder.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/frontend/ASTPrinter.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/frontend/SemanticAnalyser$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/frontend/SemanticAnalyser.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/BasicBlock.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/GlobalInit.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/IRBinaryOp$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/IRBinaryOp$Ops.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/IRBinaryOp.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/IRBranch.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/IRComp$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/IRComp$Ops.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/IRComp.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/IRFuncCall.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/IRFunction.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/IRHeapAlloc.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/IRInstruction.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/IRJump.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/IRJumpInst.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/IRLoad.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/IRMove.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/IRRegister.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/IRReturn.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/IRRoot.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/IRStore.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/IRUnaryOp$Ops.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/IRUnaryOp.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/IRVisitor.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/IntImm.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/PhysicalReg.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/RegValue.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/StaticData.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/StaticString.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/StaticVar.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/ir/VirtualReg.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/main/Main.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStar.g4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStar.interp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStar.tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarBaseListener.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarBaseVisitor.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarLexer.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarLexer.interp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarLexer.tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarListener.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$ArrayCreatorContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$ArrayTypeContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$AssignExprContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$BinaryExprContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$BlockCompoundContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$BlockStatementContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$BoolConstContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$BreakStmtContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$ClassDeclarationContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$ConditionStatementContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$ConstExprContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$ConstantContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$ContinueStmtContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$CreatorContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$ErrorCreatorContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$ExpressionContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$ExternalDeclarationContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$ForStmtContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$FuncCallExprContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$FunctionDefinitionContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$IdentifierExprContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$IntConstContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$JumpStatementContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$LoopStatementContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$MemberAccessExprContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$NewExprContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$NonArrayCreatorContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$NonArrayTypeContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$NonVoidTypeContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$NullLiteralContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$OtherCreatorContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$OtherTypeContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$ParameterDeclarationContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$ParameterDeclarationListContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$ParameterListContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$PrefixExprContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$PrimaryExprContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$PrimaryExpressionContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$ReturnStmtContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$StatementContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$StringConstContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$SubExprContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$SubscriptExprContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$SuffixExprContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$ThisExprContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$TranslationUnitContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$TypeSpecifierContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$VariableDeclarationContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$VariableDeclarationListContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$VariableDeclaratorContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser$WhileStmtContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarParser.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/MxStarVisitor.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/SyntaxErrorListener.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/parser/fragExpression.g4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/symbol/scope/ClassEntity.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/symbol/scope/Entity.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/symbol/scope/FuncEntity.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/symbol/scope/Scope.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/symbol/scope/VarEntity.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/symbol/type/ArrayType.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/symbol/type/BoolType.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/symbol/type/ClassType.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/symbol/type/FunctionType.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/symbol/type/IntType.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/symbol/type/NullLiteral.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/symbol/type/PrimitiveType.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/symbol/type/StringType.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/symbol/type/Type$HyperTypes.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/symbol/type/Type.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/symbol/type/VoidType.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/utility/GlobalSymbols.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/utility/Location.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/utility/TypeOfCtx.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/utility/UnESC.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/utility/error/CompilationError.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/utility/error/SemanticError.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MxStar-Complier/mxstar/utility/error/SyntaxError.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/mxstar/backend/BinaryOpProcessor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/mxstar/backend/StaticDataProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mxstar/backend/RegAllocator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mxstar/backend/RegAllocator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mxstar/frontend/IRBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mxstar/frontend/IRBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mxstar/frontend/IRPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mxstar/frontend/IRPrinter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mxstar/ir/BasicBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mxstar/ir/BasicBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mxstar/ir/IRBinaryOp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mxstar/ir/IRBinaryOp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mxstar/ir/IRBranch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mxstar/ir/IRBranch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mxstar/ir/IRComp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mxstar/ir/IRComparison.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mxstar/ir/IRFuncCall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mxstar/ir/IRFuncCall.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mxstar/ir/IRHeapAlloc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mxstar/ir/IRHeapAlloc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mxstar/ir/IRInstruction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mxstar/ir/IRInstruction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mxstar/ir/IRJump.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mxstar/ir/IRJump.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mxstar/ir/IRLoad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mxstar/ir/IRLoad.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mxstar/ir/IRMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mxstar/ir/IRMove.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mxstar/ir/IRReturn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mxstar/ir/IRReturn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mxstar/ir/IRStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mxstar/ir/IRStore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mxstar/ir/IRUnaryOp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mxstar/ir/IRUnaryOp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mxstar/ir/IRVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mxstar/ir/IRVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mxstar/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mxstar/main/Main.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -200,30 +13,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/mxstar/parser/MxStar.g4">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2227">
-              <caret line="131" column="19" selection-start-line="131" selection-start-column="19" selection-end-line="131" selection-end-column="19" />
-              <folding>
-                <element signature="e#17#48#1" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/mxstar/frontend/SemanticAnalyser.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3366">
-              <caret line="212" selection-start-line="212" selection-end-line="212" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/mxstar/frontend/IRBuilder.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -259,28 +48,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/mxstar/ir/IRMove.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="31" column="34" selection-start-line="31" selection-start-column="34" selection-end-line="31" selection-end-column="34" />
-              <folding>
-                <element signature="e#374#375#0" expanded="true" />
-                <element signature="e#392#393#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/mxstar/ir/IRRegister.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="22" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/mxstar/ir/IRReturn.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="561">
@@ -302,7 +69,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/mxstar/ir/IRUnaryOp.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="561">
@@ -310,6 +77,49 @@
               <folding>
                 <element signature="e#515#516#0" expanded="true" />
                 <element signature="e#533#534#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/mxstar/ir/PhysicalReg.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/mxstar/ir/StackSlot.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="20" />
+              <folding>
+                <element signature="e#187#188#0" expanded="true" />
+                <element signature="e#214#215#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/mxstar/ir/StaticData.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="22" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/mxstar/main/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="310">
+              <caret line="58" selection-start-line="58" selection-end-line="58" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -400,7 +210,6 @@
         <option value="$PROJECT_DIR$/src/mxstar/ir/IRFunction.java" />
         <option value="$PROJECT_DIR$/src/mxstar/backend/FuncArgProcessor.java" />
         <option value="$PROJECT_DIR$/src/mxstar/backend/BinaryOpProcessor.java" />
-        <option value="$PROJECT_DIR$/src/mxstar/main/Main.java" />
         <option value="$PROJECT_DIR$/src/mxstar/backend/RegAllocator.java" />
         <option value="$PROJECT_DIR$/src/mxstar/backend/StaticDataProcessor.java" />
         <option value="$PROJECT_DIR$/src/mxstar/backend/RegLivelinessAnalyser.java" />
@@ -419,6 +228,7 @@
         <option value="$PROJECT_DIR$/src/mxstar/ir/IRReturn.java" />
         <option value="$PROJECT_DIR$/src/mxstar/ir/IRStore.java" />
         <option value="$PROJECT_DIR$/src/mxstar/ir/IRUnaryOp.java" />
+        <option value="$PROJECT_DIR$/src/mxstar/main/Main.java" />
       </list>
     </option>
   </component>
@@ -466,7 +276,7 @@
               <item name="MxStar-Compiler" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="mxstar" type="462c0819:PsiDirectoryNode" />
-              <item name="ir" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MxStar-Compiler" type="b2602c69:ProjectViewProjectNode" />
@@ -564,7 +374,7 @@
       <workItem from="1551605793218" duration="640000" />
       <workItem from="1552174619768" duration="14464000" />
       <workItem from="1552316018057" duration="243000" />
-      <workItem from="1553405977013" duration="1104000" />
+      <workItem from="1553405977013" duration="1808000" />
     </task>
     <task id="LOCAL-00001" summary="AddFuncArgProcessor">
       <created>1552178760163</created>
@@ -577,7 +387,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="366818000" />
+    <option name="totallyTimeSpent" value="367522000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -667,22 +477,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="AddFuncArgProcessor" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/mxstar/ir/GlobalInit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="11" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
-          <folding>
-            <element signature="e#242#243#0" expanded="true" />
-            <element signature="e#259#260#0" expanded="true" />
-            <element signature="e#290#291#0" expanded="true" />
-            <element signature="e#308#309#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/mxstar/parser/MxStar.tokens">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/mxstar/parser/MxStarLexer.interp">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -803,21 +597,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/mxstar/ir/StackSlot.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="20" />
-          <folding>
-            <element signature="e#182#183#0" expanded="true" />
-            <element signature="e#214#215#0" expanded="true" />
-            <element signature="e#187#188#0" expanded="true" />
-            <element signature="e#214#215#0" expanded="true" />
-            <element signature="e#105#106#0" expanded="true" />
-            <element signature="e#132#133#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/mxstar/ir/StaticVar.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -842,16 +621,6 @@
             <element signature="e#1870#1871#0" expanded="true" />
             <element signature="e#2051#2052#0" expanded="true" />
             <element signature="e#2077#2078#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/mxstar/main/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="514">
-          <caret line="100" column="41" lean-forward="true" selection-start-line="100" selection-start-column="41" selection-end-line="100" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1153,6 +922,41 @@
           <folding>
             <element signature="e#515#516#0" expanded="true" />
             <element signature="e#533#534#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mxstar/ir/PhysicalReg.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mxstar/ir/StackSlot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="20" />
+          <folding>
+            <element signature="e#187#188#0" expanded="true" />
+            <element signature="e#214#215#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mxstar/ir/StaticData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="22" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mxstar/main/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="58" selection-start-line="58" selection-end-line="58" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

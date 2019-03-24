@@ -55,7 +55,7 @@ public class Main {
 		if (isPrintHelp) printHelp();
 
 		if (inFile != null) inS = new FileInputStream(inFile);
-		else inS = new FileInputStream("input.txt");
+		else inS = System.in;
 		if (astOutFile != null) astOutS = new PrintStream(new FileOutputStream(astOutFile));
 		else astOutS = new PrintStream(new FileOutputStream("ast.txt"));
 		if (irOutFile != null) irOutS = new PrintStream(new FileOutputStream(irOutFile));

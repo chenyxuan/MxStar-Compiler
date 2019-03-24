@@ -1,0 +1,55 @@
+
+func print {
+%print__entry_:
+}
+
+func println {
+%println__entry_:
+}
+
+func getString {
+%getString__entry_:
+}
+
+func getInt {
+%getInt__entry_:
+}
+
+func toString {
+%toString__entry_:
+}
+
+func __string_class_.length {
+%__string_class_.length__entry_:
+}
+
+func __string_class_.substring {
+%__string_class_.substring__entry_:
+}
+
+func __string_class_.parseInt {
+%__string_class_.parseInt__entry_:
+}
+
+func __string_class_.ord {
+%__string_class_.ord__entry_:
+}
+
+func __array_class_.size {
+%__array_class_.size__entry_:
+}
+
+func __init_static_var_ {
+%__init_static_var___entry_:
+    ret 0
+
+}
+
+func main {
+%main__entry_:
+    call __init_static_var_ 
+    $vreg = call println @__static_string_ 
+    ret 0
+
+}
+

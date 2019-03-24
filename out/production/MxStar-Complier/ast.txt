@@ -1,0 +1,25 @@
+@ ASTRootNode (1:0):
+>>> decls:
+	@ FuncDeclNode (1:0):
+	>>> returnType:
+		@ TypeNode (1:0):
+		>>> type: mxstar.symbol.type.IntType@74650e52
+	>>> name: main
+	>>> parameterList: null
+	>>> body:
+		@ BlockStmtNode (1:10):
+		>>> compound:
+			@ FuncCallExprNode (2:2):
+			>>> func:
+				@ IdentifierExprNode (2:2):
+				>>> identifier: println
+			>>> args:
+				@ StringConstExprNode (2:10):
+				>>> value: "hi"
+			>>> end of args
+			@ ReturnStmtNode (3:2):
+			>>> expr:
+				@ IntConstExprNode (3:9):
+				>>> value: 0
+		>>> end of compound
+>>> end of decls
