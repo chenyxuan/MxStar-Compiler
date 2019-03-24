@@ -1,33 +1,67 @@
 @ ASTRootNode (1:0):
 >>> decls:
-	@ FuncDeclNode (1:0):
+	@ VarDeclListNode (1:0):
+	>>> decls
+		@ VaeDeclNode (1:2):
+		>>> type:
+			@ TypeNode (1:0):
+			>>> type: ClassType(A)
+		>>> name: b
+		>>> init: null
+	>>> end of decls
+	@ VarDeclListNode (2:0):
+	>>> decls
+		@ VaeDeclNode (2:4):
+		>>> type:
+			@ TypeNode (2:0):
+			>>> type: mxstar.symbol.type.IntType@536aaa8d
+		>>> name: c
+		>>> init:
+			@ MemberAccessExprNode (2:8):
+			>>> expr:
+				@ IdentifierExprNode (2:8):
+				>>> identifier: b
+			>>> member: a
+	>>> end of decls
+	@ FuncDeclNode (4:0):
 	>>> returnType:
-		@ TypeNode (1:0):
-		>>> type: mxstar.symbol.type.IntType@15d0c81b
+		@ TypeNode (4:0):
+		>>> type: mxstar.symbol.type.IntType@536aaa8d
 	>>> name: main
 	>>> parameterList: null
 	>>> body:
-		@ BlockStmtNode (2:0):
-		>>> compound:
-			@ AssignExprNode (3:1):
-			>>> lhs:
-				@ IdentifierExprNode (3:1):
-				>>> identifier: a
-			>>> rhs:
-				@ IntConstExprNode (3:5):
-				>>> value: 0
-			@ ReturnStmtNode (4:1):
-			>>> expr:
-				@ IdentifierExprNode (4:8):
-				>>> identifier: a
-		>>> end of compound
-	@ VarDeclListNode (6:0):
-	>>> decls
-		@ VaeDeclNode (6:4):
-		>>> type:
-			@ TypeNode (6:0):
-			>>> type: mxstar.symbol.type.IntType@15d0c81b
-		>>> name: a
-		>>> init: null
-	>>> end of decls
+		@ BlockStmtNode (4:11):
+		>>> compound: null
+	@ ClassDeclNode (7:0):
+	>>> name: A
+	>>> varMember:
+		@ VarDeclListNode (8:4):
+		>>> decls
+			@ VaeDeclNode (8:8):
+			>>> type:
+				@ TypeNode (8:4):
+				>>> type: mxstar.symbol.type.IntType@536aaa8d
+			>>> name: a
+			>>> init: null
+		>>> end of decls
+	>>> end of varMem
+	>>> funcMember:
+		@ FuncDeclNode (9:4):
+		>>> returnType:
+			@ TypeNode (9:4):
+			>>> type: mxstar.symbol.type.VoidType@e320068
+		>>> name: fun
+		>>> parameterList: null
+		>>> body:
+			@ BlockStmtNode (9:15):
+			>>> compound:
+				@ AssignExprNode (10:6):
+				>>> lhs:
+					@ IdentifierExprNode (10:6):
+					>>> identifier: a
+				>>> rhs:
+					@ IdentifierExprNode (10:10):
+					>>> identifier: c
+			>>> end of compound
+	>>> end of funcMember
 >>> end of decls

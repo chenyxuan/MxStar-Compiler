@@ -21,14 +21,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/mxstar/frontend/SemanticAnalyser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="546">
-              <caret line="281" column="9" selection-start-line="281" selection-start-column="9" selection-end-line="281" selection-end-column="9" />
+            <state relative-caret-position="325">
+              <caret line="248" column="38" selection-start-line="248" selection-start-column="38" selection-end-line="248" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#5218#5219#0" expanded="true" />
-                <element signature="e#9485#9486#0" expanded="true" />
-                <element signature="e#9621#9622#0" expanded="true" />
-                <element signature="e#19018#19019#0" expanded="true" />
+                <element signature="e#5438#5439#0" expanded="true" />
+                <element signature="e#9923#9924#0" expanded="true" />
+                <element signature="e#10059#10060#0" expanded="true" />
+                <element signature="e#19456#19457#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -143,8 +143,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>memberAccessExprNode</find>
-      <find>Store</find>
       <find>thisExpr</find>
       <find>IRAssign</find>
       <find>memberAccess</find>
@@ -173,6 +171,8 @@
       <find>VarDeclNode</find>
       <find>VarMember</find>
       <find>cond</find>
+      <find>ClassDeclNode</find>
+      <find>visitF</find>
     </findStrings>
     <replaceStrings>
       <replace>node</replace>
@@ -316,7 +316,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553421046799" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553422285698" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../EM-Compiler" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -395,7 +395,7 @@
       <workItem from="1551605793218" duration="640000" />
       <workItem from="1552174619768" duration="14464000" />
       <workItem from="1552316018057" duration="243000" />
-      <workItem from="1553405977013" duration="7937000" />
+      <workItem from="1553405977013" duration="9192000" />
     </task>
     <task id="LOCAL-00001" summary="AddFuncArgProcessor">
       <created>1552178760163</created>
@@ -408,7 +408,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="373651000" />
+    <option name="totallyTimeSpent" value="374906000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -982,14 +982,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/mxstar/frontend/SemanticAnalyser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="281" column="9" selection-start-line="281" selection-start-column="9" selection-end-line="281" selection-end-column="9" />
+        <state relative-caret-position="325">
+          <caret line="248" column="38" selection-start-line="248" selection-start-column="38" selection-end-line="248" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#5218#5219#0" expanded="true" />
-            <element signature="e#9485#9486#0" expanded="true" />
-            <element signature="e#9621#9622#0" expanded="true" />
-            <element signature="e#19018#19019#0" expanded="true" />
+            <element signature="e#5438#5439#0" expanded="true" />
+            <element signature="e#9923#9924#0" expanded="true" />
+            <element signature="e#10059#10060#0" expanded="true" />
+            <element signature="e#19456#19457#0" expanded="true" />
           </folding>
         </state>
       </provider>

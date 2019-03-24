@@ -1,8 +1,37 @@
-int main()
-{
-	a = 0;
-	return a;
+A b;
+int c = b.a;
+
+int main() {
 }
-int a;
+
+class A{
+    int a;
+    void fun() {
+    	 a = c;
+    }
+}
+
+
+
+
+/*!! metadata:
+=== comment ===
+Lmxyy
+=== is_public ===
+True
+=== assert ===
+success_compile
+=== timeout ===
+0
+=== input ===
+
+=== phase ===
+semantic pretest
+=== output ===
+
+=== exitcode ===
+0
+
+!!*/
 
 

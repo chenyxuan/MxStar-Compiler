@@ -117,7 +117,15 @@ public class SemanticAnalyser extends ASTBaseVisitor {
 		}
 
 		for(Node declNode : node.getDecls()) {
-			declNode.accept(this);
+			if(declNode instanceof ClassDeclNode) declNode.accept(this);
+		}
+		for(Node declNode : node.getDecls()) {
+			if(declNode instanceof ClassDeclNode) {
+				visitFuncMember((ClassDeclNode) declNode);
+			}
+			else {
+				declNode.accept(this);
+			}
 		}
 
 		FuncEntity mainFunc = (FuncEntity) globalScope.find(FUNC_PREFIX + "main");
@@ -232,10 +240,17 @@ public class SemanticAnalyser extends ASTBaseVisitor {
 			currentScope.assertInsert(FUNC_PREFIX + funcMemberNode.getName(), funcEntity, funcMemberNode.location());
 		}
 
+		currentClassEntity = null;
+		currentScope = currentScope.getParent();
+	}
+
+	private void visitFuncMember(ClassDeclNode node) {
+		currentClassEntity = node.getClassEntity();
+		currentScope = node.getScope();
+
 		for(Node funcMemberNode : node.getFuncMember()) {
 			funcMemberNode.accept(this);
 		}
-
 		currentClassEntity = null;
 		currentScope = currentScope.getParent();
 	}
