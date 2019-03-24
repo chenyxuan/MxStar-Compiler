@@ -95,7 +95,76 @@ public class SemanticAnalyser extends ASTBaseVisitor {
 		globalScope = currentScope = new Scope();
 
 		insertBuiltInFunctions(node.location());
-		super.visit(node);
+		for(Node declNode : node.getDecls()) {
+			if(declNode instanceof ClassDeclNode) {
+				ClassDeclNode classDeclNode = (ClassDeclNode) declNode;
+
+				ClassEntity classEntity = new ClassEntity(classDeclNode);
+
+				classDeclNode.setClassEntity(classEntity);
+				globalScope.assertInsert(CLASS_PREFIX + classEntity.getName(), classEntity, classDeclNode.location());
+			}
+		}
+
+		for(Node declNode : node.getDecls()) {
+			if(declNode instanceof VarDeclListNode) {
+				for(VarDeclNode varDeclNode : ((VarDeclListNode) declNode).getDecls()) {
+					Type declType = varDeclNode.getType().getType();
+					if(declType instanceof ClassType) {
+						globalScope.assertContains(CLASS_PREFIX + ((ClassType) declType).getName(), varDeclNode.location());
+					}
+					if(declType instanceof VoidType) {
+						throw new SemanticError("Unexpected VoidType", varDeclNode.location());
+					}
+
+					VarEntity varEntity = new VarEntity(varDeclNode);
+					varDeclNode.setVarEntity(varEntity);
+
+					globalScope.assertInsert(VAR_PREFIX + varDeclNode.getName(), varEntity, varDeclNode.location());
+				}
+			}
+			else if(declNode instanceof FuncDefNode) {
+				FuncDefNode funcDefNode = (FuncDefNode) declNode;
+				FuncEntity funcEntity = new FuncEntity(funcDefNode, null);
+
+				funcDefNode.setFuncEntity(funcEntity);
+				globalScope.assertInsert(FUNC_PREFIX + funcDefNode.getName(), funcEntity, funcDefNode.location());
+			}
+		}
+
+		for(Node declNode : node.getDecls()) {
+			if(declNode instanceof ClassDeclNode) {
+				declNode.accept(this);
+			}
+		}
+
+		for(Node declNode : node.getDecls()) {
+			if (declNode instanceof VarDeclListNode) {
+				for (VarDeclNode varDeclNode : ((VarDeclListNode) declNode).getDecls()) {
+					Type declType = varDeclNode.getType().getType();
+
+					if(varDeclNode.getInitVal() != null) {
+						varDeclNode.getInitVal().accept(this);
+						Type initType = varDeclNode.getInitVal().getType();
+
+						if(initType instanceof NullLiteral) {
+							if(!(declType instanceof ArrayType || declType instanceof ClassType))
+								throw new SemanticError("Unexpected InitValue", varDeclNode.location());
+						}
+						else {
+							if(!(initType.equals(declType)))
+								throw new SemanticError("Unexpected InitValue", varDeclNode.location());
+						}
+					}
+				}
+			}
+		}
+
+		for(Node declNode : node.getDecls()) {
+			if(declNode instanceof FuncDefNode) {
+				declNode.accept(this);
+			}
+		}
 
 		FuncEntity mainFunc = (FuncEntity) globalScope.find(FUNC_PREFIX + "main");
 		if(mainFunc == null) {
@@ -121,6 +190,10 @@ public class SemanticAnalyser extends ASTBaseVisitor {
 
 		if(declType instanceof ClassType) {
 			currentScope.assertContains(CLASS_PREFIX + ((ClassType) declType).getName(), node.location());
+		}
+
+		if(declType instanceof VoidType) {
+			throw new SemanticError("Unexpected VoidType", node.location());
 		}
 
 		if(node.getInitVal() != null) {
@@ -150,15 +223,7 @@ public class SemanticAnalyser extends ASTBaseVisitor {
 
 	@Override
 	public void visit(FuncDefNode node) {
-		FuncEntity funcEntity = new FuncEntity(node, currentClassEntity);
-
-		if(!funcEntity.isMember()) {
-			node.setFuncEntity(funcEntity);
-			currentScope.assertInsert(FUNC_PREFIX + node.getName(), funcEntity, node.location());
-		}
-		else {
-			funcEntity = node.getFuncEntity();
-		}
+		FuncEntity funcEntity = node.getFuncEntity();
 
 		currentReturnType = funcEntity.getReturnType();
 		if(currentReturnType instanceof ClassType) {
@@ -187,7 +252,7 @@ public class SemanticAnalyser extends ASTBaseVisitor {
 			funcEntity.setThisEntity(thisEntity);
 		}
 
-		for(Node e : node.getParameterList()) e.accept(this);
+		for(Node varDeclNode : node.getParameterList()) varDeclNode.accept(this);
 
 		node.getBody().setScope(currentScope);
 		node.getBody().accept(this);
@@ -196,28 +261,25 @@ public class SemanticAnalyser extends ASTBaseVisitor {
 
 	@Override
 	public void visit(ClassDeclNode node) {
-		ClassEntity classEntity = new ClassEntity(node);
+		ClassEntity classEntity = node.getClassEntity();
 
-		node.setClassEntity(classEntity);
-		currentScope.assertInsert(CLASS_PREFIX + classEntity.getName(), classEntity, node.location());
-
+		currentClassEntity = classEntity;
 		currentScope = new Scope(currentScope);
 		node.setScope(currentScope);
 		classEntity.setScope(currentScope);
-		currentClassEntity = classEntity;
 
 		currentOffset = 0;
-		for(Node e : node.getVarMember()) e.accept(this);
+		for(Node varMemberNode : node.getVarMember()) varMemberNode.accept(this);
 		classEntity.setWidth(currentOffset);
 
-		for(FuncDefNode e : node.getFuncMember()) {
-			FuncEntity funcEntity = new FuncEntity(e, currentClassEntity);
-			e.setFuncEntity(funcEntity);
-			currentScope.assertInsert(FUNC_PREFIX + e.getName(), funcEntity, e.location());
+		for(FuncDefNode funcMemberNode : node.getFuncMember()) {
+			FuncEntity funcEntity = new FuncEntity(funcMemberNode, currentClassEntity);
+			funcMemberNode.setFuncEntity(funcEntity);
+			currentScope.assertInsert(FUNC_PREFIX + funcMemberNode.getName(), funcEntity, funcMemberNode.location());
 		}
 
-		for(Node e : node.getFuncMember()) {
-			e.accept(this);
+		for(Node funcMemberNode : node.getFuncMember()) {
+			funcMemberNode.accept(this);
 		}
 
 		currentClassEntity = null;
@@ -234,7 +296,7 @@ public class SemanticAnalyser extends ASTBaseVisitor {
 			assert currentScope == node.getScope();
 		}
 
-		for(Node e : node.getCompound()) safeAccept(e);
+		for(Node compoundNode : node.getCompound()) safeAccept(compoundNode);
 
 		currentScope = currentScope.getParent();
 	}
