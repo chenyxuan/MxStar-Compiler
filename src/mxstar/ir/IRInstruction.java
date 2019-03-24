@@ -1,9 +1,18 @@
 package mxstar.ir;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 abstract public class IRInstruction {
 	private IRInstruction prevInst = null, nextInst = null;
 
 	private BasicBlock parentBB;
+
+	public Set<VirtualReg> liveIn = new HashSet<>(), liveOut = new HashSet<>();
+	protected List<IRRegister> usedRegisterList = new ArrayList<>();
+	protected List<RegValue> usedRegValueList = new ArrayList<>();
 
 	public IRInstruction(BasicBlock parentBB) {
 		this.parentBB = parentBB;
@@ -34,6 +43,17 @@ abstract public class IRInstruction {
 		return prevInst;
 	}
 
-	abstract public void accept(IRVisitor visitor);
+	public List<IRRegister> getUsedRegisterList() {
+		return usedRegisterList;
+	}
 
+	public List<RegValue> getUsedRegValueList() {
+		return usedRegValueList;
+	}
+
+	abstract public IRRegister getDefinedReg();
+
+	abstract public void reloadRegLists();
+
+	abstract public void accept(IRVisitor visitor);
 }

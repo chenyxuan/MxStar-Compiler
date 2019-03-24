@@ -199,7 +199,7 @@ public class IRPrinter implements IRVisitor {
 	}
 
 	@Override
-	public void visit(IRComp node) {
+	public void visit(IRComparison node) {
 		out.print("    ");
 		String op = null;
 		switch (node.getOp()) {

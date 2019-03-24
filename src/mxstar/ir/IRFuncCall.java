@@ -26,6 +26,21 @@ public class IRFuncCall extends IRInstruction {
 		return args;
 	}
 
+	@Override
+	public void reloadRegLists() {
+		usedRegisterList.clear();
+		usedRegValueList.clear();
+		for(RegValue arg : args) {
+			if(arg instanceof IRRegister) usedRegisterList.add((IRRegister) arg);
+			usedRegValueList.add(arg);
+		}
+	}
+
+	@Override
+	public IRRegister getDefinedReg() {
+		return dest;
+	}
+
 	public void accept(IRVisitor visitor) {
 		visitor.visit(this);
 	}

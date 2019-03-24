@@ -18,6 +18,20 @@ public class IRMove extends IRInstruction {
 		return src;
 	}
 
+	@Override
+	public IRRegister getDefinedReg() {
+		return dest;
+	}
+
+	@Override
+	public void reloadRegLists() {
+		usedRegisterList.clear();
+		if(src instanceof IRRegister) usedRegisterList.add((IRRegister) src);
+
+		usedRegValueList.clear();
+		usedRegValueList.add(src);
+	}
+
 	public void accept(IRVisitor visitor) {
 		visitor.visit(this);
 	}

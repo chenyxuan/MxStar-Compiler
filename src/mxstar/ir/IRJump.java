@@ -24,6 +24,16 @@ public class IRJump extends IRJumpInst {
 		block.removeInst(this);
 	}
 
+	@Override
+	public void reloadRegLists() {
+
+	}
+
+	@Override
+	public IRRegister getDefinedReg() {
+		return null;
+	}
+
 	public void accept(IRVisitor visitor) {
 		visitor.visit(this);
 	}

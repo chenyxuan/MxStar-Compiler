@@ -18,6 +18,20 @@ public class IRHeapAlloc extends IRInstruction {
 		return allocSize;
 	}
 
+	@Override
+	public void reloadRegLists() {
+		usedRegisterList.clear();
+		if(allocSize instanceof IRRegister) usedRegisterList.add((IRRegister) allocSize);
+
+		usedRegValueList.clear();
+		usedRegValueList.add(allocSize);
+	}
+
+	@Override
+	public IRRegister getDefinedReg() {
+		return dest;
+	}
+
 	public void accept(IRVisitor visitor) {
 		visitor.visit(this);
 	}

@@ -41,6 +41,20 @@ public class IRBranch extends IRJumpInst {
 		block.removeInst(this);
 	}
 
+	@Override
+	public void reloadRegLists() {
+		usedRegisterList.clear();
+		if(cond instanceof IRRegister) usedRegisterList.add((IRRegister) cond);
+
+		usedRegValueList.clear();
+		usedRegValueList.add(cond);
+	}
+
+	@Override
+	public IRRegister getDefinedReg() {
+		return null;
+	}
+
 	public void accept(IRVisitor visitor) {
 		visitor.visit(this);
 	}

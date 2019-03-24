@@ -2,7 +2,7 @@ package mxstar.ir;
 
 import mxstar.ast.BinaryExprNode;
 
-public class IRComp extends IRInstruction {
+public class IRComparison extends IRInstruction {
 	public enum Ops {
 		GT, LT, GEQ, LEQ, EQ, NEQ
 	}
@@ -11,7 +11,7 @@ public class IRComp extends IRInstruction {
 	private IRRegister dest;
 	private RegValue lhs, rhs;
 
-	public IRComp(Ops op, IRRegister dest, RegValue lhs, RegValue rhs, BasicBlock parentBB) {
+	public IRComparison(Ops op, IRRegister dest, RegValue lhs, RegValue rhs, BasicBlock parentBB) {
 		super(parentBB);
 		this.op = op;
 		this.dest = dest;
@@ -60,6 +60,22 @@ public class IRComp extends IRInstruction {
 				assert false;
 		}
 		return retOp;
+	}
+
+	@Override
+	public IRRegister getDefinedReg() {
+		return dest;
+	}
+
+	@Override
+	public void reloadRegLists() {
+		usedRegisterList.clear();
+		if(lhs instanceof IRRegister) usedRegisterList.add((IRRegister) lhs);
+		if(rhs instanceof IRRegister) usedRegisterList.add((IRRegister) rhs);
+
+		usedRegValueList.clear();
+		usedRegValueList.add(lhs);
+		usedRegValueList.add(rhs);
 	}
 
 	public void accept(IRVisitor visitor) {

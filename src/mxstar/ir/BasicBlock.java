@@ -30,6 +30,10 @@ public class BasicBlock {
 		return headInst;
 	}
 
+	public IRInstruction getTailInst() {
+		return tailInst;
+	}
+
 	public void appendInst(IRInstruction inst) {
 		if(headInst == null) {
 			headInst = tailInst = inst;

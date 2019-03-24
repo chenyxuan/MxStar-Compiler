@@ -5,7 +5,7 @@ public interface IRVisitor {
 	void visit(IntImm node);
 	void visit(IRBinaryOp node);
 	void visit(IRBranch node);
-	void visit(IRComp node);
+	void visit(IRComparison node);
 	void visit(IRFuncCall node);
 	void visit(IRFunction node);
 	void visit(IRHeapAlloc node);

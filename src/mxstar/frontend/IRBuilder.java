@@ -1,7 +1,6 @@
 package mxstar.frontend;
 
 import mxstar.ast.*;
-import mxstar.frontend.SemanticAnalyser;
 import mxstar.ir.*;
 import mxstar.symbol.scope.*;
 import mxstar.symbol.type.*;
@@ -471,7 +470,7 @@ public class IRBuilder extends ASTBaseVisitor {
 
 				node.getLhs().accept(this);
 				node.getRhs().accept(this);
-				currentBB.appendInst(new IRComp(IRComp.trans(node.getOp()), relReg,
+				currentBB.appendInst(new IRComparison(IRComparison.trans(node.getOp()), relReg,
 						node.getLhs().getRegValue(), node.getRhs().getRegValue(), currentBB));
 				if (node.hasFlowBB()) {
 					currentBB.setJumpInst(new IRBranch(relReg, node.getTrueBB(), node.getFalseBB(), currentBB));
@@ -663,7 +662,7 @@ public class IRBuilder extends ASTBaseVisitor {
 			currentBB.appendInst(new IRStore(currentPost, SIZE_PERCH, tmpReg, currentBB));
 			currentBB.appendInst(new IRBinaryOp(IRBinaryOp.Ops.ADD, currentPost, currentPost,
 					new IntImm(nType.getBaseType().getVarSize()), currentBB));
-			currentBB.appendInst(new IRComp(IRComp.Ops.NEQ, cmpReg, currentPost, endPost, currentBB));
+			currentBB.appendInst(new IRComparison(IRComparison.Ops.NEQ, cmpReg, currentPost, endPost, currentBB));
 			currentBB.setJumpInst(new IRBranch(cmpReg, loopBB, afterBB, currentBB));
 
 			currentBB = afterBB;

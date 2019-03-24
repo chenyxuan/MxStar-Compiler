@@ -24,6 +24,20 @@ public class IRLoad extends IRInstruction {
 		return addr;
 	}
 
+	@Override
+	public IRRegister getDefinedReg() {
+		return dest;
+	}
+
+	@Override
+	public void reloadRegLists() {
+		usedRegisterList.clear();
+		if(addr instanceof IRRegister) usedRegisterList.add((IRRegister) addr);
+
+		usedRegValueList.clear();
+		usedRegValueList.add(addr);
+	}
+
 	public void accept(IRVisitor visitor) {
 		visitor.visit(this);
 	}

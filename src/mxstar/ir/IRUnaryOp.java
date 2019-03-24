@@ -28,6 +28,18 @@ public class IRUnaryOp extends IRInstruction {
 		return rhs;
 	}
 
+	@Override
+	public IRRegister getDefinedReg() {
+		return dest;
+	}
+
+	@Override
+	public void reloadRegLists() {
+		usedRegisterList.clear();
+		if(rhs instanceof IRRegister) usedRegisterList.add((IRRegister) rhs);
+		usedRegValueList.add(rhs);
+	}
+
 	public void accept(IRVisitor visitor) {
 		visitor.visit(this);
 	}
