@@ -573,18 +573,19 @@ public class SemanticAnalyser extends ASTBaseVisitor {
 	@Override
 	public void visit(IdentifierExprNode node) {
 		String name = node.getID();
-		Entity entity = currentScope.find(VAR_PREFIX + name);
-		if(entity != null) {
+		Entity entity = currentScope.casualFind(name);
+		if(entity instanceof VarEntity) {
 			node.setEntity(entity);
 			node.setType(entity.getType());
 			node.setLeftValue(true);
 		}
-		else {
-			entity = currentScope.find(FUNC_PREFIX + name);
-			if(entity == null) throw new SemanticError("Unexpected identifier", node.location());
+		else if(entity instanceof FuncEntity) {
 			node.setEntity(entity);
 			node.setType(entity.getType());
 			node.setLeftValue(false);
+		}
+		else{
+			throw new SemanticError("Unexpected identifier", node.location());
 		}
 	}
 

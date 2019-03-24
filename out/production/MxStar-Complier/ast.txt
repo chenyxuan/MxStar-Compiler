@@ -2,66 +2,159 @@
 >>> decls:
 	@ VarDeclListNode (1:0):
 	>>> decls
-		@ VaeDeclNode (1:2):
+		@ VaeDeclNode (1:4):
 		>>> type:
 			@ TypeNode (1:0):
-			>>> type: ClassType(A)
-		>>> name: b
-		>>> init: null
-	>>> end of decls
-	@ VarDeclListNode (2:0):
-	>>> decls
-		@ VaeDeclNode (2:4):
-		>>> type:
-			@ TypeNode (2:0):
-			>>> type: mxstar.symbol.type.IntType@536aaa8d
-		>>> name: c
+			>>> type: mxstar.symbol.type.IntType@2bbf4b8b
+		>>> name: x
 		>>> init:
-			@ MemberAccessExprNode (2:8):
-			>>> expr:
-				@ IdentifierExprNode (2:8):
-				>>> identifier: b
-			>>> member: a
+			@ IntConstExprNode (1:8):
+			>>> value: 1
 	>>> end of decls
-	@ FuncDeclNode (4:0):
+	@ FuncDeclNode (2:0):
 	>>> returnType:
-		@ TypeNode (4:0):
-		>>> type: mxstar.symbol.type.IntType@536aaa8d
+		@ TypeNode (2:0):
+		>>> type: mxstar.symbol.type.BoolType@30a3107a
+	>>> name: b
+	>>> parameterList:
+		@ VaeDeclNode (2:7):
+		>>> type:
+			@ TypeNode (2:7):
+			>>> type: mxstar.symbol.type.BoolType@30a3107a
+		>>> name: x
+		>>> init: null
+	>>> end of parameterList
+	>>> body:
+		@ BlockStmtNode (2:14):
+		>>> compound:
+			@ ReturnStmtNode (3:4):
+			>>> expr:
+				@ IdentifierExprNode (3:11):
+				>>> identifier: x
+		>>> end of compound
+	@ ClassDeclNode (5:0):
+	>>> name: C
+	>>> varMember: null
+	>>> funcMember:
+		@ FuncDeclNode (6:4):
+		>>> returnType: null
+		>>> name: C
+		>>> parameterList: null
+		>>> body:
+			@ BlockStmtNode (6:7):
+			>>> compound:
+				@ FuncCallExprNode (7:8):
+				>>> func:
+					@ IdentifierExprNode (7:8):
+					>>> identifier: x
+				>>> args: null
+				@ BlockStmtNode (8:8):
+				>>> compound:
+					@ VarDeclListNode (8:9):
+					>>> decls
+						@ VaeDeclNode (8:13):
+						>>> type:
+							@ TypeNode (8:9):
+							>>> type: mxstar.symbol.type.IntType@2bbf4b8b
+						>>> name: x
+						>>> init: null
+					>>> end of decls
+				>>> end of compound
+			>>> end of compound
+		@ FuncDeclNode (10:4):
+		>>> returnType:
+			@ TypeNode (10:4):
+			>>> type: mxstar.symbol.type.VoidType@33c7e1bb
+		>>> name: x
+		>>> parameterList: null
+		>>> body:
+			@ BlockStmtNode (10:12):
+			>>> compound: null
+	>>> end of funcMember
+	@ FuncDeclNode (12:0):
+	>>> returnType:
+		@ TypeNode (12:0):
+		>>> type: mxstar.symbol.type.IntType@2bbf4b8b
 	>>> name: main
 	>>> parameterList: null
 	>>> body:
-		@ BlockStmtNode (4:11):
-		>>> compound: null
-	@ ClassDeclNode (7:0):
-	>>> name: A
-	>>> varMember:
-		@ VarDeclListNode (8:4):
-		>>> decls
-			@ VaeDeclNode (8:8):
-			>>> type:
-				@ TypeNode (8:4):
-				>>> type: mxstar.symbol.type.IntType@536aaa8d
-			>>> name: a
-			>>> init: null
-		>>> end of decls
-	>>> end of varMem
-	>>> funcMember:
-		@ FuncDeclNode (9:4):
-		>>> returnType:
-			@ TypeNode (9:4):
-			>>> type: mxstar.symbol.type.VoidType@e320068
-		>>> name: fun
-		>>> parameterList: null
-		>>> body:
-			@ BlockStmtNode (9:15):
-			>>> compound:
-				@ AssignExprNode (10:6):
-				>>> lhs:
-					@ IdentifierExprNode (10:6):
-					>>> identifier: a
-				>>> rhs:
-					@ IdentifierExprNode (10:10):
+		@ BlockStmtNode (12:10):
+		>>> compound:
+			@ VarDeclListNode (13:4):
+			>>> decls
+				@ VaeDeclNode (13:11):
+				>>> type:
+					@ TypeNode (13:4):
+					>>> type: mxstar.symbol.type.StringType@34c4973
+				>>> name: x
+				>>> init:
+					@ StringConstExprNode (13:15):
+					>>> value: "789dcbadcba\n"
+			>>> end of decls
+			@ VarDeclListNode (14:4):
+			>>> decls
+				@ VaeDeclNode (14:8):
+				>>> type:
+					@ TypeNode (14:4):
+					>>> type: mxstar.symbol.type.IntType@2bbf4b8b
+				>>> name: y
+				>>> init: null
+			>>> end of decls
+			@ VarDeclListNode (15:4):
+			>>> decls
+				@ VaeDeclNode (15:6):
+				>>> type:
+					@ TypeNode (15:4):
+					>>> type: ClassType(C)
+				>>> name: c
+				>>> init: null
+			>>> end of decls
+			@ FuncCallExprNode (16:4):
+			>>> func:
+				@ MemberAccessExprNode (16:4):
+				>>> expr:
+					@ IdentifierExprNode (16:4):
 					>>> identifier: c
+				>>> member: x
+			>>> args: null
+			@ FuncCallExprNode (17:4):
+			>>> func:
+				@ IdentifierExprNode (17:4):
+				>>> identifier: b
+			>>> args:
+				@ BoolConstExprNode (17:6):
+				>>> value: true
+			>>> end of args
+			@ BlockStmtNode (18:4):
+			>>> compound:
+				@ AssignExprNode (18:5):
+				>>> lhs:
+					@ IdentifierExprNode (18:5):
+					>>> identifier: y
+				>>> rhs:
+					@ FuncCallExprNode (18:9):
+					>>> func:
+						@ MemberAccessExprNode (18:9):
+						>>> expr:
+							@ IdentifierExprNode (18:9):
+							>>> identifier: x
+						>>> member: parseInt
+					>>> args: null
+				@ VarDeclListNode (19:4):
+				>>> decls
+					@ VaeDeclNode (19:8):
+					>>> type:
+						@ TypeNode (19:4):
+						>>> type: mxstar.symbol.type.IntType@2bbf4b8b
+					>>> name: x
+					>>> init:
+						@ IdentifierExprNode (19:12):
+						>>> identifier: y
+				>>> end of decls
 			>>> end of compound
-	>>> end of funcMember
+			@ ReturnStmtNode (20:4):
+			>>> expr:
+				@ IdentifierExprNode (20:11):
+				>>> identifier: y
+		>>> end of compound
 >>> end of decls

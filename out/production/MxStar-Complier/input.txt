@@ -1,37 +1,21 @@
-A b;
-int c = b.a;
-
-int main() {
+int x = 1;
+bool b(bool x){
+    return x;
 }
-
-class A{
-    int a;
-    void fun() {
-    	 a = c;
+class C{
+    C(){
+        x();
+        {int x;}
     }
+    void x(){}
 }
-
-
-
-
-/*!! metadata:
-=== comment ===
-Lmxyy
-=== is_public ===
-True
-=== assert ===
-success_compile
-=== timeout ===
-0
-=== input ===
-
-=== phase ===
-semantic pretest
-=== output ===
-
-=== exitcode ===
-0
-
-!!*/
-
-
+int main(){
+    string x = "789dcbadcba\n";
+    int y;
+    C c;
+    c.x();
+    b(true);
+    {y = x.parseInt();
+    int x = y;}
+    return y;
+}

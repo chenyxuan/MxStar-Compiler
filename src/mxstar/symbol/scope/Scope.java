@@ -2,6 +2,7 @@ package mxstar.symbol.scope;
 
 import mxstar.utility.Location;
 import mxstar.utility.error.SemanticError;
+import static mxstar.utility.GlobalSymbols.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,6 +47,13 @@ public class Scope {
 	public Entity find(String key) {
 		if(entityMap.containsKey(key)) return entityMap.get(key);
 		if(parent != null) return parent.find(key);
+		return null;
+	}
+
+	public Entity casualFind(String key) {
+		if(entityMap.containsKey(VAR_PREFIX + key)) return entityMap.get(VAR_PREFIX + key);
+		if(entityMap.containsKey(FUNC_PREFIX + key)) return  entityMap.get(FUNC_PREFIX + key);
+		if(parent != null) return parent.casualFind(key);
 		return null;
 	}
 
