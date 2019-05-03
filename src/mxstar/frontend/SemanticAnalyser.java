@@ -515,17 +515,11 @@ public class SemanticAnalyser extends ASTBaseVisitor {
 			case GT:
 			case LT:
 				if (!L.getType().equals(R.getType()) ||
-						!(L.getType() instanceof IntType || L.getType() instanceof StringType)) throw error;
+						!(L.getType() instanceof IntType)) throw error;
 				node.setType(BoolType.getInstance());
 				node.setLeftValue(false);
 				break;
 			case ADD:
-				if(L.getType().equals(R.getType()) &&
-					L.getType() instanceof StringType) {
-					node.setType(StringType.getInstance());
-					node.setLeftValue(false);
-					break;
-				}
 			case DIV:
 			case MOD:
 			case MUL:
