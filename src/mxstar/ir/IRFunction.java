@@ -7,16 +7,32 @@ import java.util.*;
 
 public class IRFunction {
 	private FuncEntity funcEntity;
-	private String name;
+	private String name, builtInCallLabel;
 
-	private BasicBlock beginBB = null, endBB = null;
+	private BasicBlock beginBB = null;
 	private List<IRReturn> irReturns = new ArrayList<>();
 	private List<VirtualReg> paraRegs = new ArrayList<>();
 	private List<BasicBlock> allBB = null;
 
+	private boolean recursiveCall = false;
+	private boolean isBuiltIn = false;
+
+	public Set<IRFunction> calleeSet = new HashSet<>();
+	public Set<IRFunction> recursiveCalleeSet = new HashSet<>();
+
+	public List<StackSlot> stackSlots = new ArrayList<>();
+	public Map<VirtualReg, StackSlot> slotMap = new HashMap<>();
+
 	public IRFunction(FuncEntity funcEntity) {
 		this.funcEntity = funcEntity;
-		this.name = (funcEntity.isMember() ? (funcEntity.getClassEntity().getName() + '.') : "") + funcEntity.getName();
+		this.name = parseName(funcEntity);
+	}
+
+	public IRFunction(String name, String builtInCallLabel) {
+		this.name = name;
+		this.builtInCallLabel = builtInCallLabel;
+		this.funcEntity = null;
+		this.isBuiltIn = true;
 	}
 
 	public static String parseName(FuncEntity funcEntity) {
@@ -27,17 +43,25 @@ public class IRFunction {
 		return name.equals( "main");
 	}
 
+	public String getBuiltInCallLabel() {
+		return builtInCallLabel;
+	}
+
 	public BasicBlock getBeginBB() {
 		if(beginBB != null) return beginBB;
 		return beginBB = new BasicBlock(this, name + FUNC_ENTRY);
 	}
 
-	public BasicBlock getEndBB() {
-		return endBB;
+	public boolean isBuiltIn() {
+		return isBuiltIn;
 	}
 
-	public void setEndBB(BasicBlock endBB) {
-		this.endBB = endBB;
+	public void setRecursiveCall(boolean recursiveCall) {
+		this.recursiveCall = recursiveCall;
+	}
+
+	public boolean isRecursiveCall() {
+		return recursiveCall;
 	}
 
 	public FuncEntity getFuncEntity() {
@@ -72,8 +96,6 @@ public class IRFunction {
 		}
 		return allBB;
 	}
-
-	private Map<VirtualReg, StackSlot> slotMap = new HashMap<>();
 
 	public void addSlot(VirtualReg virtualReg, StackSlot stackSlot) {
 		slotMap.put(virtualReg, stackSlot);

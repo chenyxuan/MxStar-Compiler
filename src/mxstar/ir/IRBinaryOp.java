@@ -4,6 +4,7 @@ package mxstar.ir;
 import mxstar.ast.BinaryExprNode;
 
 import java.util.List;
+import java.util.Map;
 
 public class IRBinaryOp extends IRInstruction {
 	public enum Ops {
@@ -49,6 +50,53 @@ public class IRBinaryOp extends IRInstruction {
 		this.rhs = rhs;
 	}
 
+
+	public boolean isCommutativeOp() {
+		return op == Ops.ADD || op == Ops.MUL || op == Ops.BIT_AND || op == Ops.BIT_OR || op == Ops.BIT_XOR;
+	}
+
+	@Override
+	public IRRegister getDefinedReg() {
+		return dest;
+	}
+
+	@Override
+	public void setDefinedRegister(IRRegister register) {
+		dest = register;
+	}
+
+	@Override
+	public void reloadRegLists() {
+		usedRegisterList.clear();
+		if(lhs instanceof IRRegister) usedRegisterList.add((IRRegister) lhs);
+		if(rhs instanceof IRRegister) usedRegisterList.add((IRRegister) rhs);
+
+		usedRegValueList.clear();
+		usedRegValueList.add(lhs);
+		usedRegValueList.add(rhs);
+	}
+
+	@Override
+	public void setUsedRegisterList(Map<IRRegister, IRRegister> renameMap) {
+		if(lhs instanceof IRRegister) lhs = renameMap.get(lhs);
+		if(rhs instanceof IRRegister) rhs = renameMap.get(rhs);
+		reloadRegLists();
+	}
+
+	@Override
+	public IRBinaryOp copyRename(Map<Object, Object> renameMap) {
+		return new IRBinaryOp(op,
+				(IRRegister) renameMap.getOrDefault(dest, dest),
+				(RegValue) renameMap.getOrDefault(lhs, lhs),
+				(RegValue) renameMap.getOrDefault(rhs, rhs),
+				(BasicBlock) renameMap.getOrDefault(getParentBB(), getParentBB()));
+	}
+
+	public void accept(IRVisitor visitor) {
+		visitor.visit(this);
+	}
+
+
 	public static Ops trans(BinaryExprNode.Ops op) {
 		Ops retOp = null;
 		switch (op) {
@@ -85,30 +133,5 @@ public class IRBinaryOp extends IRInstruction {
 				assert false;
 		}
 		return retOp;
-	}
-
-	public boolean isCommutativeOp() {
-		return op == Ops.ADD || op == Ops.MUL || op == Ops.BIT_AND || op == Ops.BIT_OR || op == Ops.BIT_XOR;
-	}
-
-	@Override
-	public IRRegister getDefinedReg() {
-		return dest;
-	}
-
-	@Override
-	public void reloadRegLists() {
-		usedRegisterList.clear();
-		if(lhs instanceof IRRegister) usedRegisterList.add((IRRegister) lhs);
-		if(rhs instanceof IRRegister) usedRegisterList.add((IRRegister) rhs);
-
-		usedRegValueList.clear();
-		usedRegValueList.add(lhs);
-		usedRegValueList.add(rhs);
-	}
-
-
-	public void accept(IRVisitor visitor) {
-		visitor.visit(this);
 	}
 }

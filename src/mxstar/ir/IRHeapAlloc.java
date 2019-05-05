@@ -1,5 +1,7 @@
 package mxstar.ir;
 
+import java.util.Map;
+
 public class IRHeapAlloc extends IRInstruction {
 	private IRRegister dest;
 	private RegValue allocSize;
@@ -30,6 +32,26 @@ public class IRHeapAlloc extends IRInstruction {
 	@Override
 	public IRRegister getDefinedReg() {
 		return dest;
+	}
+
+	@Override
+	public void setDefinedRegister(IRRegister register) {
+		dest = register;
+	}
+
+	@Override
+	public void setUsedRegisterList(Map<IRRegister, IRRegister> renameMap) {
+		if(allocSize instanceof IRRegister) allocSize = renameMap.get(allocSize);
+		reloadRegLists();
+	}
+
+	@Override
+	public IRInstruction copyRename(Map<Object, Object> renameMap) {
+		return new IRHeapAlloc(
+				(IRRegister) renameMap.getOrDefault(dest, dest),
+				(RegValue) renameMap.getOrDefault(allocSize, allocSize),
+				(BasicBlock) renameMap.getOrDefault(getParentBB(), getParentBB())
+		);
 	}
 
 	public void accept(IRVisitor visitor) {

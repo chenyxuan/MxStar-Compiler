@@ -258,7 +258,7 @@ public class IRPrinter implements IRVisitor {
 	}
 
 	@Override
-	public void visit(IRFuncCall node) {
+	public void visit(IRFunctionCall node) {
 		out.print("    ");
 		if (node.getDest() != null) {
 			node.getDest().accept(this);

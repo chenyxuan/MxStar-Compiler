@@ -6,6 +6,7 @@ import mxstar.utility.Location;
 import mxstar.utility.error.SemanticError;
 import mxstar.symbol.type.*;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 import static mxstar.utility.GlobalSymbols.*;
@@ -17,7 +18,7 @@ public class SemanticAnalyser extends ASTBaseVisitor {
 	private Type currentReturnType = null;
 	private int inLoop = 0;
 	private int currentOffset = 0;
-	private List<FuncEntity> builtInFuncEntity = new ArrayList<>();
+	private List<FuncEntity> builtInFuncEntityList = new ArrayList<>();
 
 	public SemanticAnalyser() {}
 
@@ -25,8 +26,8 @@ public class SemanticAnalyser extends ASTBaseVisitor {
 		return globalScope;
 	}
 
-	public List<FuncEntity> getBuiltInFuncEntity() {
-		return builtInFuncEntity;
+	public List<FuncEntity> getBuiltInFuncEntityList() {
+		return builtInFuncEntityList;
 	}
 
 	private void insertBuiltInFunction(Type returnType,
@@ -43,7 +44,7 @@ public class SemanticAnalyser extends ASTBaseVisitor {
 			funcEntity.setThisEntity(thisEntity);
 		}
 
-		builtInFuncEntity.add(funcEntity);
+		builtInFuncEntityList.add(funcEntity);
 	}
 
 	private void insertBuiltInFunctions(Location location) {
@@ -62,6 +63,32 @@ public class SemanticAnalyser extends ASTBaseVisitor {
 							null, location);
 
 		Type stringType = new ClassType(STR_CLASS_NAME);
+
+		insertBuiltInFunction(stringType, "__string_concat",
+							Arrays.asList(new VarEntity(stringType, "lhs"),
+										  new VarEntity(stringType, "rhs")),
+							null, location);
+
+		insertBuiltInFunction(BoolType.getInstance(), "__string_eq",
+				Arrays.asList(new VarEntity(stringType, "lhs"),
+						new VarEntity(stringType, "rhs")),
+				null, location);
+
+		insertBuiltInFunction(BoolType.getInstance(), "__string_neq",
+				Arrays.asList(new VarEntity(stringType, "lhs"),
+						new VarEntity(stringType, "rhs")),
+				null, location);
+
+		insertBuiltInFunction(BoolType.getInstance(), "__string_lt",
+				Arrays.asList(new VarEntity(stringType, "lhs"),
+						new VarEntity(stringType, "rhs")),
+				null, location);
+
+		insertBuiltInFunction(BoolType.getInstance(), "__string_leq",
+				Arrays.asList(new VarEntity(stringType, "lhs"),
+						new VarEntity(stringType, "rhs")),
+				null, location);
+
 		ClassEntity stringEntity = new ClassEntity(stringType, STR_CLASS_NAME);
 		globalScope.assertInsert(CLASS_PREFIX + stringEntity.getName(), stringEntity, location);
 		stringEntity.setScope(new Scope(globalScope));
@@ -80,7 +107,6 @@ public class SemanticAnalyser extends ASTBaseVisitor {
 							Arrays.asList(new VarEntity(stringType, THIS_NAME),
 										  new VarEntity(IntType.getInstance(), "position")),
 							stringEntity, location);
-
 		Type arrayType = new ClassType(ARRAY_CLASS_NAME);
 		ClassEntity arrayEntity = new ClassEntity(arrayType, ARRAY_CLASS_NAME);
 		globalScope.assertInsert(CLASS_PREFIX + arrayEntity.getName(), arrayEntity, location);
@@ -515,11 +541,17 @@ public class SemanticAnalyser extends ASTBaseVisitor {
 			case GT:
 			case LT:
 				if (!L.getType().equals(R.getType()) ||
-						!(L.getType() instanceof IntType)) throw error;
+						!(L.getType() instanceof IntType || L.getType() instanceof StringType)) throw error;
 				node.setType(BoolType.getInstance());
 				node.setLeftValue(false);
 				break;
 			case ADD:
+				if(L.getType().equals(R.getType()) &&
+					L.getType() instanceof StringType) {
+					node.setType(StringType.getInstance());
+					node.setLeftValue(false);
+					break;
+				}
 			case DIV:
 			case MOD:
 			case MUL:

@@ -1,6 +1,7 @@
 package mxstar.frontend;
 
 import mxstar.ast.*;
+import mxstar.backend.BinaryOpProcessor;
 import mxstar.ir.*;
 import mxstar.symbol.scope.*;
 import mxstar.symbol.type.*;
@@ -31,48 +32,101 @@ public class IRBuilder extends ASTBaseVisitor {
 
 	public IRBuilder(SemanticAnalyser analyser) {
 		this.globalScope = analyser.getGlobalScope();
-		ir.addBuiltInFunctions(analyser.getBuiltInFuncEntity());
+		ir.addBuiltInFunctions(analyser.getBuiltInFuncEntityList());
+	}
+
+	private void IRAssign(RegValue dest, int offset, ExprNode src, boolean toMemory) {
+		if (src.isBoolExpr()) {
+			BasicBlock finBB = new BasicBlock(currentFunction, null);
+			if (toMemory) {
+				src.getTrueBB().appendInst(new IRStore(dest, offset, new IntImm(1), src.getTrueBB()));
+				src.getFalseBB().appendInst(new IRStore(dest, offset, new IntImm(0), src.getFalseBB()));
+			} else {
+				src.getTrueBB().appendInst(new IRMove((IRRegister) dest, new IntImm(1), src.getTrueBB()));
+				src.getFalseBB().appendInst(new IRMove((IRRegister) dest, new IntImm(0), src.getFalseBB()));
+			}
+			if (!src.getTrueBB().isEscaped()) src.getTrueBB().setJumpInst(new IRJump(finBB, src.getTrueBB()));
+			if (!src.getFalseBB().isEscaped()) src.getFalseBB().setJumpInst(new IRJump(finBB, src.getFalseBB()));
+			currentBB = finBB;
+		} else {
+			if (toMemory) {
+				currentBB.appendInst(new IRStore(dest, offset, src.getRegValue(), currentBB));
+			} else {
+				currentBB.appendInst(new IRMove((IRRegister) dest, src.getRegValue(), currentBB));
+			}
+		}
 	}
 
 	@Override
 	public void visit(ASTRootNode node) {
 		currentScope = globalScope;
 		ir.addFunction(new IRFunction(new FuncEntity(VoidType.getInstance(), INIT_STATIC_VAR, new ArrayList<>(), null)));
-		super.visit(node);
+
+		List<FuncDefNode> funcDefNodeList = new ArrayList<>();
+
+		for (Node declNode : node.getDecls()) {
+			if (declNode instanceof FuncDefNode) {
+				FuncDefNode funcDefNode = (FuncDefNode) declNode;
+				ir.addFunction(new IRFunction(funcDefNode.getFuncEntity()));
+				funcDefNodeList.add(funcDefNode);
+			}
+		}
+
+		for(Node declNode : node.getDecls()) {
+			if (declNode instanceof ClassDeclNode) {
+				ClassDeclNode classDeclNode = (ClassDeclNode) declNode;
+				for(FuncDefNode funcDefNode : classDeclNode.getFuncMember()) {
+					ir.addFunction(new IRFunction(funcDefNode.getFuncEntity()));
+					funcDefNodeList.add(funcDefNode);
+				}
+			}
+		}
+
+		for(Node declNode : node.getDecls()) {
+			if(declNode instanceof VarDeclListNode) {
+				visit((VarDeclListNode) declNode);
+			}
+		}
+
 		currentFunction = ir.getFunction(INIT_STATIC_VAR);
 		currentBB = currentFunction.getBeginBB();
-		for (GlobalInit e : globalInits) {
-			if (e.getSrc().isBoolExpr()) {
-				e.getSrc().initFlowBB(currentFunction);
+		for (GlobalInit globalInit : globalInits) {
+			if (globalInit.getSrc().isBoolExpr()) {
+				globalInit.getSrc().initFlowBB(currentFunction);
 			}
-			e.getSrc().accept(this);
-			IRAssign(e.getDest(), 0, e.getSrc(), false);
+			globalInit.getSrc().accept(this);
+			IRAssign(globalInit.getDest(), 0, globalInit.getSrc(), false);
 		}
 		currentBB.setJumpInst(new IRReturn(null, currentBB));
+
+		for(FuncDefNode funcDefNode : funcDefNodeList) {
+			visit(funcDefNode);
+		}
 	}
 
 	@Override
 	public void visit(FuncDefNode node) {
 		FuncEntity funcEntity = node.getFuncEntity();
 
-		if (!funcEntity.isMember()) {
-			currentFunction = new IRFunction(funcEntity);
-			ir.addFunction(currentFunction);
-		} else {
-			currentFunction = ir.getFunction(IRFunction.parseName(funcEntity));
-		}
-
+		currentFunction = ir.getFunction(IRFunction.parseName(funcEntity));
 		currentScope = node.getBody().getScope();
 		currentBB = currentFunction.getBeginBB();
 
+		if (funcEntity.isMember()) {
+			VarEntity entity = funcEntity.getThisEntity();
+			VirtualReg thisReg = new VirtualReg(THIS_NAME);
+			entity.setIRRegister(thisReg);
+			currentFunction.getParaRegs().add(thisReg);
+		}
+
 		isParaDecl = true;
-		for (Node e : node.getParameterList()) {
-			e.accept(this);
+		for (Node para : node.getParameterList()) {
+			para.accept(this);
 		}
 		isParaDecl = false;
 
 		if (currentFunction.isMain()) {
-			currentBB.appendInst(new IRFuncCall(ir.getFunction(INIT_STATIC_VAR), null, new ArrayList<>(), currentBB));
+			currentBB.appendInst(new IRFunctionCall(ir.getFunction(INIT_STATIC_VAR), null, new ArrayList<>(), currentBB));
 		}
 
 		node.getBody().accept(this);
@@ -98,39 +152,9 @@ public class IRBuilder extends ASTBaseVisitor {
 			}
 
 			endBB.setJumpInst(new IRReturn(retReg, endBB));
-			currentFunction.setEndBB(endBB);
-		} else {
-			currentFunction.setEndBB(irReturnList.get(0).getParentBB());
 		}
 	}
 
-	private void classFuncInit(ClassDeclNode node) {
-		for (FuncDefNode e : node.getFuncMember()) {
-			FuncEntity funcEntity = e.getFuncEntity();
-			VarEntity thisEntity = funcEntity.getThisEntity();
-
-			ir.addFunction(new IRFunction(funcEntity));
-			thisEntity.setIRRegister(new VirtualReg(THIS_NAME));
-		}
-	}
-
-	@Override
-	public void visit(ClassDeclNode node) {
-		currentScope = node.getScope();
-
-		classFuncInit(node);
-
-		for (Node e : node.getFuncMember()) {
-			e.accept(this);
-		}
-
-		currentScope = currentScope.getParent();
-	}
-
-	@Override
-	public void visit(VarDeclListNode node) {
-		super.visit(node);
-	}
 
 	@Override
 	public void visit(VarDeclNode node) {
@@ -167,8 +191,8 @@ public class IRBuilder extends ASTBaseVisitor {
 	@Override
 	public void visit(BlockStmtNode node) {
 		currentScope = node.getScope();
-		for (Node e : node.getCompound()) {
-			safeAccept(e);
+		for (Node compound : node.getCompound()) {
+			safeAccept(compound);
 			if (currentBB.isEscaped()) break;
 		}
 		currentScope = currentScope.getParent();
@@ -178,24 +202,26 @@ public class IRBuilder extends ASTBaseVisitor {
 	public void visit(CondStmtNode node) {
 		BasicBlock thenBB = new BasicBlock(currentFunction, IF_THEN);
 		BasicBlock afterBB = new BasicBlock(currentFunction, IF_AFTER);
-		BasicBlock elseBB = node.getElseStmt() != null ? new BasicBlock(currentFunction, IF_ELSE) : null;
+		BasicBlock elseBB = new BasicBlock(currentFunction, IF_ELSE);
 
 		node.getCond().setTrueBB(thenBB);
-		node.getCond().setFalseBB(elseBB != null ? elseBB : afterBB);
+		node.getCond().setFalseBB(elseBB);
 		node.getCond().accept(this);
 		if (node.getCond() instanceof BoolConstNode) {
 			currentBB.setJumpInst(new IRBranch(node.getCond(), currentBB));
 		}
 
 		currentBB = thenBB;
-		safeAccept(node.getThenStmt());
+		if (node.getThenStmt() != null) {
+			node.getThenStmt().accept(this);
+		}
 		if (!currentBB.isEscaped()) currentBB.setJumpInst(new IRJump(afterBB, currentBB));
 
+		currentBB = elseBB;
 		if (node.getElseStmt() != null) {
-			currentBB = elseBB;
 			node.getElseStmt().accept(this);
-			if (!currentBB.isEscaped()) currentBB.setJumpInst(new IRJump(afterBB, currentBB));
 		}
+		if (!currentBB.isEscaped()) currentBB.setJumpInst(new IRJump(afterBB, currentBB));
 
 		currentBB = afterBB;
 	}
@@ -223,7 +249,9 @@ public class IRBuilder extends ASTBaseVisitor {
 		}
 
 		currentBB = bodyBB;
-		safeAccept(node.getStmt());
+		if(node.getStmt() != null){
+			node.getStmt().accept(this);
+		}
 		if (!currentBB.isEscaped()) currentBB.setJumpInst(new IRJump(condBB, currentBB));
 
 		currentLoopStepBB = outerLoopStepBB;
@@ -315,33 +343,36 @@ public class IRBuilder extends ASTBaseVisitor {
 
 	private boolean isMemoryAccess(ExprNode node) {
 		if (node instanceof SubscriptExprNode) return true;
-		if (node instanceof MemberAccessExprNode) return true;
-		if (node instanceof IdentifierExprNode) {
+		else if (node instanceof MemberAccessExprNode) return true;
+		else if (node instanceof IdentifierExprNode) {
 			Entity idEntity = ((IdentifierExprNode) node).getEntity();
 
-			return idEntity instanceof VarEntity &&
-					((VarEntity) idEntity).isMember() &&
-					((VarEntity) idEntity).getIRRegister() == null;
+			if(idEntity instanceof  VarEntity && ((VarEntity) idEntity).isMember()) {
+				assert (((VarEntity) idEntity).getIRRegister() == null);
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
-		return false;
+		else {
+			return false;
+		}
 	}
 
-	private IRRegister assignToMemory(ExprNode node, IRBinaryOp.Ops op) {
-		VirtualReg resReg = new VirtualReg(null);
+	private void RealAssign(ExprNode exprNode, VirtualReg reg, boolean toMemory) {
+		if(toMemory) {
+			wantAddr = true;
+			exprNode.accept(this);
 
-		wantAddr = true;
-		node.accept(this);
+			currentBB.appendInst(new IRStore(exprNode.getAddrValue(), exprNode.getAddrOffset(), reg, currentBB));
+		}
+		else {
+			RegValue dest = exprNode.getRegValue();
 
-		currentBB.appendInst(new IRBinaryOp(op, resReg, node.getRegValue(), new IntImm(1), currentBB));
-		currentBB.appendInst(new IRStore(node.getAddrValue(), node.getAddrOffset(), resReg, currentBB));
-
-		return resReg;
-	}
-
-	private IRRegister assignToReg(ExprNode exprNode, IRBinaryOp.Ops op) {
-		currentBB.appendInst(new IRBinaryOp(op, (IRRegister) exprNode.getRegValue(), exprNode.getRegValue(),
-				new IntImm(1), currentBB));
-		return (IRRegister) exprNode.getRegValue();
+			assert dest instanceof IRRegister;
+			currentBB.appendInst(new IRMove((IRRegister) dest, reg, currentBB));
+		}
 	}
 
 	@Override
@@ -354,24 +385,24 @@ public class IRBuilder extends ASTBaseVisitor {
 		wantAddr = false;
 		exprNode.accept(this);
 
-		VirtualReg tmpReg = new VirtualReg(null);
-		currentBB.appendInst(new IRMove(tmpReg, exprNode.getRegValue(), currentBB));
-		node.setRegValue(tmpReg);
+		VirtualReg returnReg = new VirtualReg(null);
+		currentBB.appendInst(new IRMove(returnReg, exprNode.getRegValue(), currentBB));
+		node.setRegValue(returnReg);
 
-		if (toMemory) {
-			assignToMemory(exprNode, op);
-		} else {
-			assignToReg(exprNode, op);
-		}
+		VirtualReg resReg = new VirtualReg(null);
+		currentBB.appendInst(new IRBinaryOp(op, resReg, returnReg, new IntImm(1), currentBB));
+		RealAssign(exprNode, resReg, toMemory);
 		wantAddr = outerWantAddr;
 	}
 
 	@Override
 	public void visit(PrefixExprNode node) {
+		ExprNode exprNode = node.getExpr();
+		VirtualReg resReg = new VirtualReg(null);
+
 		switch (node.getOp()) {
 			case INC:
 			case DEC:
-				ExprNode exprNode = node.getExpr();
 				boolean toMemory = isMemoryAccess(exprNode);
 				boolean outerWantAddr = wantAddr;
 				IRBinaryOp.Ops op = node.getOp() == PrefixExprNode.Ops.INC ? IRBinaryOp.Ops.ADD : IRBinaryOp.Ops.SUB;
@@ -379,37 +410,33 @@ public class IRBuilder extends ASTBaseVisitor {
 				wantAddr = false;
 				exprNode.accept(this);
 
-				if (toMemory) {
-					node.setRegValue(assignToMemory(exprNode, op));
-				} else {
-					node.setRegValue(assignToReg(exprNode, op));
-				}
+				currentBB.appendInst(new IRBinaryOp(op, resReg, exprNode.getRegValue(), new IntImm(1), currentBB));
+				RealAssign(exprNode, resReg, toMemory);
+				exprNode.setRegValue(resReg);
 
 				wantAddr = outerWantAddr;
 				break;
 
 			case POS:
-				node.setRegValue(node.getExpr().getRegValue());
+				node.setRegValue(exprNode.getRegValue());
 				break;
 
 			case NEG:
-				VirtualReg negReg = new VirtualReg(null);
-				node.setRegValue(negReg);
-				node.getExpr().accept(this);
-				currentBB.appendInst(new IRUnaryOp(IRUnaryOp.Ops.NEG, negReg, node.getExpr().getRegValue(), currentBB));
+				node.setRegValue(resReg);
+				exprNode.accept(this);
+				currentBB.appendInst(new IRUnaryOp(IRUnaryOp.Ops.NEG, resReg, exprNode.getRegValue(), currentBB));
 				break;
 
 			case BIT_NOT:
-				VirtualReg notReg = new VirtualReg(null);
-				node.setRegValue(notReg);
-				node.getExpr().accept(this);
-				currentBB.appendInst(new IRUnaryOp(IRUnaryOp.Ops.BIT_NOT, notReg, node.getExpr().getRegValue(), currentBB));
+				node.setRegValue(resReg);
+				exprNode.accept(this);
+				currentBB.appendInst(new IRUnaryOp(IRUnaryOp.Ops.BIT_NOT, resReg, exprNode.getRegValue(), currentBB));
 				break;
 
 			case LOG_NOT:
-				node.getExpr().setTrueBB(node.getFalseBB());
-				node.getExpr().setFalseBB(node.getTrueBB());
-				node.getExpr().accept(this);
+				exprNode.setTrueBB(node.getFalseBB());
+				exprNode.setFalseBB(node.getTrueBB());
+				exprNode.accept(this);
 				break;
 
 			default:
@@ -419,25 +446,30 @@ public class IRBuilder extends ASTBaseVisitor {
 
 	@Override
 	public void visit(BinaryExprNode node) {
+
+		VirtualReg resReg = new VirtualReg(null);
+
 		switch (node.getOp()) {
 			case LOG_AND:
 			case LOG_OR:
+
 				if (node.hasFlowBB()) {
+					BasicBlock interBB = new BasicBlock(currentFunction, LOGIC_INTERRUPT);
+
 					if (node.getOp() == BinaryExprNode.Ops.LOG_AND) {
-						node.getLhs().setTrueBB(new BasicBlock(currentFunction, LOGIC_INTERRUPT));
+						node.getLhs().setTrueBB(interBB);
 						node.getLhs().setFalseBB(node.getFalseBB());
 						node.getLhs().accept(this);
-						currentBB = node.getLhs().getTrueBB();
 					} else {
 						node.getLhs().setTrueBB(node.getTrueBB());
-						node.getLhs().setFalseBB(new BasicBlock(currentFunction, LOGIC_INTERRUPT));
+						node.getLhs().setFalseBB(interBB);
 						node.getLhs().accept(this);
-						currentBB = node.getLhs().getFalseBB();
 					}
+					currentBB = interBB;
+					node.getRhs().setTrueBB(node.getTrueBB());
+					node.getRhs().setFalseBB(node.getFalseBB());
+					node.getRhs().accept(this);
 				}
-				node.getRhs().setTrueBB(node.getTrueBB());
-				node.getRhs().setFalseBB(node.getFalseBB());
-				node.getRhs().accept(this);
 				break;
 
 			case BIT_XOR:
@@ -450,13 +482,22 @@ public class IRBuilder extends ASTBaseVisitor {
 			case DIV:
 			case ADD:
 			case SUB:
-				VirtualReg resReg = new VirtualReg(null);
+
+				if(node.getLhs().getType() instanceof StringType) {
+					DoStringBinaryOp(node);
+					break;
+				}
 
 				node.getLhs().accept(this);
 				node.getRhs().accept(this);
 				node.setRegValue(resReg);
-				currentBB.appendInst(new IRBinaryOp(IRBinaryOp.trans(node.getOp()), resReg,
-						node.getLhs().getRegValue(), node.getRhs().getRegValue(), currentBB));
+				currentBB.appendInst(new IRBinaryOp(
+						IRBinaryOp.trans(node.getOp()),
+						resReg,
+						node.getLhs().getRegValue(),
+						node.getRhs().getRegValue(),
+						currentBB
+				));
 				break;
 
 			case LEQ:
@@ -465,15 +506,25 @@ public class IRBuilder extends ASTBaseVisitor {
 			case GT:
 			case NEQ:
 			case EQ:
-				VirtualReg relReg = new VirtualReg
-						(null);
+
+				if(node.getLhs().getType() instanceof StringType) {
+					DoStringBinaryOp(node);
+					break;
+				}
 
 				node.getLhs().accept(this);
 				node.getRhs().accept(this);
-				currentBB.appendInst(new IRComparison(IRComparison.trans(node.getOp()), relReg,
-						node.getLhs().getRegValue(), node.getRhs().getRegValue(), currentBB));
+				node.setRegValue(resReg);
+				currentBB.appendInst(new IRComparison(
+						IRComparison.trans(node.getOp()),
+						resReg,
+						node.getLhs().getRegValue(),
+						node.getRhs().getRegValue(),
+						currentBB
+				));
+
 				if (node.hasFlowBB()) {
-					currentBB.setJumpInst(new IRBranch(relReg, node.getTrueBB(), node.getFalseBB(), currentBB));
+					currentBB.setJumpInst(new IRBranch(resReg, node.getTrueBB(), node.getFalseBB(), currentBB));
 				}
 				break;
 
@@ -490,18 +541,21 @@ public class IRBuilder extends ASTBaseVisitor {
 		node.getPostfix().accept(this);
 		wantAddr = outerWantAddr;
 
-		VirtualReg reg = new VirtualReg(null);
-		IntImm eSize = new IntImm(node.getType().getVarSize());
+		VirtualReg addrReg = new VirtualReg(null);
+		VirtualReg sizeReg = new VirtualReg(null);
+		IntImm per = new IntImm(node.getType().getVarSize());
 
-		currentBB.appendInst(new IRBinaryOp(IRBinaryOp.Ops.MUL, reg, eSize, node.getPostfix().getRegValue(), currentBB));
-		currentBB.appendInst(new IRBinaryOp(IRBinaryOp.Ops.ADD, reg, reg, node.getArray().getRegValue(), currentBB));
+		currentBB.appendInst(new IRBinaryOp(IRBinaryOp.Ops.MUL, sizeReg, per, node.getPostfix().getRegValue(), currentBB));
+		currentBB.appendInst(new IRBinaryOp(IRBinaryOp.Ops.ADD, addrReg, sizeReg, node.getArray().getRegValue(), currentBB));
 
 		if (wantAddr) {
-			node.setAddrValue(reg);
+			node.setAddrValue(addrReg);
 			node.setAddrOffset(SIZE_PERCH);
 		} else {
-			currentBB.appendInst(new IRLoad(reg, reg, SIZE_PERCH, currentBB));
-			node.setRegValue(reg);
+			VirtualReg valueReg = new VirtualReg(null);
+
+			currentBB.appendInst(new IRLoad(valueReg, addrReg, SIZE_PERCH, currentBB));
+			node.setRegValue(valueReg);
 			if (node.hasFlowBB()) {
 				currentBB.setJumpInst(new IRBranch(node, currentBB));
 			}
@@ -515,11 +569,11 @@ public class IRBuilder extends ASTBaseVisitor {
 
 		if (funcEntity.isMember()) {
 			if (node.getFunc() instanceof MemberAccessExprNode) {
-				ExprNode thisReg = ((MemberAccessExprNode) node.getFunc()).getExpr();
-				thisReg.accept(this);
-				args.add(thisReg.getRegValue());
+				ExprNode thisExpr = ((MemberAccessExprNode) node.getFunc()).getExpr();
+				thisExpr.accept(this);
+				args.add(thisExpr.getRegValue());
 			} else {
-				VarEntity thisEntity = funcEntity.getThisEntity();
+				VarEntity thisEntity = currentFunction.getFuncEntity().getThisEntity();
 				args.add(thisEntity.getIRRegister());
 			}
 		}
@@ -532,7 +586,7 @@ public class IRBuilder extends ASTBaseVisitor {
 		IRFunction irFunction = ir.getFunction(IRFunction.parseName(funcEntity));
 		VirtualReg resReg = new VirtualReg(null);
 
-		currentBB.appendInst(new IRFuncCall(irFunction, resReg, args, currentBB));
+		currentBB.appendInst(new IRFunctionCall(irFunction, resReg, args, currentBB));
 		node.setRegValue(resReg);
 
 		if (node.hasFlowBB()) {
@@ -548,36 +602,30 @@ public class IRBuilder extends ASTBaseVisitor {
 		wantAddr = outerWantAddr;
 
 		RegValue classAddr = node.getExpr().getRegValue();
-		Entity entity = node.getEntity();
-//		System.err.println(classAddr == null);
-		if (entity instanceof VarEntity) {
-//			System.err.println(((VarEntity) entity).getAddrOffset());
-			if (wantAddr) {
-				node.setAddrValue(classAddr);
-				node.setAddrOffset(((VarEntity) entity).getAddrOffset());
-			} else {
-				VirtualReg reg = new VirtualReg(null);
-				node.setRegValue(reg);
-				currentBB.appendInst(new IRLoad(reg, classAddr, ((VarEntity) entity).getAddrOffset(), currentBB));
-				if (node.hasFlowBB()) {
-					currentBB.setJumpInst(new IRBranch(node, currentBB));
-				}
+		VarEntity memberEntity = (VarEntity) node.getEntity();
+
+		if (wantAddr) {
+			node.setAddrValue(classAddr);
+			node.setAddrOffset(memberEntity.getAddrOffset());
+		} else {
+			VirtualReg reg = new VirtualReg(null);
+			node.setRegValue(reg);
+			currentBB.appendInst(new IRLoad(reg, classAddr, memberEntity.getAddrOffset(), currentBB));
+			if (node.hasFlowBB()) {
+				currentBB.setJumpInst(new IRBranch(node, currentBB));
 			}
 		}
 	}
 
 	@Override
 	public void visit(IdentifierExprNode node) {
-		assert node.getEntity() instanceof VarEntity;
 		VarEntity varEntity = (VarEntity) node.getEntity();
 
 		if (varEntity.getIRRegister() == null) {
+			System.err.println( node.location().toString() );
 			IRRegister thisReg = currentFunction.getFuncEntity().getThisEntity().getIRRegister();
-/*
-			System.err.println(varEntity.getAddrOffset());
-			System.err.println("OK");
-			System.err.println(thisReg == null);
-*/
+			System.err.println( node.location().toString() );
+
 			if (wantAddr) {
 				node.setAddrValue(thisReg);
 				node.setAddrOffset(varEntity.getAddrOffset());
@@ -593,27 +641,6 @@ public class IRBuilder extends ASTBaseVisitor {
 		}
 	}
 
-	private void IRAssign(RegValue dest, int offset, ExprNode src, boolean toMemory) {
-		if (src.hasFlowBB()) {
-			BasicBlock finBB = new BasicBlock(currentFunction, null);
-			if (toMemory) {
-				src.getTrueBB().appendInst(new IRStore(dest, offset, new IntImm(1), src.getTrueBB()));
-				src.getFalseBB().appendInst(new IRStore(dest, offset, new IntImm(0), src.getFalseBB()));
-			} else {
-				src.getTrueBB().appendInst(new IRMove((IRRegister) dest, new IntImm(1), src.getTrueBB()));
-				src.getFalseBB().appendInst(new IRMove((IRRegister) dest, new IntImm(0), src.getFalseBB()));
-			}
-			if (!src.getTrueBB().isEscaped()) src.getTrueBB().setJumpInst(new IRJump(finBB, src.getTrueBB()));
-			if (!src.getFalseBB().isEscaped()) src.getFalseBB().setJumpInst(new IRJump(finBB, src.getFalseBB()));
-			currentBB = finBB;
-		} else {
-			if (toMemory) {
-				currentBB.appendInst(new IRStore(dest, offset, src.getRegValue(), currentBB));
-			} else {
-				currentBB.appendInst(new IRMove((IRRegister) dest, src.getRegValue(), currentBB));
-			}
-		}
-	}
 
 	@Override
 	public void visit(AssignExprNode node) {
@@ -624,8 +651,8 @@ public class IRBuilder extends ASTBaseVisitor {
 		node.getLhs().accept(this);
 		wantAddr = outerWantAddr;
 
-		if (node.isBoolExpr()) {
-			node.initFlowBB(currentFunction);
+		if (node.getRhs().isBoolExpr()) {
+			node.getRhs().initFlowBB(currentFunction);
 		}
 		node.getRhs().accept(this);
 
@@ -649,7 +676,7 @@ public class IRBuilder extends ASTBaseVisitor {
 				currentBB.appendInst(new IRBinaryOp(IRBinaryOp.Ops.ADD, endPost, endPost,
 						new IntImm(nType.getBaseType().getVarSize() - SIZE_PERCH), currentBB));
 			}
-			BasicBlock loopBB = new BasicBlock(currentFunction, "loop_compound");
+			BasicBlock loopBB = new BasicBlock(currentFunction, "loop_body");
 			BasicBlock afterBB = new BasicBlock(currentFunction, "loop_after");
 
 			currentBB.setJumpInst(new IRJump(loopBB, currentBB));
@@ -681,7 +708,7 @@ public class IRBuilder extends ASTBaseVisitor {
 			if (irFunc != null) {
 				List<RegValue> args = new ArrayList<>();
 				args.add(reg);
-				currentBB.appendInst(new IRFuncCall(irFunc, null, args, currentBB));
+				currentBB.appendInst(new IRFunctionCall(irFunc, null, args, currentBB));
 			}
 		} else {
 			assert newType instanceof ArrayType;
@@ -691,13 +718,13 @@ public class IRBuilder extends ASTBaseVisitor {
 			ArrayType nType = (ArrayType) newType;
 
 			for (int post = 0; post < node.getDims().size(); post++) {
-				ExprNode e = node.getDims().get(post);
+				ExprNode dim = node.getDims().get(post);
 
 				boolean outerWantAddr = wantAddr;
 				wantAddr = false;
-				e.accept(this);
+				dim.accept(this);
 				wantAddr = outerWantAddr;
-				dimRegs.add(e.getRegValue());
+				dimRegs.add(dim.getRegValue());
 
 				VirtualReg sizeReg = new VirtualReg("size" + '_' + post);
 				currentBB.appendInst(new IRBinaryOp(IRBinaryOp.Ops.MUL, sizeReg,
@@ -738,9 +765,59 @@ public class IRBuilder extends ASTBaseVisitor {
 		node.setRegValue(new IntImm(node.getValue() ? 1 : 0));
 	}
 
-	@Override
-	public void visit(TypeNode node) {
-		super.visit(node);
-	}
 
+	private void DoStringBinaryOp(BinaryExprNode node) {
+		IRFunction calleeFunc = null;
+		boolean toReverse = false;
+
+		switch (node.getOp()) {
+			case ADD:
+				calleeFunc = ir.getFunction("__string_concat");
+				break;
+			case EQ:
+				calleeFunc = ir.getFunction("__string_eq");
+				break;
+			case NEQ:
+				calleeFunc = ir.getFunction("__string_neq");
+				break;
+			case LT:
+				calleeFunc = ir.getFunction("__string_lt");
+				break;
+			case LEQ:
+				calleeFunc = ir.getFunction("__string_leq");
+				break;
+			case GT:
+				calleeFunc = ir.getFunction("__string_lt");
+				toReverse = true;
+				break;
+			case GEQ:
+				calleeFunc = ir.getFunction("__string_leq");
+				toReverse = true;
+				break;
+			default:
+				assert false;
+		}
+
+		node.getLhs().accept(this);
+		node.getRhs().accept(this);
+
+		List<RegValue> args = new ArrayList<>();
+		if(!toReverse) {
+			args.add(node.getLhs().getRegValue());
+			args.add(node.getRhs().getRegValue());
+		}
+		else {
+			args.add(node.getRhs().getRegValue());
+			args.add(node.getRhs().getRegValue());
+		}
+
+		VirtualReg resReg = new VirtualReg(null);
+		currentBB.appendInst(new IRFunctionCall(calleeFunc, resReg, args, currentBB));
+
+		node.setRegValue(resReg);
+
+		if(node.hasFlowBB()) {
+			currentBB.setJumpInst(new IRBranch(node, currentBB));
+		}
+	}
 }

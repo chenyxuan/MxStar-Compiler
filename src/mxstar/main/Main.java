@@ -94,9 +94,10 @@ public class Main {
 		astRoot = buildAST();
 		if(astOutS != null)	(new ASTPrinter(astOutS)).visit(astRoot);
 		SemanticAnalyse();
-		/*/
+
 		ir = buildIR();
 		if(irOutS != null) (new IRPrinter(irOutS)).visit(ir);
+		/*
 		(new BinaryOpProcessor(ir)).run();
 		(new StaticDataProcessor(ir)).run();
 		(new FuncArgProcessor(ir)).run();

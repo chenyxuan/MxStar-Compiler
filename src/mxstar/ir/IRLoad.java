@@ -1,5 +1,8 @@
 package mxstar.ir;
 
+import java.util.List;
+import java.util.Map;
+
 public class IRLoad extends IRInstruction {
 	private IRRegister dest;
 	private RegValue addr;
@@ -36,6 +39,32 @@ public class IRLoad extends IRInstruction {
 
 		usedRegValueList.clear();
 		usedRegValueList.add(addr);
+	}
+
+	@Override
+	public void setUsedRegisterList(Map<IRRegister, IRRegister> renameMap) {
+		if(addr instanceof IRRegister && !(addr instanceof StackSlot)) addr = renameMap.get(addr);
+		reloadRegLists();
+	}
+
+	@Override
+	public List<IRRegister> getUsedRegisterList() {
+		return super.getUsedRegisterList();
+	}
+
+	@Override
+	public IRInstruction copyRename(Map<Object, Object> renameMap) {
+		return new IRLoad(
+				(IRRegister) renameMap.getOrDefault(dest, dest),
+				(RegValue) renameMap.getOrDefault(addr, addr),
+				offset,
+				(BasicBlock) renameMap.getOrDefault(getParentBB(), getParentBB())
+		);
+	}
+
+	@Override
+	public void setDefinedRegister(IRRegister register) {
+		dest = register;
 	}
 
 	public void accept(IRVisitor visitor) {

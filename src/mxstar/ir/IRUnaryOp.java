@@ -1,5 +1,7 @@
 package mxstar.ir;
 
+import java.util.Map;
+
 public class IRUnaryOp extends IRInstruction {
 	public enum Ops {
 		POS, NEG, BIT_NOT
@@ -38,6 +40,27 @@ public class IRUnaryOp extends IRInstruction {
 		usedRegisterList.clear();
 		if(rhs instanceof IRRegister) usedRegisterList.add((IRRegister) rhs);
 		usedRegValueList.add(rhs);
+	}
+
+	@Override
+	public IRInstruction copyRename(Map<Object, Object> renameMap) {
+		return new IRUnaryOp(
+				op,
+				(IRRegister) renameMap.getOrDefault(dest, dest),
+				(RegValue) renameMap.getOrDefault(rhs, rhs),
+				(BasicBlock) renameMap.getOrDefault(getParentBB(), getParentBB())
+		);
+	}
+
+	@Override
+	public void setUsedRegisterList(Map<IRRegister, IRRegister> renameMap) {
+		if(rhs instanceof IRRegister) rhs = renameMap.get(rhs);
+		reloadRegLists();
+	}
+
+	@Override
+	public void setDefinedRegister(IRRegister register) {
+		dest = register;
 	}
 
 	public void accept(IRVisitor visitor) {

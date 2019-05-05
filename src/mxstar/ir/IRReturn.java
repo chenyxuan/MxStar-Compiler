@@ -1,5 +1,7 @@
 package mxstar.ir;
 
+import java.util.Map;
+
 public class IRReturn extends IRJumpInst {
 	private RegValue retValue;
 
@@ -37,6 +39,25 @@ public class IRReturn extends IRJumpInst {
 	@Override
 	public IRRegister getDefinedReg() {
 		return null;
+	}
+
+	@Override
+	public void setDefinedRegister(IRRegister register) {
+
+	}
+
+	@Override
+	public void setUsedRegisterList(Map<IRRegister, IRRegister> renameMap) {
+		if(retValue != null && retValue instanceof IRRegister) retValue = renameMap.get(retValue);
+		reloadRegLists();
+	}
+
+	@Override
+	public IRInstruction copyRename(Map<Object, Object> renameMap) {
+		return new IRReturn(
+				(RegValue) renameMap.getOrDefault(retValue, retValue),
+				(BasicBlock) renameMap.getOrDefault(getParentBB(), getParentBB())
+		);
 	}
 
 	public void accept(IRVisitor visitor) {

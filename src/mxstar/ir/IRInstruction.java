@@ -1,9 +1,6 @@
 package mxstar.ir;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 abstract public class IRInstruction {
 	private IRInstruction prevInst = null, nextInst = null;
@@ -51,9 +48,16 @@ abstract public class IRInstruction {
 		return usedRegValueList;
 	}
 
+	abstract public void setDefinedRegister(IRRegister register);
+
 	abstract public IRRegister getDefinedReg();
 
 	abstract public void reloadRegLists();
 
+	abstract public void setUsedRegisterList(Map<IRRegister, IRRegister> renameMap);
+
 	abstract public void accept(IRVisitor visitor);
+
+	abstract public IRInstruction copyRename(Map<Object, Object> renameMap);
+
 }
