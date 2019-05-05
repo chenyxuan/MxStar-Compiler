@@ -1,0 +1,255 @@
+
+func print {
+%print__entry_:
+}
+
+func println {
+%println__entry_:
+}
+
+func getString {
+%getString__entry_:
+}
+
+func getInt {
+%getInt__entry_:
+}
+
+func toString {
+%toString__entry_:
+}
+
+func __string_concat {
+%__string_concat__entry_:
+}
+
+func __string_eq {
+%__string_eq__entry_:
+}
+
+func __string_neq {
+%__string_neq__entry_:
+}
+
+func __string_lt {
+%__string_lt__entry_:
+}
+
+func __string_leq {
+%__string_leq__entry_:
+}
+
+func __string_class_.length {
+%__string_class_.length__entry_:
+}
+
+func __string_class_.substring {
+%__string_class_.substring__entry_:
+}
+
+func __string_class_.parseInt {
+%__string_class_.parseInt__entry_:
+}
+
+func __string_class_.ord {
+%__string_class_.ord__entry_:
+}
+
+func __array_class_.size {
+%__array_class_.size__entry_:
+}
+
+func __init_static_var_ {
+%__init_static_var___entry_:
+    ret 0
+
+}
+
+func gcd $x $y $j0 $j1 $j2 $j3 $j4 $j5 $j6 $j7 $j8 $j9 $j10 $j11 $j12 $j13 $j14 $j15 $j16 $j17 $j18 $j19 $j20 $j21 $j22 $j23 $j24 $j25 $j26 $j27 $j28 $j29 {
+%gcd__entry_:
+    $i = move 0
+    $j = move 0
+    $i = move 0
+    jump %__for_cond_
+
+%__for_cond_:
+    $vreg = slt $i 10
+    br $vreg %__for_body_ %__for_after_
+
+%__for_body_:
+    $vreg_2 = add $j0 $j1
+    $vreg_3 = add $vreg_2 $j2
+    $vreg_4 = add $vreg_3 $j3
+    $vreg_5 = add $vreg_4 $j4
+    $vreg_6 = add $vreg_5 $j5
+    $vreg_7 = add $vreg_6 $j6
+    $vreg_8 = add $vreg_7 $j7
+    $vreg_9 = add $vreg_8 $j8
+    $vreg_10 = add $vreg_9 $j9
+    $vreg_11 = add $vreg_10 $j10
+    $vreg_12 = add $vreg_11 $j11
+    $vreg_13 = add $vreg_12 $j12
+    $vreg_14 = add $vreg_13 $j13
+    $vreg_15 = add $vreg_14 $j14
+    $vreg_16 = add $vreg_15 $j15
+    $vreg_17 = add $vreg_16 $j16
+    $vreg_18 = add $vreg_17 $j17
+    $vreg_19 = add $vreg_18 $j18
+    $vreg_20 = add $vreg_19 $j19
+    $vreg_21 = add $vreg_20 $j20
+    $vreg_22 = add $vreg_21 $j21
+    $vreg_23 = add $vreg_22 $j22
+    $vreg_24 = add $vreg_23 $j23
+    $vreg_25 = add $vreg_24 $j24
+    $vreg_26 = add $vreg_25 $j25
+    $vreg_27 = add $vreg_26 $j26
+    $vreg_28 = add $vreg_27 $j27
+    $vreg_29 = add $vreg_28 $j28
+    $vreg_30 = add $vreg_29 $j29
+    $vreg_31 = rem $vreg_30 100
+    $j = move $vreg_31
+    jump %__for_step_
+
+%__for_step_:
+    $vreg_32 = add $i 1
+    $i = move $vreg_32
+    jump %__for_cond_
+
+%__for_after_:
+    $vreg_33 = rem $x $y
+    $vreg_34 = seq $vreg_33 0
+    br $vreg_34 %__if_then_ %__if_else_
+
+%__if_else_:
+    $vreg_35 = rem $x $y
+    $vreg_36 = call gcd 10 68 0 2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 32 34 36 38 40 42 44 46 48 50 52 54 56 58 
+    $vreg_37 = call gcd1 $y $vreg_35 $j $vreg_36 $j2 $j3 $j4 $j5 $j6 $j7 $j8 $j9 $j10 $j11 $j12 $j13 $j14 $j15 $j16 $j17 $j18 $j19 $j20 $j21 $j22 $j23 $j24 $j25 $j26 $j27 $j28 $j29 
+    $__return_value_ = move $vreg_37
+    jump %gcd__exit_
+
+%gcd__exit_:
+    ret $__return_value_
+
+%__if_then_:
+    $__return_value_ = move $y
+    jump %gcd__exit_
+
+}
+
+func gcd1 $x $y $j0 $j1 $j2 $j3 $j4 $j5 $j6 $j7 $j8 $j9 $j10 $j11 $j12 $j13 $j14 $j15 $j16 $j17 $j18 $j19 $j20 $j21 $j22 $j23 $j24 $j25 $j26 $j27 $j28 $j29 {
+%gcd1__entry_:
+    $j = move 0
+    $vreg = add $j0 $j1
+    $vreg_2 = add $vreg $j2
+    $vreg_3 = add $vreg_2 $j3
+    $vreg_4 = add $vreg_3 $j4
+    $vreg_5 = add $vreg_4 $j5
+    $vreg_6 = add $vreg_5 $j6
+    $vreg_7 = add $vreg_6 $j7
+    $vreg_8 = add $vreg_7 $j8
+    $vreg_9 = add $vreg_8 $j9
+    $vreg_10 = add $vreg_9 $j10
+    $vreg_11 = add $vreg_10 $j11
+    $vreg_12 = add $vreg_11 $j12
+    $vreg_13 = add $vreg_12 $j13
+    $vreg_14 = add $vreg_13 $j14
+    $vreg_15 = add $vreg_14 $j15
+    $vreg_16 = add $vreg_15 $j16
+    $vreg_17 = add $vreg_16 $j17
+    $vreg_18 = add $vreg_17 $j18
+    $vreg_19 = add $vreg_18 $j19
+    $vreg_20 = add $vreg_19 $j20
+    $vreg_21 = add $vreg_20 $j21
+    $vreg_22 = add $vreg_21 $j22
+    $vreg_23 = add $vreg_22 $j23
+    $vreg_24 = add $vreg_23 $j24
+    $vreg_25 = add $vreg_24 $j25
+    $vreg_26 = add $vreg_25 $j26
+    $vreg_27 = add $vreg_26 $j27
+    $vreg_28 = add $vreg_27 $j28
+    $vreg_29 = add $vreg_28 $j29
+    $vreg_30 = rem $vreg_29 100
+    $j = move $vreg_30
+    $vreg_31 = rem $x $y
+    $vreg_32 = seq $vreg_31 0
+    br $vreg_32 %__if_then__2 %__if_else__2
+
+%__if_else__2:
+    $vreg_33 = rem $x $y
+    $vreg_34 = call gcd2 $y $vreg_33 $j $j1 $j2 $j3 $j4 $j5 $j6 $j7 $j8 $j9 $j10 $j11 $j12 $j13 $j14 $j15 $j16 $j17 $j18 $j19 $j20 $j21 $j22 $j23 $j24 $j25 $j26 $j27 $j28 $j29 
+    $__return_value_ = move $vreg_34
+    jump %gcd1__exit_
+
+%gcd1__exit_:
+    ret $__return_value_
+
+%__if_then__2:
+    $__return_value_ = move $y
+    jump %gcd1__exit_
+
+}
+
+func gcd2 $x $y $j0 $j1 $j2 $j3 $j4 $j5 $j6 $j7 $j8 $j9 $j10 $j11 $j12 $j13 $j14 $j15 $j16 $j17 $j18 $j19 $j20 $j21 $j22 $j23 $j24 $j25 $j26 $j27 $j28 $j29 {
+%gcd2__entry_:
+    $j = move 0
+    $vreg = add $j0 $j1
+    $vreg_2 = add $vreg $j2
+    $vreg_3 = add $vreg_2 $j3
+    $vreg_4 = add $vreg_3 $j4
+    $vreg_5 = add $vreg_4 $j5
+    $vreg_6 = add $vreg_5 $j6
+    $vreg_7 = add $vreg_6 $j7
+    $vreg_8 = add $vreg_7 $j8
+    $vreg_9 = add $vreg_8 $j9
+    $vreg_10 = add $vreg_9 $j10
+    $vreg_11 = add $vreg_10 $j11
+    $vreg_12 = add $vreg_11 $j12
+    $vreg_13 = add $vreg_12 $j13
+    $vreg_14 = add $vreg_13 $j14
+    $vreg_15 = add $vreg_14 $j15
+    $vreg_16 = add $vreg_15 $j16
+    $vreg_17 = add $vreg_16 $j17
+    $vreg_18 = add $vreg_17 $j18
+    $vreg_19 = add $vreg_18 $j19
+    $vreg_20 = add $vreg_19 $j20
+    $vreg_21 = add $vreg_20 $j21
+    $vreg_22 = add $vreg_21 $j22
+    $vreg_23 = add $vreg_22 $j23
+    $vreg_24 = add $vreg_23 $j24
+    $vreg_25 = add $vreg_24 $j25
+    $vreg_26 = add $vreg_25 $j26
+    $vreg_27 = add $vreg_26 $j27
+    $vreg_28 = add $vreg_27 $j28
+    $vreg_29 = add $vreg_28 $j29
+    $vreg_30 = rem $vreg_29 100
+    $j = move $vreg_30
+    $vreg_31 = rem $x $y
+    $vreg_32 = seq $vreg_31 0
+    br $vreg_32 %__if_then__3 %__if_else__3
+
+%__if_then__3:
+    $__return_value_ = move $y
+    jump %gcd2__exit_
+
+%gcd2__exit_:
+    ret $__return_value_
+
+%__if_else__3:
+    $vreg_33 = rem $x $y
+    $vreg_34 = call gcd $y $vreg_33 $j0 $j1 $j2 $j3 $j4 $j5 $j6 $j7 $j8 $j9 $j10 $j11 $j12 $j13 $j14 $j15 $j16 $j17 $j18 $j19 $j20 $j21 $j22 $j23 $j24 $j25 $j26 $j27 $j28 $j29 
+    $__return_value_ = move $vreg_34
+    jump %gcd2__exit_
+
+}
+
+func main {
+%main__entry_:
+    call __init_static_var_ 
+    $vreg = call gcd 10 1 0 2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 32 34 36 38 40 42 44 46 48 50 52 54 56 58 
+    $vreg_2 = add $vreg 1024
+    $vreg_3 = call toString $vreg_2 
+    $vreg_4 = call println $vreg_3 
+    ret 0
+
+}
+
