@@ -1,5 +1,9 @@
+# this script is called when the judge wants your compiler to compile a source file.
+# print the compiled source, i.e. asm code, directly to stdout.
+# don't print anything else to stdout.
+# if you would like to print some debug information, please go to stderr.
+
 set -e
 cd "$(dirname "$0")"
-cat > testcase/test.mx   # save everything in stdin to test.mx
-java -classpath ./lib/antlr-4.7.1-complete.jar:./bin mxstar.main.Main testcase/test.mx -o out.asm
-cat out.asm
+export CCHK="java -classpath ./lib/antlr-4.7.1-complete.jar:./bin mxstar.main.Main"
+$CCHK
