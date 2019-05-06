@@ -9,7 +9,7 @@ public class UnESC {
 
 	public static String unEsc(String str) {
 		StringBuilder ss = new StringBuilder();
-		for(int i = 0; i < str.length(); i++) {
+		for(int i = 1; i < str.length() - 1; i++) {
 			if(str.charAt(i) == '\\') {
 //				System.err.println(i);
 				if(i + 1 < str.length()) {
