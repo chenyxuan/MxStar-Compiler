@@ -57,9 +57,9 @@ public class Main {
 		if (inFile != null) inS = new FileInputStream(inFile);
 		else inS = System.in;
 		if (astOutFile != null) astOutS = new PrintStream(new FileOutputStream(astOutFile));
-		else astOutS = new PrintStream(new FileOutputStream("ast.txt"));
+		else astOutS = null; //new PrintStream(new FileOutputStream("ast.txt"));
 		if (irOutFile != null) irOutS = new PrintStream(new FileOutputStream(irOutFile));
-		else irOutS = new PrintStream(new FileOutputStream("ir.txt"));
+		else irOutS = null; //new PrintStream(new FileOutputStream("ir.txt"));
 		if (outFile != null) outS = new PrintStream(new FileOutputStream(outFile));
 		else outS = System.out;
 
@@ -96,38 +96,11 @@ public class Main {
 		System.err.println("semantic test ok");
 		IRRoot ir = buildIR(astRoot, analyser);
 		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
-/*
-		System.err.println("ir1 ok");
-		new BinaryOpProcessor(ir).run();
-		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
-		System.err.println("ir2 ok");
-		new StaticDataProcessor(ir).run();
-		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
-		System.err.println("ir3 ok");
-		new FuncArgProcessor(ir).run();
-		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
-		System.err.println("ir4 ok");
-		new RegLifetimeAnalyser(ir).run();
-		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
-		System.err.println("ir5 ok");
-		new RegisterAllocator(ir).run();
-		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
-		System.err.println("ir6 ok");
+
+		IRTransform(ir);
+
 		new NASMTransformer(ir).run();
-		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
-		System.err.println("ir7 ok");
-		new NASMPrinter(outS).visit(ir);
-		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
-		System.err.println("ir8 ok");
-		if (astOutS != null) return;
-*/
-		new BinaryOpProcessor(ir).run();
-		new StaticDataProcessor(ir).run();
-		new FuncArgProcessor(ir).run();
-		new RegLifetimeAnalyser(ir).run();
-		new RegisterAllocator(ir).run();
-		new NASMTransformer(ir).run();
-		new ExtraRemoval(ir).run();
+		new NASMExtraRemoval(ir).run();
 		new NASMPrinter(outS).visit(ir);
 	}
 
@@ -152,5 +125,14 @@ public class Main {
 		IRBuilder irBuilder = new IRBuilder(analyser);
 		irBuilder.visit(astRoot);
 		return irBuilder.getIR();
+	}
+
+	private static void IRTransform(IRRoot ir) {
+		new BinaryOpProcessor(ir).run();
+		new StaticDataProcessor(ir).run();
+		new FuncArgProcessor(ir).run();
+		new RegLifetimeAnalyser(ir).run();
+		new RegisterAllocator(ir).run();
+
 	}
 }
