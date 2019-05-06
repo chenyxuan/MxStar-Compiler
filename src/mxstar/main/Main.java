@@ -127,6 +127,7 @@ public class Main {
 		new RegLifetimeAnalyser(ir).run();
 		new RegisterAllocator(ir).run();
 		new NASMTransformer(ir).run();
+		new ExtraRemoval(ir).run();
 		new NASMPrinter(outS).visit(ir);
 	}
 
