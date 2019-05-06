@@ -12,6 +12,7 @@ public class FuncEntity extends Entity {
 	private List<VarEntity> parameters;
 	private ClassEntity classEntity;
 	private VarEntity thisEntity = null;
+	private boolean builtIn = false;
 
 	public FuncEntity(Type returnType, String name, List<VarEntity> parameters, ClassEntity classEntity) {
 		super(new FunctionType(name), name);
@@ -66,5 +67,13 @@ public class FuncEntity extends Entity {
 
 	public VarEntity getThisEntity() {
 		return thisEntity;
+	}
+
+	public void setBuiltIn(boolean builtIn) {
+		this.builtIn = builtIn;
+	}
+
+	public boolean isBuiltIn() {
+		return builtIn;
 	}
 }

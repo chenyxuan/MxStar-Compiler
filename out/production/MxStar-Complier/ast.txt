@@ -1,1704 +1,976 @@
 @ ASTRootNode (1:0):
 >>> decls:
-	@ FuncDeclNode (1:0):
-	>>> returnType:
-		@ TypeNode (1:0):
-		>>> type: mxstar.symbol.type.IntType@33c7e1bb
-	>>> name: gcd
-	>>> parameterList:
+	@ VarDeclListNode (1:0):
+	>>> decls
 		@ VaeDeclNode (1:8):
 		>>> type:
-			@ TypeNode (1:8):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: x
+			@ TypeNode (1:0):
+			>>> type: ArrayType(ArrayType(mxstar.symbol.type.IntType@26a7b76d))
+		>>> name: c
 		>>> init: null
-		@ VaeDeclNode (1:15):
+	>>> end of decls
+	@ VarDeclListNode (2:0):
+	>>> decls
+		@ VaeDeclNode (2:4):
 		>>> type:
-			@ TypeNode (1:15):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: y
+			@ TypeNode (2:0):
+			>>> type: mxstar.symbol.type.IntType@26a7b76d
+		>>> name: ans
+		>>> init:
+			@ IntConstExprNode (2:10):
+			>>> value: 0
+	>>> end of decls
+	@ VarDeclListNode (3:0):
+	>>> decls
+		@ VaeDeclNode (3:6):
+		>>> type:
+			@ TypeNode (3:0):
+			>>> type: ArrayType(mxstar.symbol.type.IntType@26a7b76d)
+		>>> name: visit
+		>>> init:
+			@ NewExprNode (3:18):
+			>>> newType:
+				@ TypeNode (3:18):
+				>>> type: ArrayType(mxstar.symbol.type.IntType@26a7b76d)
+			>>> dims:
+				@ IntConstExprNode (3:22):
+				>>> value: 110
+			>>> end of dims
+	>>> end of decls
+	@ VarDeclListNode (4:0):
+	>>> decls
+		@ VaeDeclNode (4:6):
+		>>> type:
+			@ TypeNode (4:0):
+			>>> type: ArrayType(mxstar.symbol.type.IntType@26a7b76d)
+		>>> name: pre
+		>>> init:
+			@ NewExprNode (4:16):
+			>>> newType:
+				@ TypeNode (4:16):
+				>>> type: ArrayType(mxstar.symbol.type.IntType@26a7b76d)
+			>>> dims:
+				@ IntConstExprNode (4:20):
+				>>> value: 110
+			>>> end of dims
+	>>> end of decls
+	@ VarDeclListNode (5:0):
+	>>> decls
+		@ VaeDeclNode (5:6):
+		>>> type:
+			@ TypeNode (5:0):
+			>>> type: ArrayType(mxstar.symbol.type.IntType@26a7b76d)
+		>>> name: f
+		>>> init:
+			@ NewExprNode (5:14):
+			>>> newType:
+				@ TypeNode (5:14):
+				>>> type: ArrayType(mxstar.symbol.type.IntType@26a7b76d)
+			>>> dims:
+				@ IntConstExprNode (5:18):
+				>>> value: 110
+			>>> end of dims
+	>>> end of decls
+	@ VarDeclListNode (6:0):
+	>>> decls
+		@ VaeDeclNode (6:4):
+		>>> type:
+			@ TypeNode (6:0):
+			>>> type: mxstar.symbol.type.IntType@26a7b76d
+		>>> name: i
 		>>> init: null
-		@ VaeDeclNode (1:22):
+	>>> end of decls
+	@ VarDeclListNode (7:0):
+	>>> decls
+		@ VaeDeclNode (7:4):
 		>>> type:
-			@ TypeNode (1:22):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j0
+			@ TypeNode (7:0):
+			>>> type: mxstar.symbol.type.IntType@26a7b76d
+		>>> name: j
 		>>> init: null
-		@ VaeDeclNode (1:31):
+	>>> end of decls
+	@ VarDeclListNode (8:0):
+	>>> decls
+		@ VaeDeclNode (8:4):
 		>>> type:
-			@ TypeNode (1:31):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j1
+			@ TypeNode (8:0):
+			>>> type: mxstar.symbol.type.IntType@26a7b76d
+		>>> name: open
 		>>> init: null
-		@ VaeDeclNode (1:40):
+	>>> end of decls
+	@ VarDeclListNode (9:0):
+	>>> decls
+		@ VaeDeclNode (9:4):
 		>>> type:
-			@ TypeNode (1:40):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j2
+			@ TypeNode (9:0):
+			>>> type: mxstar.symbol.type.IntType@26a7b76d
+		>>> name: closed
 		>>> init: null
-		@ VaeDeclNode (1:49):
+	>>> end of decls
+	@ FuncDeclNode (11:0):
+	>>> returnType:
+		@ TypeNode (11:0):
+		>>> type: mxstar.symbol.type.VoidType@4abdb505
+	>>> name: origin
+	>>> parameterList:
+		@ VaeDeclNode (11:12):
 		>>> type:
-			@ TypeNode (1:49):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j3
-		>>> init: null
-		@ VaeDeclNode (1:58):
-		>>> type:
-			@ TypeNode (1:58):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j4
-		>>> init: null
-		@ VaeDeclNode (1:67):
-		>>> type:
-			@ TypeNode (1:67):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j5
-		>>> init: null
-		@ VaeDeclNode (1:76):
-		>>> type:
-			@ TypeNode (1:76):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j6
-		>>> init: null
-		@ VaeDeclNode (1:85):
-		>>> type:
-			@ TypeNode (1:85):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j7
-		>>> init: null
-		@ VaeDeclNode (1:94):
-		>>> type:
-			@ TypeNode (1:94):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j8
-		>>> init: null
-		@ VaeDeclNode (1:103):
-		>>> type:
-			@ TypeNode (1:103):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j9
-		>>> init: null
-		@ VaeDeclNode (1:112):
-		>>> type:
-			@ TypeNode (1:112):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j10
-		>>> init: null
-		@ VaeDeclNode (1:122):
-		>>> type:
-			@ TypeNode (1:122):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j11
-		>>> init: null
-		@ VaeDeclNode (1:132):
-		>>> type:
-			@ TypeNode (1:132):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j12
-		>>> init: null
-		@ VaeDeclNode (1:142):
-		>>> type:
-			@ TypeNode (1:142):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j13
-		>>> init: null
-		@ VaeDeclNode (1:152):
-		>>> type:
-			@ TypeNode (1:152):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j14
-		>>> init: null
-		@ VaeDeclNode (1:162):
-		>>> type:
-			@ TypeNode (1:162):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j15
-		>>> init: null
-		@ VaeDeclNode (1:172):
-		>>> type:
-			@ TypeNode (1:172):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j16
-		>>> init: null
-		@ VaeDeclNode (1:182):
-		>>> type:
-			@ TypeNode (1:182):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j17
-		>>> init: null
-		@ VaeDeclNode (1:192):
-		>>> type:
-			@ TypeNode (1:192):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j18
-		>>> init: null
-		@ VaeDeclNode (1:202):
-		>>> type:
-			@ TypeNode (1:202):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j19
-		>>> init: null
-		@ VaeDeclNode (1:212):
-		>>> type:
-			@ TypeNode (1:212):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j20
-		>>> init: null
-		@ VaeDeclNode (1:222):
-		>>> type:
-			@ TypeNode (1:222):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j21
-		>>> init: null
-		@ VaeDeclNode (1:232):
-		>>> type:
-			@ TypeNode (1:232):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j22
-		>>> init: null
-		@ VaeDeclNode (1:242):
-		>>> type:
-			@ TypeNode (1:242):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j23
-		>>> init: null
-		@ VaeDeclNode (1:252):
-		>>> type:
-			@ TypeNode (1:252):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j24
-		>>> init: null
-		@ VaeDeclNode (1:262):
-		>>> type:
-			@ TypeNode (1:262):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j25
-		>>> init: null
-		@ VaeDeclNode (1:272):
-		>>> type:
-			@ TypeNode (1:272):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j26
-		>>> init: null
-		@ VaeDeclNode (1:282):
-		>>> type:
-			@ TypeNode (1:282):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j27
-		>>> init: null
-		@ VaeDeclNode (1:292):
-		>>> type:
-			@ TypeNode (1:292):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j28
-		>>> init: null
-		@ VaeDeclNode (1:302):
-		>>> type:
-			@ TypeNode (1:302):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j29
+			@ TypeNode (11:12):
+			>>> type: mxstar.symbol.type.IntType@26a7b76d
+		>>> name: N
 		>>> init: null
 	>>> end of parameterList
 	>>> body:
-		@ BlockStmtNode (1:311):
+		@ BlockStmtNode (12:0):
 		>>> compound:
-			@ VarDeclListNode (2:2):
-			>>> decls
-				@ VaeDeclNode (2:6):
-				>>> type:
-					@ TypeNode (2:2):
-					>>> type: mxstar.symbol.type.IntType@33c7e1bb
-				>>> name: i
-				>>> init: null
-			>>> end of decls
-			@ VarDeclListNode (3:2):
-			>>> decls
-				@ VaeDeclNode (3:6):
-				>>> type:
-					@ TypeNode (3:2):
-					>>> type: mxstar.symbol.type.IntType@33c7e1bb
-				>>> name: j
-				>>> init: null
-			>>> end of decls
-			@ ForStmtNode (4:2):
+			@ AssignExprNode (13:1):
+			>>> lhs:
+				@ IdentifierExprNode (13:1):
+				>>> identifier: c
+			>>> rhs:
+				@ NewExprNode (13:9):
+				>>> newType:
+					@ TypeNode (13:9):
+					>>> type: ArrayType(ArrayType(mxstar.symbol.type.IntType@26a7b76d))
+				>>> dims:
+					@ IdentifierExprNode (13:13):
+					>>> identifier: N
+				>>> end of dims
+			@ ForStmtNode (14:4):
 			>>> init:
-				@ AssignExprNode (4:6):
+				@ AssignExprNode (14:9):
 				>>> lhs:
-					@ IdentifierExprNode (4:6):
+					@ IdentifierExprNode (14:9):
 					>>> identifier: i
 				>>> rhs:
-					@ IntConstExprNode (4:10):
+					@ IntConstExprNode (14:13):
 					>>> value: 0
 			>>> cond:
-				@ BinaryExprNode (4:13):
+				@ BinaryExprNode (14:16):
 				>>> op: LT
 				>>> lhs:
-					@ IdentifierExprNode (4:13):
+					@ IdentifierExprNode (14:16):
 					>>> identifier: i
 				>>> rhs:
-					@ IntConstExprNode (4:17):
-					>>> value: 10
+					@ IdentifierExprNode (14:20):
+					>>> identifier: N
 			>>> step:
-				@ PrefixExprNode (4:21):
+				@ SuffixExprNode (14:23):
 				>>> op: INC
 				>>> expr:
-					@ IdentifierExprNode (4:23):
+					@ IdentifierExprNode (14:23):
 					>>> identifier: i
 			>>> stmt: 
-				@ AssignExprNode (5:4):
-				>>> lhs:
-					@ IdentifierExprNode (5:4):
-					>>> identifier: j
-				>>> rhs:
-					@ BinaryExprNode (5:8):
-					>>> op: MOD
+				@ BlockStmtNode (14:30):
+				>>> compound:
+					@ AssignExprNode (15:2):
 					>>> lhs:
-						@ BinaryExprNode (5:9):
-						>>> op: ADD
-						>>> lhs:
-							@ BinaryExprNode (5:9):
-							>>> op: ADD
-							>>> lhs:
-								@ BinaryExprNode (5:9):
-								>>> op: ADD
-								>>> lhs:
-									@ BinaryExprNode (5:9):
-									>>> op: ADD
-									>>> lhs:
-										@ BinaryExprNode (5:9):
-										>>> op: ADD
-										>>> lhs:
-											@ BinaryExprNode (5:9):
-											>>> op: ADD
-											>>> lhs:
-												@ BinaryExprNode (5:9):
-												>>> op: ADD
-												>>> lhs:
-													@ BinaryExprNode (5:9):
-													>>> op: ADD
-													>>> lhs:
-														@ BinaryExprNode (5:9):
-														>>> op: ADD
-														>>> lhs:
-															@ BinaryExprNode (5:9):
-															>>> op: ADD
-															>>> lhs:
-																@ BinaryExprNode (5:9):
-																>>> op: ADD
-																>>> lhs:
-																	@ BinaryExprNode (5:9):
-																	>>> op: ADD
-																	>>> lhs:
-																		@ BinaryExprNode (5:9):
-																		>>> op: ADD
-																		>>> lhs:
-																			@ BinaryExprNode (5:9):
-																			>>> op: ADD
-																			>>> lhs:
-																				@ BinaryExprNode (5:9):
-																				>>> op: ADD
-																				>>> lhs:
-																					@ BinaryExprNode (5:9):
-																					>>> op: ADD
-																					>>> lhs:
-																						@ BinaryExprNode (5:9):
-																						>>> op: ADD
-																						>>> lhs:
-																							@ BinaryExprNode (5:9):
-																							>>> op: ADD
-																							>>> lhs:
-																								@ BinaryExprNode (5:9):
-																								>>> op: ADD
-																								>>> lhs:
-																									@ BinaryExprNode (5:9):
-																									>>> op: ADD
-																									>>> lhs:
-																										@ BinaryExprNode (5:9):
-																										>>> op: ADD
-																										>>> lhs:
-																											@ BinaryExprNode (5:9):
-																											>>> op: ADD
-																											>>> lhs:
-																												@ BinaryExprNode (5:9):
-																												>>> op: ADD
-																												>>> lhs:
-																													@ BinaryExprNode (5:9):
-																													>>> op: ADD
-																													>>> lhs:
-																														@ BinaryExprNode (5:9):
-																														>>> op: ADD
-																														>>> lhs:
-																															@ BinaryExprNode (5:9):
-																															>>> op: ADD
-																															>>> lhs:
-																																@ BinaryExprNode (5:9):
-																																>>> op: ADD
-																																>>> lhs:
-																																	@ BinaryExprNode (5:9):
-																																	>>> op: ADD
-																																	>>> lhs:
-																																		@ BinaryExprNode (5:9):
-																																		>>> op: ADD
-																																		>>> lhs:
-																																			@ IdentifierExprNode (5:9):
-																																			>>> identifier: j0
-																																		>>> rhs:
-																																			@ IdentifierExprNode (5:13):
-																																			>>> identifier: j1
-																																	>>> rhs:
-																																		@ IdentifierExprNode (5:17):
-																																		>>> identifier: j2
-																																>>> rhs:
-																																	@ IdentifierExprNode (5:21):
-																																	>>> identifier: j3
-																															>>> rhs:
-																																@ IdentifierExprNode (5:25):
-																																>>> identifier: j4
-																														>>> rhs:
-																															@ IdentifierExprNode (5:29):
-																															>>> identifier: j5
-																													>>> rhs:
-																														@ IdentifierExprNode (5:33):
-																														>>> identifier: j6
-																												>>> rhs:
-																													@ IdentifierExprNode (5:37):
-																													>>> identifier: j7
-																											>>> rhs:
-																												@ IdentifierExprNode (5:41):
-																												>>> identifier: j8
-																										>>> rhs:
-																											@ IdentifierExprNode (5:45):
-																											>>> identifier: j9
-																									>>> rhs:
-																										@ IdentifierExprNode (5:49):
-																										>>> identifier: j10
-																								>>> rhs:
-																									@ IdentifierExprNode (5:54):
-																									>>> identifier: j11
-																							>>> rhs:
-																								@ IdentifierExprNode (5:59):
-																								>>> identifier: j12
-																						>>> rhs:
-																							@ IdentifierExprNode (5:64):
-																							>>> identifier: j13
-																					>>> rhs:
-																						@ IdentifierExprNode (5:69):
-																						>>> identifier: j14
-																				>>> rhs:
-																					@ IdentifierExprNode (5:74):
-																					>>> identifier: j15
-																			>>> rhs:
-																				@ IdentifierExprNode (5:79):
-																				>>> identifier: j16
-																		>>> rhs:
-																			@ IdentifierExprNode (5:84):
-																			>>> identifier: j17
-																	>>> rhs:
-																		@ IdentifierExprNode (5:89):
-																		>>> identifier: j18
-																>>> rhs:
-																	@ IdentifierExprNode (5:94):
-																	>>> identifier: j19
-															>>> rhs:
-																@ IdentifierExprNode (5:99):
-																>>> identifier: j20
-														>>> rhs:
-															@ IdentifierExprNode (5:104):
-															>>> identifier: j21
-													>>> rhs:
-														@ IdentifierExprNode (5:109):
-														>>> identifier: j22
-												>>> rhs:
-													@ IdentifierExprNode (5:114):
-													>>> identifier: j23
-											>>> rhs:
-												@ IdentifierExprNode (5:119):
-												>>> identifier: j24
-										>>> rhs:
-											@ IdentifierExprNode (5:124):
-											>>> identifier: j25
-									>>> rhs:
-										@ IdentifierExprNode (5:129):
-										>>> identifier: j26
-								>>> rhs:
-									@ IdentifierExprNode (5:134):
-									>>> identifier: j27
-							>>> rhs:
-								@ IdentifierExprNode (5:139):
-								>>> identifier: j28
-						>>> rhs:
-							@ IdentifierExprNode (5:144):
-							>>> identifier: j29
+						@ SubscriptExprNode (15:2):
+						>>> arr:
+							@ IdentifierExprNode (15:2):
+							>>> identifier: c
+						>>> sub:
+							@ IdentifierExprNode (15:4):
+							>>> identifier: i
 					>>> rhs:
-						@ IntConstExprNode (5:151):
-						>>> value: 100
-			@ CondStmtNode (6:2):
-			>>> cond:
-				@ BinaryExprNode (6:6):
-				>>> op: EQ
-				>>> lhs:
-					@ BinaryExprNode (6:6):
-					>>> op: MOD
-					>>> lhs:
-						@ IdentifierExprNode (6:6):
-						>>> identifier: x
-					>>> rhs:
-						@ IdentifierExprNode (6:8):
-						>>> identifier: y
-				>>> rhs:
-					@ IntConstExprNode (6:13):
-					>>> value: 0
-			>>> thenStmt:
-				@ ReturnStmtNode (6:16):
-				>>> expr:
-					@ IdentifierExprNode (6:23):
-					>>> identifier: y
-			>>> elseStmt:
-				@ ReturnStmtNode (7:7):
-				>>> expr:
-					@ FuncCallExprNode (7:14):
-					>>> func:
-						@ IdentifierExprNode (7:14):
-						>>> identifier: gcd1
-					>>> args:
-						@ IdentifierExprNode (7:19):
-						>>> identifier: y
-						@ BinaryExprNode (7:22):
-						>>> op: MOD
+						@ NewExprNode (15:13):
+						>>> newType:
+							@ TypeNode (15:13):
+							>>> type: ArrayType(mxstar.symbol.type.IntType@26a7b76d)
+						>>> dims:
+							@ IdentifierExprNode (15:17):
+							>>> identifier: N
+						>>> end of dims
+					@ ForStmtNode (16:8):
+					>>> init:
+						@ AssignExprNode (16:13):
 						>>> lhs:
-							@ IdentifierExprNode (7:22):
-							>>> identifier: x
+							@ IdentifierExprNode (16:13):
+							>>> identifier: j
 						>>> rhs:
-							@ IdentifierExprNode (7:24):
-							>>> identifier: y
-						@ IdentifierExprNode (7:26):
-						>>> identifier: j
-						@ FuncCallExprNode (7:29):
-						>>> func:
-							@ IdentifierExprNode (7:29):
-							>>> identifier: gcd
-						>>> args:
-							@ IntConstExprNode (7:33):
-							>>> value: 10
-							@ IntConstExprNode (7:36):
-							>>> value: 68
-							@ IntConstExprNode (7:40):
+							@ IntConstExprNode (16:17):
 							>>> value: 0
-							@ IntConstExprNode (7:44):
-							>>> value: 2
-							@ IntConstExprNode (7:48):
-							>>> value: 4
-							@ IntConstExprNode (7:52):
-							>>> value: 6
-							@ IntConstExprNode (7:56):
-							>>> value: 8
-							@ IntConstExprNode (7:60):
-							>>> value: 10
-							@ IntConstExprNode (7:65):
-							>>> value: 12
-							@ IntConstExprNode (7:70):
-							>>> value: 14
-							@ IntConstExprNode (7:75):
-							>>> value: 16
-							@ IntConstExprNode (7:80):
-							>>> value: 18
-							@ IntConstExprNode (7:85):
-							>>> value: 20
-							@ IntConstExprNode (7:90):
-							>>> value: 22
-							@ IntConstExprNode (7:95):
-							>>> value: 24
-							@ IntConstExprNode (7:100):
-							>>> value: 26
-							@ IntConstExprNode (7:105):
-							>>> value: 28
-							@ IntConstExprNode (7:110):
-							>>> value: 30
-							@ IntConstExprNode (7:115):
-							>>> value: 32
-							@ IntConstExprNode (7:120):
-							>>> value: 34
-							@ IntConstExprNode (7:125):
-							>>> value: 36
-							@ IntConstExprNode (7:130):
-							>>> value: 38
-							@ IntConstExprNode (7:135):
-							>>> value: 40
-							@ IntConstExprNode (7:140):
-							>>> value: 42
-							@ IntConstExprNode (7:145):
-							>>> value: 44
-							@ IntConstExprNode (7:150):
-							>>> value: 46
-							@ IntConstExprNode (7:155):
-							>>> value: 48
-							@ IntConstExprNode (7:160):
-							>>> value: 50
-							@ IntConstExprNode (7:165):
-							>>> value: 52
-							@ IntConstExprNode (7:170):
-							>>> value: 54
-							@ IntConstExprNode (7:175):
-							>>> value: 56
-							@ IntConstExprNode (7:180):
-							>>> value: 58
-						>>> end of args
-						@ IdentifierExprNode (7:185):
-						>>> identifier: j2
-						@ IdentifierExprNode (7:189):
-						>>> identifier: j3
-						@ IdentifierExprNode (7:193):
-						>>> identifier: j4
-						@ IdentifierExprNode (7:197):
-						>>> identifier: j5
-						@ IdentifierExprNode (7:201):
-						>>> identifier: j6
-						@ IdentifierExprNode (7:205):
-						>>> identifier: j7
-						@ IdentifierExprNode (7:209):
-						>>> identifier: j8
-						@ IdentifierExprNode (7:213):
-						>>> identifier: j9
-						@ IdentifierExprNode (7:217):
-						>>> identifier: j10
-						@ IdentifierExprNode (7:222):
-						>>> identifier: j11
-						@ IdentifierExprNode (7:227):
-						>>> identifier: j12
-						@ IdentifierExprNode (7:232):
-						>>> identifier: j13
-						@ IdentifierExprNode (7:237):
-						>>> identifier: j14
-						@ IdentifierExprNode (7:242):
-						>>> identifier: j15
-						@ IdentifierExprNode (7:247):
-						>>> identifier: j16
-						@ IdentifierExprNode (7:252):
-						>>> identifier: j17
-						@ IdentifierExprNode (7:257):
-						>>> identifier: j18
-						@ IdentifierExprNode (7:262):
-						>>> identifier: j19
-						@ IdentifierExprNode (7:267):
-						>>> identifier: j20
-						@ IdentifierExprNode (7:272):
-						>>> identifier: j21
-						@ IdentifierExprNode (7:277):
-						>>> identifier: j22
-						@ IdentifierExprNode (7:282):
-						>>> identifier: j23
-						@ IdentifierExprNode (7:287):
-						>>> identifier: j24
-						@ IdentifierExprNode (7:292):
-						>>> identifier: j25
-						@ IdentifierExprNode (7:297):
-						>>> identifier: j26
-						@ IdentifierExprNode (7:302):
-						>>> identifier: j27
-						@ IdentifierExprNode (7:307):
-						>>> identifier: j28
-						@ IdentifierExprNode (7:312):
-						>>> identifier: j29
-					>>> end of args
-		>>> end of compound
-	@ FuncDeclNode (12:0):
-	>>> returnType:
-		@ TypeNode (12:0):
-		>>> type: mxstar.symbol.type.IntType@33c7e1bb
-	>>> name: gcd1
-	>>> parameterList:
-		@ VaeDeclNode (12:9):
-		>>> type:
-			@ TypeNode (12:9):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: x
-		>>> init: null
-		@ VaeDeclNode (12:16):
-		>>> type:
-			@ TypeNode (12:16):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: y
-		>>> init: null
-		@ VaeDeclNode (12:23):
-		>>> type:
-			@ TypeNode (12:23):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j0
-		>>> init: null
-		@ VaeDeclNode (12:32):
-		>>> type:
-			@ TypeNode (12:32):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j1
-		>>> init: null
-		@ VaeDeclNode (12:41):
-		>>> type:
-			@ TypeNode (12:41):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j2
-		>>> init: null
-		@ VaeDeclNode (12:50):
-		>>> type:
-			@ TypeNode (12:50):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j3
-		>>> init: null
-		@ VaeDeclNode (12:59):
-		>>> type:
-			@ TypeNode (12:59):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j4
-		>>> init: null
-		@ VaeDeclNode (12:68):
-		>>> type:
-			@ TypeNode (12:68):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j5
-		>>> init: null
-		@ VaeDeclNode (12:77):
-		>>> type:
-			@ TypeNode (12:77):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j6
-		>>> init: null
-		@ VaeDeclNode (12:86):
-		>>> type:
-			@ TypeNode (12:86):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j7
-		>>> init: null
-		@ VaeDeclNode (12:95):
-		>>> type:
-			@ TypeNode (12:95):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j8
-		>>> init: null
-		@ VaeDeclNode (12:104):
-		>>> type:
-			@ TypeNode (12:104):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j9
-		>>> init: null
-		@ VaeDeclNode (12:113):
-		>>> type:
-			@ TypeNode (12:113):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j10
-		>>> init: null
-		@ VaeDeclNode (12:123):
-		>>> type:
-			@ TypeNode (12:123):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j11
-		>>> init: null
-		@ VaeDeclNode (12:133):
-		>>> type:
-			@ TypeNode (12:133):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j12
-		>>> init: null
-		@ VaeDeclNode (12:143):
-		>>> type:
-			@ TypeNode (12:143):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j13
-		>>> init: null
-		@ VaeDeclNode (12:153):
-		>>> type:
-			@ TypeNode (12:153):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j14
-		>>> init: null
-		@ VaeDeclNode (12:163):
-		>>> type:
-			@ TypeNode (12:163):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j15
-		>>> init: null
-		@ VaeDeclNode (12:173):
-		>>> type:
-			@ TypeNode (12:173):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j16
-		>>> init: null
-		@ VaeDeclNode (12:183):
-		>>> type:
-			@ TypeNode (12:183):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j17
-		>>> init: null
-		@ VaeDeclNode (12:193):
-		>>> type:
-			@ TypeNode (12:193):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j18
-		>>> init: null
-		@ VaeDeclNode (12:203):
-		>>> type:
-			@ TypeNode (12:203):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j19
-		>>> init: null
-		@ VaeDeclNode (12:213):
-		>>> type:
-			@ TypeNode (12:213):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j20
-		>>> init: null
-		@ VaeDeclNode (12:223):
-		>>> type:
-			@ TypeNode (12:223):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j21
-		>>> init: null
-		@ VaeDeclNode (12:233):
-		>>> type:
-			@ TypeNode (12:233):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j22
-		>>> init: null
-		@ VaeDeclNode (12:243):
-		>>> type:
-			@ TypeNode (12:243):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j23
-		>>> init: null
-		@ VaeDeclNode (12:253):
-		>>> type:
-			@ TypeNode (12:253):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j24
-		>>> init: null
-		@ VaeDeclNode (12:263):
-		>>> type:
-			@ TypeNode (12:263):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j25
-		>>> init: null
-		@ VaeDeclNode (12:273):
-		>>> type:
-			@ TypeNode (12:273):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j26
-		>>> init: null
-		@ VaeDeclNode (12:283):
-		>>> type:
-			@ TypeNode (12:283):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j27
-		>>> init: null
-		@ VaeDeclNode (12:293):
-		>>> type:
-			@ TypeNode (12:293):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j28
-		>>> init: null
-		@ VaeDeclNode (12:303):
-		>>> type:
-			@ TypeNode (12:303):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j29
-		>>> init: null
-	>>> end of parameterList
-	>>> body:
-		@ BlockStmtNode (12:312):
-		>>> compound:
-			@ VarDeclListNode (13:2):
-			>>> decls
-				@ VaeDeclNode (13:6):
-				>>> type:
-					@ TypeNode (13:2):
-					>>> type: mxstar.symbol.type.IntType@33c7e1bb
-				>>> name: j
-				>>> init: null
-			>>> end of decls
-			@ AssignExprNode (14:2):
-			>>> lhs:
-				@ IdentifierExprNode (14:2):
-				>>> identifier: j
-			>>> rhs:
-				@ BinaryExprNode (14:6):
-				>>> op: MOD
-				>>> lhs:
-					@ BinaryExprNode (14:7):
-					>>> op: ADD
-					>>> lhs:
-						@ BinaryExprNode (14:7):
-						>>> op: ADD
+					>>> cond:
+						@ BinaryExprNode (16:20):
+						>>> op: LT
 						>>> lhs:
-							@ BinaryExprNode (14:7):
-							>>> op: ADD
-							>>> lhs:
-								@ BinaryExprNode (14:7):
-								>>> op: ADD
-								>>> lhs:
-									@ BinaryExprNode (14:7):
-									>>> op: ADD
-									>>> lhs:
-										@ BinaryExprNode (14:7):
-										>>> op: ADD
-										>>> lhs:
-											@ BinaryExprNode (14:7):
-											>>> op: ADD
-											>>> lhs:
-												@ BinaryExprNode (14:7):
-												>>> op: ADD
-												>>> lhs:
-													@ BinaryExprNode (14:7):
-													>>> op: ADD
-													>>> lhs:
-														@ BinaryExprNode (14:7):
-														>>> op: ADD
-														>>> lhs:
-															@ BinaryExprNode (14:7):
-															>>> op: ADD
-															>>> lhs:
-																@ BinaryExprNode (14:7):
-																>>> op: ADD
-																>>> lhs:
-																	@ BinaryExprNode (14:7):
-																	>>> op: ADD
-																	>>> lhs:
-																		@ BinaryExprNode (14:7):
-																		>>> op: ADD
-																		>>> lhs:
-																			@ BinaryExprNode (14:7):
-																			>>> op: ADD
-																			>>> lhs:
-																				@ BinaryExprNode (14:7):
-																				>>> op: ADD
-																				>>> lhs:
-																					@ BinaryExprNode (14:7):
-																					>>> op: ADD
-																					>>> lhs:
-																						@ BinaryExprNode (14:7):
-																						>>> op: ADD
-																						>>> lhs:
-																							@ BinaryExprNode (14:7):
-																							>>> op: ADD
-																							>>> lhs:
-																								@ BinaryExprNode (14:7):
-																								>>> op: ADD
-																								>>> lhs:
-																									@ BinaryExprNode (14:7):
-																									>>> op: ADD
-																									>>> lhs:
-																										@ BinaryExprNode (14:7):
-																										>>> op: ADD
-																										>>> lhs:
-																											@ BinaryExprNode (14:7):
-																											>>> op: ADD
-																											>>> lhs:
-																												@ BinaryExprNode (14:7):
-																												>>> op: ADD
-																												>>> lhs:
-																													@ BinaryExprNode (14:7):
-																													>>> op: ADD
-																													>>> lhs:
-																														@ BinaryExprNode (14:7):
-																														>>> op: ADD
-																														>>> lhs:
-																															@ BinaryExprNode (14:7):
-																															>>> op: ADD
-																															>>> lhs:
-																																@ BinaryExprNode (14:7):
-																																>>> op: ADD
-																																>>> lhs:
-																																	@ BinaryExprNode (14:7):
-																																	>>> op: ADD
-																																	>>> lhs:
-																																		@ IdentifierExprNode (14:7):
-																																		>>> identifier: j0
-																																	>>> rhs:
-																																		@ IdentifierExprNode (14:11):
-																																		>>> identifier: j1
-																																>>> rhs:
-																																	@ IdentifierExprNode (14:15):
-																																	>>> identifier: j2
-																															>>> rhs:
-																																@ IdentifierExprNode (14:19):
-																																>>> identifier: j3
-																														>>> rhs:
-																															@ IdentifierExprNode (14:23):
-																															>>> identifier: j4
-																													>>> rhs:
-																														@ IdentifierExprNode (14:27):
-																														>>> identifier: j5
-																												>>> rhs:
-																													@ IdentifierExprNode (14:31):
-																													>>> identifier: j6
-																											>>> rhs:
-																												@ IdentifierExprNode (14:35):
-																												>>> identifier: j7
-																										>>> rhs:
-																											@ IdentifierExprNode (14:39):
-																											>>> identifier: j8
-																									>>> rhs:
-																										@ IdentifierExprNode (14:43):
-																										>>> identifier: j9
-																								>>> rhs:
-																									@ IdentifierExprNode (14:47):
-																									>>> identifier: j10
-																							>>> rhs:
-																								@ IdentifierExprNode (14:52):
-																								>>> identifier: j11
-																						>>> rhs:
-																							@ IdentifierExprNode (14:57):
-																							>>> identifier: j12
-																					>>> rhs:
-																						@ IdentifierExprNode (14:62):
-																						>>> identifier: j13
-																				>>> rhs:
-																					@ IdentifierExprNode (14:67):
-																					>>> identifier: j14
-																			>>> rhs:
-																				@ IdentifierExprNode (14:72):
-																				>>> identifier: j15
-																		>>> rhs:
-																			@ IdentifierExprNode (14:77):
-																			>>> identifier: j16
-																	>>> rhs:
-																		@ IdentifierExprNode (14:82):
-																		>>> identifier: j17
-																>>> rhs:
-																	@ IdentifierExprNode (14:87):
-																	>>> identifier: j18
-															>>> rhs:
-																@ IdentifierExprNode (14:92):
-																>>> identifier: j19
-														>>> rhs:
-															@ IdentifierExprNode (14:97):
-															>>> identifier: j20
-													>>> rhs:
-														@ IdentifierExprNode (14:102):
-														>>> identifier: j21
-												>>> rhs:
-													@ IdentifierExprNode (14:107):
-													>>> identifier: j22
-											>>> rhs:
-												@ IdentifierExprNode (14:112):
-												>>> identifier: j23
-										>>> rhs:
-											@ IdentifierExprNode (14:117):
-											>>> identifier: j24
-									>>> rhs:
-										@ IdentifierExprNode (14:122):
-										>>> identifier: j25
-								>>> rhs:
-									@ IdentifierExprNode (14:127):
-									>>> identifier: j26
-							>>> rhs:
-								@ IdentifierExprNode (14:132):
-								>>> identifier: j27
-						>>> rhs:
-							@ IdentifierExprNode (14:137):
-							>>> identifier: j28
-					>>> rhs:
-						@ IdentifierExprNode (14:142):
-						>>> identifier: j29
-				>>> rhs:
-					@ IntConstExprNode (14:149):
-					>>> value: 100
-			@ CondStmtNode (15:2):
-			>>> cond:
-				@ BinaryExprNode (15:6):
-				>>> op: EQ
-				>>> lhs:
-					@ BinaryExprNode (15:6):
-					>>> op: MOD
-					>>> lhs:
-						@ IdentifierExprNode (15:6):
-						>>> identifier: x
-					>>> rhs:
-						@ IdentifierExprNode (15:8):
-						>>> identifier: y
-				>>> rhs:
-					@ IntConstExprNode (15:13):
-					>>> value: 0
-			>>> thenStmt:
-				@ ReturnStmtNode (15:16):
-				>>> expr:
-					@ IdentifierExprNode (15:23):
-					>>> identifier: y
-			>>> elseStmt:
-				@ ReturnStmtNode (16:7):
-				>>> expr:
-					@ FuncCallExprNode (16:14):
-					>>> func:
-						@ IdentifierExprNode (16:14):
-						>>> identifier: gcd2
-					>>> args:
-						@ IdentifierExprNode (16:19):
-						>>> identifier: y
-						@ BinaryExprNode (16:22):
-						>>> op: MOD
-						>>> lhs:
-							@ IdentifierExprNode (16:22):
-							>>> identifier: x
+							@ IdentifierExprNode (16:20):
+							>>> identifier: j
 						>>> rhs:
 							@ IdentifierExprNode (16:24):
-							>>> identifier: y
-						@ IdentifierExprNode (16:26):
-						>>> identifier: j
-						@ IdentifierExprNode (16:29):
-						>>> identifier: j1
-						@ IdentifierExprNode (16:33):
-						>>> identifier: j2
-						@ IdentifierExprNode (16:37):
-						>>> identifier: j3
-						@ IdentifierExprNode (16:41):
-						>>> identifier: j4
-						@ IdentifierExprNode (16:45):
-						>>> identifier: j5
-						@ IdentifierExprNode (16:49):
-						>>> identifier: j6
-						@ IdentifierExprNode (16:53):
-						>>> identifier: j7
-						@ IdentifierExprNode (16:57):
-						>>> identifier: j8
-						@ IdentifierExprNode (16:61):
-						>>> identifier: j9
-						@ IdentifierExprNode (16:65):
-						>>> identifier: j10
-						@ IdentifierExprNode (16:70):
-						>>> identifier: j11
-						@ IdentifierExprNode (16:75):
-						>>> identifier: j12
-						@ IdentifierExprNode (16:80):
-						>>> identifier: j13
-						@ IdentifierExprNode (16:85):
-						>>> identifier: j14
-						@ IdentifierExprNode (16:90):
-						>>> identifier: j15
-						@ IdentifierExprNode (16:95):
-						>>> identifier: j16
-						@ IdentifierExprNode (16:100):
-						>>> identifier: j17
-						@ IdentifierExprNode (16:105):
-						>>> identifier: j18
-						@ IdentifierExprNode (16:110):
-						>>> identifier: j19
-						@ IdentifierExprNode (16:115):
-						>>> identifier: j20
-						@ IdentifierExprNode (16:120):
-						>>> identifier: j21
-						@ IdentifierExprNode (16:125):
-						>>> identifier: j22
-						@ IdentifierExprNode (16:130):
-						>>> identifier: j23
-						@ IdentifierExprNode (16:135):
-						>>> identifier: j24
-						@ IdentifierExprNode (16:140):
-						>>> identifier: j25
-						@ IdentifierExprNode (16:145):
-						>>> identifier: j26
-						@ IdentifierExprNode (16:150):
-						>>> identifier: j27
-						@ IdentifierExprNode (16:155):
-						>>> identifier: j28
-						@ IdentifierExprNode (16:160):
-						>>> identifier: j29
-					>>> end of args
+							>>> identifier: N
+					>>> step:
+						@ SuffixExprNode (16:27):
+						>>> op: INC
+						>>> expr:
+							@ IdentifierExprNode (16:27):
+							>>> identifier: j
+					>>> stmt: 
+						@ AssignExprNode (17:8):
+						>>> lhs:
+							@ SubscriptExprNode (17:8):
+							>>> arr:
+								@ SubscriptExprNode (17:8):
+								>>> arr:
+									@ IdentifierExprNode (17:8):
+									>>> identifier: c
+								>>> sub:
+									@ IdentifierExprNode (17:10):
+									>>> identifier: i
+							>>> sub:
+								@ IdentifierExprNode (17:13):
+								>>> identifier: j
+						>>> rhs:
+							@ IntConstExprNode (17:18):
+							>>> value: 0
+				>>> end of compound
 		>>> end of compound
 	@ FuncDeclNode (21:0):
 	>>> returnType:
 		@ TypeNode (21:0):
-		>>> type: mxstar.symbol.type.IntType@33c7e1bb
-	>>> name: gcd2
+		>>> type: mxstar.symbol.type.IntType@26a7b76d
+	>>> name: build
 	>>> parameterList:
-		@ VaeDeclNode (21:9):
+		@ VaeDeclNode (21:10):
 		>>> type:
-			@ TypeNode (21:9):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: x
+			@ TypeNode (21:10):
+			>>> type: mxstar.symbol.type.IntType@26a7b76d
+		>>> name: start
 		>>> init: null
-		@ VaeDeclNode (21:16):
+		@ VaeDeclNode (21:21):
 		>>> type:
-			@ TypeNode (21:16):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: y
-		>>> init: null
-		@ VaeDeclNode (21:23):
-		>>> type:
-			@ TypeNode (21:23):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j0
-		>>> init: null
-		@ VaeDeclNode (21:32):
-		>>> type:
-			@ TypeNode (21:32):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j1
-		>>> init: null
-		@ VaeDeclNode (21:41):
-		>>> type:
-			@ TypeNode (21:41):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j2
-		>>> init: null
-		@ VaeDeclNode (21:50):
-		>>> type:
-			@ TypeNode (21:50):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j3
-		>>> init: null
-		@ VaeDeclNode (21:59):
-		>>> type:
-			@ TypeNode (21:59):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j4
-		>>> init: null
-		@ VaeDeclNode (21:68):
-		>>> type:
-			@ TypeNode (21:68):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j5
-		>>> init: null
-		@ VaeDeclNode (21:77):
-		>>> type:
-			@ TypeNode (21:77):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j6
-		>>> init: null
-		@ VaeDeclNode (21:86):
-		>>> type:
-			@ TypeNode (21:86):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j7
-		>>> init: null
-		@ VaeDeclNode (21:95):
-		>>> type:
-			@ TypeNode (21:95):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j8
-		>>> init: null
-		@ VaeDeclNode (21:104):
-		>>> type:
-			@ TypeNode (21:104):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j9
-		>>> init: null
-		@ VaeDeclNode (21:113):
-		>>> type:
-			@ TypeNode (21:113):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j10
-		>>> init: null
-		@ VaeDeclNode (21:123):
-		>>> type:
-			@ TypeNode (21:123):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j11
-		>>> init: null
-		@ VaeDeclNode (21:133):
-		>>> type:
-			@ TypeNode (21:133):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j12
-		>>> init: null
-		@ VaeDeclNode (21:143):
-		>>> type:
-			@ TypeNode (21:143):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j13
-		>>> init: null
-		@ VaeDeclNode (21:153):
-		>>> type:
-			@ TypeNode (21:153):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j14
-		>>> init: null
-		@ VaeDeclNode (21:163):
-		>>> type:
-			@ TypeNode (21:163):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j15
-		>>> init: null
-		@ VaeDeclNode (21:173):
-		>>> type:
-			@ TypeNode (21:173):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j16
-		>>> init: null
-		@ VaeDeclNode (21:183):
-		>>> type:
-			@ TypeNode (21:183):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j17
-		>>> init: null
-		@ VaeDeclNode (21:193):
-		>>> type:
-			@ TypeNode (21:193):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j18
-		>>> init: null
-		@ VaeDeclNode (21:203):
-		>>> type:
-			@ TypeNode (21:203):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j19
-		>>> init: null
-		@ VaeDeclNode (21:213):
-		>>> type:
-			@ TypeNode (21:213):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j20
-		>>> init: null
-		@ VaeDeclNode (21:223):
-		>>> type:
-			@ TypeNode (21:223):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j21
-		>>> init: null
-		@ VaeDeclNode (21:233):
-		>>> type:
-			@ TypeNode (21:233):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j22
-		>>> init: null
-		@ VaeDeclNode (21:243):
-		>>> type:
-			@ TypeNode (21:243):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j23
-		>>> init: null
-		@ VaeDeclNode (21:253):
-		>>> type:
-			@ TypeNode (21:253):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j24
-		>>> init: null
-		@ VaeDeclNode (21:263):
-		>>> type:
-			@ TypeNode (21:263):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j25
-		>>> init: null
-		@ VaeDeclNode (21:273):
-		>>> type:
-			@ TypeNode (21:273):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j26
-		>>> init: null
-		@ VaeDeclNode (21:283):
-		>>> type:
-			@ TypeNode (21:283):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j27
-		>>> init: null
-		@ VaeDeclNode (21:293):
-		>>> type:
-			@ TypeNode (21:293):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j28
-		>>> init: null
-		@ VaeDeclNode (21:303):
-		>>> type:
-			@ TypeNode (21:303):
-			>>> type: mxstar.symbol.type.IntType@33c7e1bb
-		>>> name: j29
+			@ TypeNode (21:21):
+			>>> type: mxstar.symbol.type.IntType@26a7b76d
+		>>> name: ending
 		>>> init: null
 	>>> end of parameterList
 	>>> body:
-		@ BlockStmtNode (21:312):
+		@ BlockStmtNode (21:33):
 		>>> compound:
-			@ VarDeclListNode (22:2):
-			>>> decls
-				@ VaeDeclNode (22:6):
-				>>> type:
-					@ TypeNode (22:2):
-					>>> type: mxstar.symbol.type.IntType@33c7e1bb
-				>>> name: j
-				>>> init: null
-			>>> end of decls
-			@ AssignExprNode (23:2):
-			>>> lhs:
-				@ IdentifierExprNode (23:2):
-				>>> identifier: j
-			>>> rhs:
-				@ BinaryExprNode (23:6):
-				>>> op: MOD
+			@ ForStmtNode (22:4):
+			>>> init:
+				@ AssignExprNode (22:9):
 				>>> lhs:
-					@ BinaryExprNode (23:7):
-					>>> op: ADD
-					>>> lhs:
-						@ BinaryExprNode (23:7):
-						>>> op: ADD
+					@ IdentifierExprNode (22:9):
+					>>> identifier: i
+				>>> rhs:
+					@ IntConstExprNode (22:13):
+					>>> value: 1
+			>>> cond:
+				@ BinaryExprNode (22:16):
+				>>> op: LEQ
+				>>> lhs:
+					@ IdentifierExprNode (22:16):
+					>>> identifier: i
+				>>> rhs:
+					@ IntConstExprNode (22:21):
+					>>> value: 49
+			>>> step:
+				@ SuffixExprNode (22:25):
+				>>> op: INC
+				>>> expr:
+					@ IdentifierExprNode (22:25):
+					>>> identifier: i
+			>>> stmt: 
+				@ BlockStmtNode (22:30):
+				>>> compound:
+					@ ForStmtNode (23:8):
+					>>> init:
+						@ AssignExprNode (23:13):
 						>>> lhs:
-							@ BinaryExprNode (23:7):
+							@ IdentifierExprNode (23:13):
+							>>> identifier: j
+						>>> rhs:
+							@ IntConstExprNode (23:17):
+							>>> value: 50
+					>>> cond:
+						@ BinaryExprNode (23:21):
+						>>> op: LEQ
+						>>> lhs:
+							@ IdentifierExprNode (23:21):
+							>>> identifier: j
+						>>> rhs:
+							@ BinaryExprNode (23:26):
 							>>> op: ADD
 							>>> lhs:
-								@ BinaryExprNode (23:7):
-								>>> op: ADD
+								@ BinaryExprNode (23:26):
+								>>> op: SUB
 								>>> lhs:
-									@ BinaryExprNode (23:7):
-									>>> op: ADD
-									>>> lhs:
-										@ BinaryExprNode (23:7):
-										>>> op: ADD
-										>>> lhs:
-											@ BinaryExprNode (23:7):
-											>>> op: ADD
-											>>> lhs:
-												@ BinaryExprNode (23:7):
-												>>> op: ADD
-												>>> lhs:
-													@ BinaryExprNode (23:7):
-													>>> op: ADD
-													>>> lhs:
-														@ BinaryExprNode (23:7):
-														>>> op: ADD
-														>>> lhs:
-															@ BinaryExprNode (23:7):
-															>>> op: ADD
-															>>> lhs:
-																@ BinaryExprNode (23:7):
-																>>> op: ADD
-																>>> lhs:
-																	@ BinaryExprNode (23:7):
-																	>>> op: ADD
-																	>>> lhs:
-																		@ BinaryExprNode (23:7):
-																		>>> op: ADD
-																		>>> lhs:
-																			@ BinaryExprNode (23:7):
-																			>>> op: ADD
-																			>>> lhs:
-																				@ BinaryExprNode (23:7):
-																				>>> op: ADD
-																				>>> lhs:
-																					@ BinaryExprNode (23:7):
-																					>>> op: ADD
-																					>>> lhs:
-																						@ BinaryExprNode (23:7):
-																						>>> op: ADD
-																						>>> lhs:
-																							@ BinaryExprNode (23:7):
-																							>>> op: ADD
-																							>>> lhs:
-																								@ BinaryExprNode (23:7):
-																								>>> op: ADD
-																								>>> lhs:
-																									@ BinaryExprNode (23:7):
-																									>>> op: ADD
-																									>>> lhs:
-																										@ BinaryExprNode (23:7):
-																										>>> op: ADD
-																										>>> lhs:
-																											@ BinaryExprNode (23:7):
-																											>>> op: ADD
-																											>>> lhs:
-																												@ BinaryExprNode (23:7):
-																												>>> op: ADD
-																												>>> lhs:
-																													@ BinaryExprNode (23:7):
-																													>>> op: ADD
-																													>>> lhs:
-																														@ BinaryExprNode (23:7):
-																														>>> op: ADD
-																														>>> lhs:
-																															@ BinaryExprNode (23:7):
-																															>>> op: ADD
-																															>>> lhs:
-																																@ BinaryExprNode (23:7):
-																																>>> op: ADD
-																																>>> lhs:
-																																	@ BinaryExprNode (23:7):
-																																	>>> op: ADD
-																																	>>> lhs:
-																																		@ IdentifierExprNode (23:7):
-																																		>>> identifier: j0
-																																	>>> rhs:
-																																		@ IdentifierExprNode (23:11):
-																																		>>> identifier: j1
-																																>>> rhs:
-																																	@ IdentifierExprNode (23:15):
-																																	>>> identifier: j2
-																															>>> rhs:
-																																@ IdentifierExprNode (23:19):
-																																>>> identifier: j3
-																														>>> rhs:
-																															@ IdentifierExprNode (23:23):
-																															>>> identifier: j4
-																													>>> rhs:
-																														@ IdentifierExprNode (23:27):
-																														>>> identifier: j5
-																												>>> rhs:
-																													@ IdentifierExprNode (23:31):
-																													>>> identifier: j6
-																											>>> rhs:
-																												@ IdentifierExprNode (23:35):
-																												>>> identifier: j7
-																										>>> rhs:
-																											@ IdentifierExprNode (23:39):
-																											>>> identifier: j8
-																									>>> rhs:
-																										@ IdentifierExprNode (23:43):
-																										>>> identifier: j9
-																								>>> rhs:
-																									@ IdentifierExprNode (23:47):
-																									>>> identifier: j10
-																							>>> rhs:
-																								@ IdentifierExprNode (23:52):
-																								>>> identifier: j11
-																						>>> rhs:
-																							@ IdentifierExprNode (23:57):
-																							>>> identifier: j12
-																					>>> rhs:
-																						@ IdentifierExprNode (23:62):
-																						>>> identifier: j13
-																				>>> rhs:
-																					@ IdentifierExprNode (23:67):
-																					>>> identifier: j14
-																			>>> rhs:
-																				@ IdentifierExprNode (23:72):
-																				>>> identifier: j15
-																		>>> rhs:
-																			@ IdentifierExprNode (23:77):
-																			>>> identifier: j16
-																	>>> rhs:
-																		@ IdentifierExprNode (23:82):
-																		>>> identifier: j17
-																>>> rhs:
-																	@ IdentifierExprNode (23:87):
-																	>>> identifier: j18
-															>>> rhs:
-																@ IdentifierExprNode (23:92):
-																>>> identifier: j19
-														>>> rhs:
-															@ IdentifierExprNode (23:97):
-															>>> identifier: j20
-													>>> rhs:
-														@ IdentifierExprNode (23:102):
-														>>> identifier: j21
-												>>> rhs:
-													@ IdentifierExprNode (23:107):
-													>>> identifier: j22
-											>>> rhs:
-												@ IdentifierExprNode (23:112):
-												>>> identifier: j23
-										>>> rhs:
-											@ IdentifierExprNode (23:117):
-											>>> identifier: j24
-									>>> rhs:
-										@ IdentifierExprNode (23:122):
-										>>> identifier: j25
+									@ IntConstExprNode (23:26):
+									>>> value: 98
 								>>> rhs:
-									@ IdentifierExprNode (23:127):
-									>>> identifier: j26
+									@ IdentifierExprNode (23:29):
+									>>> identifier: i
 							>>> rhs:
-								@ IdentifierExprNode (23:132):
-								>>> identifier: j27
-						>>> rhs:
-							@ IdentifierExprNode (23:137):
-							>>> identifier: j28
-					>>> rhs:
-						@ IdentifierExprNode (23:142):
-						>>> identifier: j29
-				>>> rhs:
-					@ IntConstExprNode (23:149):
-					>>> value: 100
-			@ CondStmtNode (24:2):
-			>>> cond:
-				@ BinaryExprNode (24:6):
-				>>> op: EQ
+								@ IntConstExprNode (23:31):
+								>>> value: 1
+					>>> step:
+						@ SuffixExprNode (23:34):
+						>>> op: INC
+						>>> expr:
+							@ IdentifierExprNode (23:34):
+							>>> identifier: j
+					>>> stmt: 
+						@ BlockStmtNode (23:39):
+						>>> compound:
+							@ AssignExprNode (24:12):
+							>>> lhs:
+								@ SubscriptExprNode (24:12):
+								>>> arr:
+									@ SubscriptExprNode (24:12):
+									>>> arr:
+										@ IdentifierExprNode (24:12):
+										>>> identifier: c
+									>>> sub:
+										@ IdentifierExprNode (24:14):
+										>>> identifier: i
+								>>> sub:
+									@ IdentifierExprNode (24:17):
+									>>> identifier: j
+							>>> rhs:
+								@ IntConstExprNode (24:22):
+								>>> value: 1
+						>>> end of compound
+				>>> end of compound
+			@ ForStmtNode (27:4):
+			>>> init:
+				@ AssignExprNode (27:9):
 				>>> lhs:
-					@ BinaryExprNode (24:6):
-					>>> op: MOD
-					>>> lhs:
-						@ IdentifierExprNode (24:6):
-						>>> identifier: x
-					>>> rhs:
-						@ IdentifierExprNode (24:8):
-						>>> identifier: y
+					@ IdentifierExprNode (27:9):
+					>>> identifier: i
 				>>> rhs:
-					@ IntConstExprNode (24:13):
-					>>> value: 0
-			>>> thenStmt:
-				@ ReturnStmtNode (24:16):
+					@ IntConstExprNode (27:13):
+					>>> value: 1
+			>>> cond:
+				@ BinaryExprNode (27:16):
+				>>> op: LEQ
+				>>> lhs:
+					@ IdentifierExprNode (27:16):
+					>>> identifier: i
+				>>> rhs:
+					@ IntConstExprNode (27:21):
+					>>> value: 49
+			>>> step:
+				@ SuffixExprNode (27:25):
+				>>> op: INC
 				>>> expr:
-					@ IdentifierExprNode (24:23):
-					>>> identifier: y
-			>>> elseStmt:
-				@ ReturnStmtNode (25:7):
+					@ IdentifierExprNode (27:25):
+					>>> identifier: i
+			>>> stmt: 
+				@ AssignExprNode (28:8):
+				>>> lhs:
+					@ SubscriptExprNode (28:8):
+					>>> arr:
+						@ SubscriptExprNode (28:8):
+						>>> arr:
+							@ IdentifierExprNode (28:8):
+							>>> identifier: c
+						>>> sub:
+							@ IdentifierExprNode (28:10):
+							>>> identifier: start
+					>>> sub:
+						@ IdentifierExprNode (28:17):
+						>>> identifier: i
+				>>> rhs:
+					@ IntConstExprNode (28:22):
+					>>> value: 1
+			@ ForStmtNode (29:4):
+			>>> init:
+				@ AssignExprNode (29:9):
+				>>> lhs:
+					@ IdentifierExprNode (29:9):
+					>>> identifier: i
+				>>> rhs:
+					@ IntConstExprNode (29:13):
+					>>> value: 50
+			>>> cond:
+				@ BinaryExprNode (29:17):
+				>>> op: LEQ
+				>>> lhs:
+					@ IdentifierExprNode (29:17):
+					>>> identifier: i
+				>>> rhs:
+					@ IntConstExprNode (29:22):
+					>>> value: 98
+			>>> step:
+				@ SuffixExprNode (29:26):
+				>>> op: INC
 				>>> expr:
-					@ FuncCallExprNode (25:14):
-					>>> func:
-						@ IdentifierExprNode (25:14):
-						>>> identifier: gcd
-					>>> args:
-						@ IdentifierExprNode (25:18):
-						>>> identifier: y
-						@ BinaryExprNode (25:21):
-						>>> op: MOD
-						>>> lhs:
-							@ IdentifierExprNode (25:21):
-							>>> identifier: x
-						>>> rhs:
-							@ IdentifierExprNode (25:23):
-							>>> identifier: y
-						@ IdentifierExprNode (25:25):
-						>>> identifier: j0
-						@ IdentifierExprNode (25:29):
-						>>> identifier: j1
-						@ IdentifierExprNode (25:33):
-						>>> identifier: j2
-						@ IdentifierExprNode (25:37):
-						>>> identifier: j3
-						@ IdentifierExprNode (25:41):
-						>>> identifier: j4
-						@ IdentifierExprNode (25:45):
-						>>> identifier: j5
-						@ IdentifierExprNode (25:49):
-						>>> identifier: j6
-						@ IdentifierExprNode (25:53):
-						>>> identifier: j7
-						@ IdentifierExprNode (25:57):
-						>>> identifier: j8
-						@ IdentifierExprNode (25:61):
-						>>> identifier: j9
-						@ IdentifierExprNode (25:65):
-						>>> identifier: j10
-						@ IdentifierExprNode (25:70):
-						>>> identifier: j11
-						@ IdentifierExprNode (25:75):
-						>>> identifier: j12
-						@ IdentifierExprNode (25:80):
-						>>> identifier: j13
-						@ IdentifierExprNode (25:85):
-						>>> identifier: j14
-						@ IdentifierExprNode (25:90):
-						>>> identifier: j15
-						@ IdentifierExprNode (25:95):
-						>>> identifier: j16
-						@ IdentifierExprNode (25:100):
-						>>> identifier: j17
-						@ IdentifierExprNode (25:105):
-						>>> identifier: j18
-						@ IdentifierExprNode (25:110):
-						>>> identifier: j19
-						@ IdentifierExprNode (25:115):
-						>>> identifier: j20
-						@ IdentifierExprNode (25:120):
-						>>> identifier: j21
-						@ IdentifierExprNode (25:125):
-						>>> identifier: j22
-						@ IdentifierExprNode (25:130):
-						>>> identifier: j23
-						@ IdentifierExprNode (25:135):
-						>>> identifier: j24
-						@ IdentifierExprNode (25:140):
-						>>> identifier: j25
-						@ IdentifierExprNode (25:145):
-						>>> identifier: j26
-						@ IdentifierExprNode (25:150):
-						>>> identifier: j27
-						@ IdentifierExprNode (25:155):
-						>>> identifier: j28
-						@ IdentifierExprNode (25:160):
-						>>> identifier: j29
-					>>> end of args
+					@ IdentifierExprNode (29:26):
+					>>> identifier: i
+			>>> stmt: 
+				@ AssignExprNode (30:8):
+				>>> lhs:
+					@ SubscriptExprNode (30:8):
+					>>> arr:
+						@ SubscriptExprNode (30:8):
+						>>> arr:
+							@ IdentifierExprNode (30:8):
+							>>> identifier: c
+						>>> sub:
+							@ IdentifierExprNode (30:10):
+							>>> identifier: i
+					>>> sub:
+						@ IdentifierExprNode (30:13):
+						>>> identifier: ending
+				>>> rhs:
+					@ IntConstExprNode (30:23):
+					>>> value: 1
+			@ ReturnStmtNode (31:4):
+			>>> expr:
+				@ IntConstExprNode (31:11):
+				>>> value: 0
 		>>> end of compound
-	@ FuncDeclNode (31:0):
+	@ FuncDeclNode (34:0):
 	>>> returnType:
-		@ TypeNode (31:0):
-		>>> type: mxstar.symbol.type.IntType@33c7e1bb
+		@ TypeNode (34:0):
+		>>> type: mxstar.symbol.type.IntType@26a7b76d
+	>>> name: find
+	>>> parameterList:
+		@ VaeDeclNode (34:9):
+		>>> type:
+			@ TypeNode (34:9):
+			>>> type: mxstar.symbol.type.IntType@26a7b76d
+		>>> name: ending
+		>>> init: null
+		@ VaeDeclNode (34:21):
+		>>> type:
+			@ TypeNode (34:21):
+			>>> type: mxstar.symbol.type.IntType@26a7b76d
+		>>> name: start
+		>>> init: null
+		@ VaeDeclNode (34:32):
+		>>> type:
+			@ TypeNode (34:32):
+			>>> type: mxstar.symbol.type.IntType@26a7b76d
+		>>> name: flag
+		>>> init: null
+	>>> end of parameterList
+	>>> body:
+		@ BlockStmtNode (34:42):
+		>>> compound:
+			@ AssignExprNode (35:4):
+			>>> lhs:
+				@ IdentifierExprNode (35:4):
+				>>> identifier: open
+			>>> rhs:
+				@ IntConstExprNode (35:11):
+				>>> value: 0
+			@ AssignExprNode (36:4):
+			>>> lhs:
+				@ IdentifierExprNode (36:4):
+				>>> identifier: closed
+			>>> rhs:
+				@ IntConstExprNode (36:13):
+				>>> value: 1
+			@ ForStmtNode (37:4):
+			>>> init:
+				@ AssignExprNode (37:9):
+				>>> lhs:
+					@ IdentifierExprNode (37:9):
+					>>> identifier: i
+				>>> rhs:
+					@ IntConstExprNode (37:13):
+					>>> value: 1
+			>>> cond:
+				@ BinaryExprNode (37:16):
+				>>> op: LEQ
+				>>> lhs:
+					@ IdentifierExprNode (37:16):
+					>>> identifier: i
+				>>> rhs:
+					@ IdentifierExprNode (37:21):
+					>>> identifier: ending
+			>>> step:
+				@ SuffixExprNode (37:29):
+				>>> op: INC
+				>>> expr:
+					@ IdentifierExprNode (37:29):
+					>>> identifier: i
+			>>> stmt: 
+				@ BlockStmtNode (37:34):
+				>>> compound:
+					@ AssignExprNode (38:8):
+					>>> lhs:
+						@ SubscriptExprNode (38:8):
+						>>> arr:
+							@ IdentifierExprNode (38:8):
+							>>> identifier: visit
+						>>> sub:
+							@ IdentifierExprNode (38:14):
+							>>> identifier: i
+					>>> rhs:
+						@ IntConstExprNode (38:19):
+						>>> value: 0
+				>>> end of compound
+			@ AssignExprNode (40:4):
+			>>> lhs:
+				@ SubscriptExprNode (40:4):
+				>>> arr:
+					@ IdentifierExprNode (40:4):
+					>>> identifier: f
+				>>> sub:
+					@ IntConstExprNode (40:6):
+					>>> value: 1
+			>>> rhs:
+				@ IdentifierExprNode (40:9):
+				>>> identifier: start
+			@ AssignExprNode (41:4):
+			>>> lhs:
+				@ SubscriptExprNode (41:4):
+				>>> arr:
+					@ IdentifierExprNode (41:4):
+					>>> identifier: visit
+				>>> sub:
+					@ IdentifierExprNode (41:10):
+					>>> identifier: start
+			>>> rhs:
+				@ IntConstExprNode (41:17):
+				>>> value: 1
+			@ AssignExprNode (42:4):
+			>>> lhs:
+				@ SubscriptExprNode (42:4):
+				>>> arr:
+					@ IdentifierExprNode (42:4):
+					>>> identifier: pre
+				>>> sub:
+					@ IdentifierExprNode (42:8):
+					>>> identifier: start
+			>>> rhs:
+				@ IntConstExprNode (42:15):
+				>>> value: 0
+			@ AssignExprNode (43:4):
+			>>> lhs:
+				@ IdentifierExprNode (43:4):
+				>>> identifier: flag
+			>>> rhs:
+				@ IntConstExprNode (43:9):
+				>>> value: 0
+			@ WhileStmtNode (44:4):
+			>>> cond:
+				@ BinaryExprNode (44:11):
+				>>> op: LOG_AND
+				>>> lhs:
+					@ BinaryExprNode (44:11):
+					>>> op: LT
+					>>> lhs:
+						@ IdentifierExprNode (44:11):
+						>>> identifier: open
+					>>> rhs:
+						@ IdentifierExprNode (44:16):
+						>>> identifier: closed
+				>>> rhs:
+					@ BinaryExprNode (44:26):
+					>>> op: EQ
+					>>> lhs:
+						@ IdentifierExprNode (44:26):
+						>>> identifier: flag
+					>>> rhs:
+						@ IntConstExprNode (44:32):
+						>>> value: 0
+			>>> stmt:
+				@ BlockStmtNode (44:35):
+				>>> compound:
+					@ SuffixExprNode (45:8):
+					>>> op: INC
+					>>> expr:
+						@ IdentifierExprNode (45:8):
+						>>> identifier: open
+					@ AssignExprNode (46:8):
+					>>> lhs:
+						@ IdentifierExprNode (46:8):
+						>>> identifier: i
+					>>> rhs:
+						@ SubscriptExprNode (46:10):
+						>>> arr:
+							@ IdentifierExprNode (46:10):
+							>>> identifier: f
+						>>> sub:
+							@ IdentifierExprNode (46:12):
+							>>> identifier: open
+					@ ForStmtNode (47:8):
+					>>> init:
+						@ AssignExprNode (47:13):
+						>>> lhs:
+							@ IdentifierExprNode (47:13):
+							>>> identifier: j
+						>>> rhs:
+							@ IntConstExprNode (47:17):
+							>>> value: 1
+					>>> cond:
+						@ BinaryExprNode (47:20):
+						>>> op: LEQ
+						>>> lhs:
+							@ IdentifierExprNode (47:20):
+							>>> identifier: j
+						>>> rhs:
+							@ IdentifierExprNode (47:25):
+							>>> identifier: ending
+					>>> step:
+						@ SuffixExprNode (47:33):
+						>>> op: INC
+						>>> expr:
+							@ IdentifierExprNode (47:33):
+							>>> identifier: j
+					>>> stmt: 
+						@ CondStmtNode (48:12):
+						>>> cond:
+							@ BinaryExprNode (48:16):
+							>>> op: LOG_AND
+							>>> lhs:
+								@ BinaryExprNode (48:16):
+								>>> op: GT
+								>>> lhs:
+									@ SubscriptExprNode (48:16):
+									>>> arr:
+										@ SubscriptExprNode (48:16):
+										>>> arr:
+											@ IdentifierExprNode (48:16):
+											>>> identifier: c
+										>>> sub:
+											@ IdentifierExprNode (48:18):
+											>>> identifier: i
+									>>> sub:
+										@ IdentifierExprNode (48:21):
+										>>> identifier: j
+								>>> rhs:
+									@ IntConstExprNode (48:24):
+									>>> value: 0
+							>>> rhs:
+								@ BinaryExprNode (48:29):
+								>>> op: EQ
+								>>> lhs:
+									@ SubscriptExprNode (48:29):
+									>>> arr:
+										@ IdentifierExprNode (48:29):
+										>>> identifier: visit
+									>>> sub:
+										@ IdentifierExprNode (48:35):
+										>>> identifier: j
+								>>> rhs:
+									@ IntConstExprNode (48:39):
+									>>> value: 0
+						>>> thenStmt:
+							@ BlockStmtNode (48:42):
+							>>> compound:
+								@ AssignExprNode (49:16):
+								>>> lhs:
+									@ SubscriptExprNode (49:16):
+									>>> arr:
+										@ IdentifierExprNode (49:16):
+										>>> identifier: visit
+									>>> sub:
+										@ IdentifierExprNode (49:22):
+										>>> identifier: j
+								>>> rhs:
+									@ IntConstExprNode (49:25):
+									>>> value: 1
+								@ SuffixExprNode (50:16):
+								>>> op: INC
+								>>> expr:
+									@ IdentifierExprNode (50:16):
+									>>> identifier: closed
+								@ AssignExprNode (51:16):
+								>>> lhs:
+									@ SubscriptExprNode (51:16):
+									>>> arr:
+										@ IdentifierExprNode (51:16):
+										>>> identifier: f
+									>>> sub:
+										@ IdentifierExprNode (51:18):
+										>>> identifier: closed
+								>>> rhs:
+									@ IdentifierExprNode (51:26):
+									>>> identifier: j
+								@ AssignExprNode (52:16):
+								>>> lhs:
+									@ SubscriptExprNode (52:16):
+									>>> arr:
+										@ IdentifierExprNode (52:16):
+										>>> identifier: pre
+									>>> sub:
+										@ IdentifierExprNode (52:20):
+										>>> identifier: j
+								>>> rhs:
+									@ IdentifierExprNode (52:23):
+									>>> identifier: i
+								@ CondStmtNode (53:16):
+								>>> cond:
+									@ BinaryExprNode (53:20):
+									>>> op: EQ
+									>>> lhs:
+										@ IdentifierExprNode (53:20):
+										>>> identifier: closed
+									>>> rhs:
+										@ IdentifierExprNode (53:28):
+										>>> identifier: ending
+								>>> thenStmt:
+									@ AssignExprNode (53:36):
+									>>> lhs:
+										@ IdentifierExprNode (53:36):
+										>>> identifier: flag
+									>>> rhs:
+										@ IntConstExprNode (53:41):
+										>>> value: 1
+								>>> elseStmt: null
+							>>> end of compound
+						>>> elseStmt: null
+				>>> end of compound
+			@ ReturnStmtNode (56:4):
+			>>> expr:
+				@ IdentifierExprNode (56:11):
+				>>> identifier: flag
+		>>> end of compound
+	@ FuncDeclNode (59:0):
+	>>> returnType:
+		@ TypeNode (59:0):
+		>>> type: mxstar.symbol.type.IntType@26a7b76d
+	>>> name: improve
+	>>> parameterList:
+		@ VaeDeclNode (59:12):
+		>>> type:
+			@ TypeNode (59:12):
+			>>> type: mxstar.symbol.type.IntType@26a7b76d
+		>>> name: ending
+		>>> init: null
+	>>> end of parameterList
+	>>> body:
+		@ BlockStmtNode (59:24):
+		>>> compound:
+			@ AssignExprNode (60:4):
+			>>> lhs:
+				@ IdentifierExprNode (60:4):
+				>>> identifier: i
+			>>> rhs:
+				@ IdentifierExprNode (60:6):
+				>>> identifier: ending
+			@ SuffixExprNode (61:4):
+			>>> op: INC
+			>>> expr:
+				@ IdentifierExprNode (61:4):
+				>>> identifier: ans
+			@ WhileStmtNode (62:4):
+			>>> cond:
+				@ BinaryExprNode (62:11):
+				>>> op: GT
+				>>> lhs:
+					@ SubscriptExprNode (62:11):
+					>>> arr:
+						@ IdentifierExprNode (62:11):
+						>>> identifier: pre
+					>>> sub:
+						@ IdentifierExprNode (62:15):
+						>>> identifier: i
+				>>> rhs:
+					@ IntConstExprNode (62:18):
+					>>> value: 0
+			>>> stmt:
+				@ BlockStmtNode (62:21):
+				>>> compound:
+					@ AssignExprNode (63:8):
+					>>> lhs:
+						@ IdentifierExprNode (63:8):
+						>>> identifier: j
+					>>> rhs:
+						@ SubscriptExprNode (63:10):
+						>>> arr:
+							@ IdentifierExprNode (63:10):
+							>>> identifier: pre
+						>>> sub:
+							@ IdentifierExprNode (63:14):
+							>>> identifier: i
+					@ SuffixExprNode (64:8):
+					>>> op: DEC
+					>>> expr:
+						@ SubscriptExprNode (64:8):
+						>>> arr:
+							@ SubscriptExprNode (64:8):
+							>>> arr:
+								@ IdentifierExprNode (64:8):
+								>>> identifier: c
+							>>> sub:
+								@ IdentifierExprNode (64:10):
+								>>> identifier: j
+						>>> sub:
+							@ IdentifierExprNode (64:13):
+							>>> identifier: i
+					@ SuffixExprNode (65:8):
+					>>> op: INC
+					>>> expr:
+						@ SubscriptExprNode (65:8):
+						>>> arr:
+							@ SubscriptExprNode (65:8):
+							>>> arr:
+								@ IdentifierExprNode (65:8):
+								>>> identifier: c
+							>>> sub:
+								@ IdentifierExprNode (65:10):
+								>>> identifier: i
+						>>> sub:
+							@ IdentifierExprNode (65:13):
+							>>> identifier: j
+					@ AssignExprNode (66:8):
+					>>> lhs:
+						@ IdentifierExprNode (66:8):
+						>>> identifier: i
+					>>> rhs:
+						@ IdentifierExprNode (66:10):
+						>>> identifier: j
+				>>> end of compound
+			@ ReturnStmtNode (68:4):
+			>>> expr:
+				@ IntConstExprNode (68:11):
+				>>> value: 0
+		>>> end of compound
+	@ FuncDeclNode (71:0):
+	>>> returnType:
+		@ TypeNode (71:0):
+		>>> type: mxstar.symbol.type.IntType@26a7b76d
 	>>> name: main
 	>>> parameterList: null
 	>>> body:
-		@ BlockStmtNode (31:11):
+		@ BlockStmtNode (71:11):
 		>>> compound:
-			@ FuncCallExprNode (32:4):
+			@ FuncCallExprNode (72:1):
 			>>> func:
-				@ IdentifierExprNode (32:4):
+				@ IdentifierExprNode (72:1):
+				>>> identifier: origin
+			>>> args:
+				@ IntConstExprNode (72:8):
+				>>> value: 110
+			>>> end of args
+			@ VarDeclListNode (73:4):
+			>>> decls
+				@ VaeDeclNode (73:8):
+				>>> type:
+					@ TypeNode (73:4):
+					>>> type: mxstar.symbol.type.IntType@26a7b76d
+				>>> name: k
+				>>> init: null
+			>>> end of decls
+			@ VarDeclListNode (74:1):
+			>>> decls
+				@ VaeDeclNode (74:5):
+				>>> type:
+					@ TypeNode (74:1):
+					>>> type: mxstar.symbol.type.IntType@26a7b76d
+				>>> name: start
+				>>> init: null
+			>>> end of decls
+			@ VarDeclListNode (75:1):
+			>>> decls
+				@ VaeDeclNode (75:5):
+				>>> type:
+					@ TypeNode (75:1):
+					>>> type: mxstar.symbol.type.IntType@26a7b76d
+				>>> name: ending
+				>>> init: null
+			>>> end of decls
+			@ VarDeclListNode (76:4):
+			>>> decls
+				@ VaeDeclNode (76:8):
+				>>> type:
+					@ TypeNode (76:4):
+					>>> type: mxstar.symbol.type.IntType@26a7b76d
+				>>> name: flag
+				>>> init: null
+			>>> end of decls
+			@ VarDeclListNode (77:4):
+			>>> decls
+				@ VaeDeclNode (77:8):
+				>>> type:
+					@ TypeNode (77:4):
+					>>> type: mxstar.symbol.type.IntType@26a7b76d
+				>>> name: i1
+				>>> init: null
+			>>> end of decls
+			@ AssignExprNode (79:4):
+			>>> lhs:
+				@ IdentifierExprNode (79:4):
+				>>> identifier: k
+			>>> rhs:
+				@ IntConstExprNode (79:8):
+				>>> value: 0
+			@ AssignExprNode (80:4):
+			>>> lhs:
+				@ IdentifierExprNode (80:4):
+				>>> identifier: start
+			>>> rhs:
+				@ IntConstExprNode (80:12):
+				>>> value: 99
+			@ AssignExprNode (81:4):
+			>>> lhs:
+				@ IdentifierExprNode (81:4):
+				>>> identifier: ending
+			>>> rhs:
+				@ IntConstExprNode (81:13):
+				>>> value: 100
+			@ AssignExprNode (82:4):
+			>>> lhs:
+				@ IdentifierExprNode (82:4):
+				>>> identifier: flag
+			>>> rhs:
+				@ IntConstExprNode (82:11):
+				>>> value: 0
+			@ FuncCallExprNode (84:4):
+			>>> func:
+				@ IdentifierExprNode (84:4):
+				>>> identifier: build
+			>>> args:
+				@ IdentifierExprNode (84:10):
+				>>> identifier: start
+				@ IdentifierExprNode (84:17):
+				>>> identifier: ending
+			>>> end of args
+			@ WhileStmtNode (85:4):
+			>>> cond:
+				@ BinaryExprNode (85:11):
+				>>> op: GT
+				>>> lhs:
+					@ FuncCallExprNode (85:11):
+					>>> func:
+						@ IdentifierExprNode (85:11):
+						>>> identifier: find
+					>>> args:
+						@ IdentifierExprNode (85:16):
+						>>> identifier: ending
+						@ IdentifierExprNode (85:24):
+						>>> identifier: start
+						@ IdentifierExprNode (85:31):
+						>>> identifier: flag
+					>>> end of args
+				>>> rhs:
+					@ IntConstExprNode (85:37):
+					>>> value: 0
+			>>> stmt:
+				@ BlockStmtNode (85:40):
+				>>> compound:
+					@ FuncCallExprNode (86:8):
+					>>> func:
+						@ IdentifierExprNode (86:8):
+						>>> identifier: improve
+					>>> args:
+						@ IdentifierExprNode (86:16):
+						>>> identifier: ending
+					>>> end of args
+				>>> end of compound
+			@ FuncCallExprNode (88:1):
+			>>> func:
+				@ IdentifierExprNode (88:1):
 				>>> identifier: println
 			>>> args:
-				@ FuncCallExprNode (32:12):
+				@ FuncCallExprNode (88:9):
 				>>> func:
-					@ IdentifierExprNode (32:12):
+					@ IdentifierExprNode (88:9):
 					>>> identifier: toString
 				>>> args:
-					@ BinaryExprNode (32:21):
-					>>> op: ADD
-					>>> lhs:
-						@ FuncCallExprNode (32:21):
-						>>> func:
-							@ IdentifierExprNode (32:21):
-							>>> identifier: gcd
-						>>> args:
-							@ IntConstExprNode (32:25):
-							>>> value: 10
-							@ IntConstExprNode (32:28):
-							>>> value: 1
-							@ IntConstExprNode (32:31):
-							>>> value: 0
-							@ IntConstExprNode (32:35):
-							>>> value: 2
-							@ IntConstExprNode (32:39):
-							>>> value: 4
-							@ IntConstExprNode (32:43):
-							>>> value: 6
-							@ IntConstExprNode (32:47):
-							>>> value: 8
-							@ IntConstExprNode (32:51):
-							>>> value: 10
-							@ IntConstExprNode (32:56):
-							>>> value: 12
-							@ IntConstExprNode (32:61):
-							>>> value: 14
-							@ IntConstExprNode (32:66):
-							>>> value: 16
-							@ IntConstExprNode (32:71):
-							>>> value: 18
-							@ IntConstExprNode (32:76):
-							>>> value: 20
-							@ IntConstExprNode (32:81):
-							>>> value: 22
-							@ IntConstExprNode (32:86):
-							>>> value: 24
-							@ IntConstExprNode (32:91):
-							>>> value: 26
-							@ IntConstExprNode (32:96):
-							>>> value: 28
-							@ IntConstExprNode (32:101):
-							>>> value: 30
-							@ IntConstExprNode (32:106):
-							>>> value: 32
-							@ IntConstExprNode (32:111):
-							>>> value: 34
-							@ IntConstExprNode (32:116):
-							>>> value: 36
-							@ IntConstExprNode (32:121):
-							>>> value: 38
-							@ IntConstExprNode (32:126):
-							>>> value: 40
-							@ IntConstExprNode (32:131):
-							>>> value: 42
-							@ IntConstExprNode (32:136):
-							>>> value: 44
-							@ IntConstExprNode (32:141):
-							>>> value: 46
-							@ IntConstExprNode (32:146):
-							>>> value: 48
-							@ IntConstExprNode (32:151):
-							>>> value: 50
-							@ IntConstExprNode (32:156):
-							>>> value: 52
-							@ IntConstExprNode (32:161):
-							>>> value: 54
-							@ IntConstExprNode (32:166):
-							>>> value: 56
-							@ IntConstExprNode (32:171):
-							>>> value: 58
-						>>> end of args
-					>>> rhs:
-						@ IntConstExprNode (32:177):
-						>>> value: 1024
+					@ IdentifierExprNode (88:18):
+					>>> identifier: ans
 				>>> end of args
 			>>> end of args
-			@ ReturnStmtNode (34:4):
+			@ ReturnStmtNode (89:4):
 			>>> expr:
-				@ IntConstExprNode (34:11):
+				@ IntConstExprNode (89:11):
 				>>> value: 0
 		>>> end of compound
 >>> end of decls

@@ -305,7 +305,16 @@ public class IRPrinter implements IRVisitor {
 
 	@Override
 	public void visit(PhysicalReg node) {
-		System.err.println("Can't visit PhysicalReg in IRPrinter");
-		System.exit(1);
+		out.printf("$PhysReg %s", node.getName());
+	}
+
+	@Override
+	public void visit(IRPop node) {
+		out.printf("    Pop @%s\n", node.getPhysicalReg().getName());
+	}
+
+	@Override
+	public void visit(IRPush node) {
+		out.printf("    Push @%s\n", node.getValue());
 	}
 }

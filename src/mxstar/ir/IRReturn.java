@@ -8,6 +8,7 @@ public class IRReturn extends IRJumpInst {
 	public IRReturn(RegValue retValue, BasicBlock parentBB) {
 		super(parentBB);
 		this.retValue = retValue;
+		reloadRegLists();
 	}
 
 	public RegValue getRetValue() {

@@ -13,6 +13,14 @@ public class VirtualReg extends IRRegister {
 		return name;
 	}
 
+	public void setPhysicalReg(PhysicalReg forced) {
+		physicalReg = forced;
+	}
+
+	public PhysicalReg getPhysicalReg() {
+		return physicalReg;
+	}
+
 	@Override
 	public VirtualReg copy() {
 		return new VirtualReg(name);

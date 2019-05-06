@@ -44,6 +44,7 @@ public class SemanticAnalyser extends ASTBaseVisitor {
 			funcEntity.setThisEntity(thisEntity);
 		}
 
+		funcEntity.setBuiltIn(true);
 		builtInFuncEntityList.add(funcEntity);
 	}
 

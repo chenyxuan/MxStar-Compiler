@@ -25,10 +25,9 @@ public class RegLivenessAnalyser {
         Set<VirtualReg> tempIn = new HashSet<>();
         Set<VirtualReg> tempOut = new HashSet<>();
 
-        boolean consensus = false;
+        while(true) {
+            boolean flag = false;
 
-        do {
-            consensus = true;
             for(BasicBlock block : reversedList) {
                 for(IRInstruction inst = block.getTailInst(); inst != null; inst = inst.getPrevInst()) {
                     tempIn.clear();
@@ -49,10 +48,32 @@ public class RegLivenessAnalyser {
                     }
 
                     tempIn.addAll(tempOut);
+                    IRRegister definedReg = inst.getDefinedReg();
+                    if(definedReg instanceof VirtualReg) {
+                        tempIn.remove(definedReg);
+                    }
+                    for (IRRegister usedReg : inst.getUsedRegisterList()) {
+                        if(usedReg instanceof VirtualReg) {
+                            tempIn.add((VirtualReg) usedReg);
+                        }
+                    }
+
+                    if(!inst.liveIn.equals(tempIn)) {
+                        flag = true;
+                        inst.liveIn.clear();
+                        inst.liveIn.addAll(tempIn);
+                    }
+
+                    if(!inst.liveOut.equals(tempOut)) {
+                        flag = true;
+                        inst.liveOut.clear();
+                        inst.liveOut.addAll(tempOut);
+                    }
                 }
             }
 
-        }while(consensus == false);
+            if(!flag) break;
+        }
     }
 
     public void run() {

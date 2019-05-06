@@ -20,4 +20,6 @@ public interface IRVisitor {
 	void visit(StaticStr node);
 	void visit(VirtualReg node);
 	void visit(PhysicalReg node);
+	void visit(IRPush node);
+	void visit(IRPop node);
 }

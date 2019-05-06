@@ -234,10 +234,10 @@ public class ASTBuilder extends MxStarBaseVisitor<Node> {
 				op = BinaryExprNode.Ops.GT;
 				break;
 			case "<=":
-				op = BinaryExprNode.Ops.LT;
+				op = BinaryExprNode.Ops.LEQ;
 				break;
 			case ">=":
-				op = BinaryExprNode.Ops.GT;
+				op = BinaryExprNode.Ops.GEQ;
 				break;
 			case "==":
 				op = BinaryExprNode.Ops.EQ;

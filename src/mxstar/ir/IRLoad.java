@@ -13,6 +13,7 @@ public class IRLoad extends IRInstruction {
 		this.dest = dest;
 		this.addr = addr;
 		this.offset = offset;
+		reloadRegLists();
 	}
 
 	public IRRegister getDest() {
@@ -25,6 +26,14 @@ public class IRLoad extends IRInstruction {
 
 	public RegValue getAddr() {
 		return addr;
+	}
+
+	public void setAddr(RegValue addr) {
+		this.addr = addr;
+	}
+
+	public void setOffset(int offset) {
+		this.offset = offset;
 	}
 
 	@Override

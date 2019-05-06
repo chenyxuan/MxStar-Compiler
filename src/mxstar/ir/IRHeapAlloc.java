@@ -10,6 +10,7 @@ public class IRHeapAlloc extends IRInstruction {
 		super(parentBB);
 		this.dest = dest;
 		this.allocSize = allocSize;
+		reloadRegLists();
 	}
 
 	public IRRegister getDest() {

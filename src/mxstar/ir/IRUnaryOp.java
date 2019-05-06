@@ -16,6 +16,7 @@ public class IRUnaryOp extends IRInstruction {
 		this.op = op;
 		this.dest = dest;
 		this.rhs = rhs;
+		reloadRegLists();
 	}
 
 	public IRRegister getDest() {

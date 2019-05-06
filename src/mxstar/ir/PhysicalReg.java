@@ -1,12 +1,20 @@
 package mxstar.ir;
 
-public class PhysicalReg extends IRRegister {
+public abstract class PhysicalReg extends IRRegister {
+	@Override
+	public void accept(IRVisitor visitor) {
+		visitor.visit(this);
+	}
+
 	@Override
 	public RegValue copy() {
 		return null;
 	}
 
-	public void accept(IRVisitor visitor) {
-		visitor.visit(this);
-	}
+	public abstract String getName();
+	public abstract boolean isGeneral();
+	public abstract boolean isCallerSave();
+	public abstract boolean isCalleeSave();
+	public abstract boolean isArg6();
+	public abstract int getArg6Idx();
 }

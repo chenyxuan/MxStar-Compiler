@@ -86,22 +86,24 @@ public class Main {
 		System.out.println("  --ir <file>                   Output intermediate representation into <file>");
 	}
 
-	private static ASTRootNode astRoot;
-	private static SemanticAnalyser analyser;
-	private static IRRoot ir;
 
 	private static void compile() throws Exception {
-		astRoot = buildAST();
+		ASTRootNode astRoot = buildAST();
 		if(astOutS != null)	(new ASTPrinter(astOutS)).visit(astRoot);
-		SemanticAnalyse();
 
-		ir = buildIR();
+		SemanticAnalyser analyser = SemanticAnalyse(astRoot);
+
+		IRRoot ir = buildIR(astRoot, analyser);
+
 		if(irOutS != null) (new IRPrinter(irOutS)).visit(ir);
-		/*
-		(new BinaryOpProcessor(ir)).run();
-		(new StaticDataProcessor(ir)).run();
-		(new FuncArgProcessor(ir)).run();
-		*/
+		new BinaryOpProcessor(ir).run();
+		new StaticDataProcessor(ir).run();
+		new FuncArgProcessor(ir).run();
+		new RegLivenessAnalyser(ir).run();
+		new RegisterAllocator(ir).run();
+//		if(irOutS != null) (new IRPrinter(irOutS)).visit(ir);
+		new NASMTransformer(ir).run();
+		new NASMPrinter(outS).visit(ir);
 	}
 
 	private static ASTRootNode buildAST() throws Exception {
@@ -115,12 +117,13 @@ public class Main {
 		return (ASTRootNode) astBuilder.visit(parser.translationUnit());
 	}
 
-	private static void SemanticAnalyse() {
-		analyser = new SemanticAnalyser();
+	private static SemanticAnalyser SemanticAnalyse(ASTRootNode astRoot) {
+		SemanticAnalyser analyser = new SemanticAnalyser();
 		analyser.visit(astRoot);
+		return analyser;
 	}
 
-	private static IRRoot buildIR() {
+	private static IRRoot buildIR(ASTRootNode astRoot, SemanticAnalyser analyser) {
 		IRBuilder irBuilder = new IRBuilder(analyser);
 		irBuilder.visit(astRoot);
 		return irBuilder.getIR();

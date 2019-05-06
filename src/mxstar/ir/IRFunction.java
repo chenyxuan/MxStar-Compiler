@@ -7,7 +7,7 @@ import java.util.*;
 
 public class IRFunction {
 	private FuncEntity funcEntity;
-	private String name, builtInCallLabel;
+	private String name;
 
 	private BasicBlock beginBB = null;
 	private List<IRReturn> irReturns = new ArrayList<>();
@@ -15,7 +15,6 @@ public class IRFunction {
 	private List<BasicBlock> allBB = null;
 
 	private boolean recursiveCall = false;
-	private boolean isBuiltIn = false;
 
 	public Set<IRFunction> calleeSet = new HashSet<>();
 	public Set<IRFunction> recursiveCalleeSet = new HashSet<>();
@@ -23,28 +22,29 @@ public class IRFunction {
 	public List<StackSlot> stackSlots = new ArrayList<>();
 	public Map<VirtualReg, StackSlot> slotMap = new HashMap<>();
 
+	public Set<PhysicalReg> usedPhysicalGeneralRegs = new HashSet<>();
+	private boolean builtIn = false;
+	private boolean isTrivial = false;
+
+	public boolean isTrivial() {
+		return isTrivial;
+	}
+
+	public void setTrivial(boolean trivial) {
+		isTrivial = trivial;
+	}
+
 	public IRFunction(FuncEntity funcEntity) {
 		this.funcEntity = funcEntity;
 		this.name = parseName(funcEntity);
 	}
 
-	public IRFunction(String name, String builtInCallLabel) {
-		this.name = name;
-		this.builtInCallLabel = builtInCallLabel;
-		this.funcEntity = null;
-		this.isBuiltIn = true;
-	}
-
 	public static String parseName(FuncEntity funcEntity) {
-		return (funcEntity.isMember() ? (funcEntity.getClassEntity().getName() + '.') : "") + funcEntity.getName();
+		return (funcEntity.isMember() ? (funcEntity.getClassEntity().getName() + "_") : "") + funcEntity.getName();
 	}
 
 	public boolean isMain() {
 		return name.equals( "main");
-	}
-
-	public String getBuiltInCallLabel() {
-		return builtInCallLabel;
 	}
 
 	public BasicBlock getBeginBB() {
@@ -52,8 +52,15 @@ public class IRFunction {
 		return beginBB = new BasicBlock(this, name + FUNC_ENTRY);
 	}
 
-	public boolean isBuiltIn() {
-		return isBuiltIn;
+	public void updateCalleeSet() {
+		calleeSet.clear();
+		for (BasicBlock bb : getAllBB()) {
+			for (IRInstruction inst = bb.getHeadInst(); inst != null; inst = inst.getNextInst()) {
+				if (inst instanceof IRFunctionCall) {
+					calleeSet.add(((IRFunctionCall) inst).getFunc());
+				}
+			}
+		}
 	}
 
 	public void setRecursiveCall(boolean recursiveCall) {
@@ -97,12 +104,12 @@ public class IRFunction {
 		return allBB;
 	}
 
-	public void addSlot(VirtualReg virtualReg, StackSlot stackSlot) {
-		slotMap.put(virtualReg, stackSlot);
+	public void setBuiltIn(boolean builtIn) {
+		this.builtIn = builtIn;
 	}
-	public StackSlot getSlot(VirtualReg virtualReg) {
-		if(slotMap.containsKey(virtualReg)) return slotMap.get(virtualReg);
-		return null;
+
+	public boolean isBuiltIn() {
+		return builtIn;
 	}
 
 	public void accept(IRVisitor visitor) {

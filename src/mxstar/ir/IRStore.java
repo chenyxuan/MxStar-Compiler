@@ -12,6 +12,7 @@ public class IRStore extends IRInstruction {
 		this.addr = addr;
 		this.offset = offset;
 		this.value = value;
+		reloadRegLists();
 	}
 
 	public RegValue getAddr() {
@@ -24,6 +25,14 @@ public class IRStore extends IRInstruction {
 
 	public RegValue getValue() {
 		return value;
+	}
+
+	public void setAddr(RegValue addr) {
+		this.addr = addr;
+	}
+
+	public void setOffset(int offset) {
+		this.offset = offset;
 	}
 
 	@Override

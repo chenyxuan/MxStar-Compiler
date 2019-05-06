@@ -1,7 +1,6 @@
 package mxstar.frontend;
 
 import mxstar.ast.*;
-import mxstar.backend.BinaryOpProcessor;
 import mxstar.ir.*;
 import mxstar.symbol.scope.*;
 import mxstar.symbol.type.*;
@@ -102,6 +101,11 @@ public class IRBuilder extends ASTBaseVisitor {
 		for(FuncDefNode funcDefNode : funcDefNodeList) {
 			visit(funcDefNode);
 		}
+
+		for (IRFunction irFunction : ir.getFunctionList()) {
+			irFunction.updateCalleeSet();
+		}
+		ir.updateCalleeSet();
 	}
 
 	@Override
@@ -148,7 +152,6 @@ public class IRBuilder extends ASTBaseVisitor {
 				}
 				block.removeJumpInst();
 				block.setJumpInst(new IRJump(endBB, block));
-//				new IRPrinter(System.err).visit(block);
 			}
 
 			endBB.setJumpInst(new IRReturn(retReg, endBB));
@@ -241,7 +244,7 @@ public class IRBuilder extends ASTBaseVisitor {
 		currentBB.setJumpInst(new IRJump(condBB, currentBB));
 
 		currentBB = condBB;
-		node.getCond().setTrueBB(condBB);
+		node.getCond().setTrueBB(bodyBB);
 		node.getCond().setFalseBB(afterBB);
 		node.getCond().accept(this);
 		if (node.getCond() instanceof BoolConstNode) {
@@ -472,14 +475,14 @@ public class IRBuilder extends ASTBaseVisitor {
 				}
 				break;
 
+			case SHR:
+			case SHL:
+			case MOD:
+			case DIV:
 			case BIT_XOR:
 			case BIT_AND:
 			case BIT_OR:
-			case SHR:
-			case SHL:
 			case MUL:
-			case MOD:
-			case DIV:
 			case ADD:
 			case SUB:
 
@@ -583,10 +586,20 @@ public class IRBuilder extends ASTBaseVisitor {
 			args.add(arg.getRegValue());
 		}
 
-		IRFunction irFunction = ir.getFunction(IRFunction.parseName(funcEntity));
+		IRFunction irFunction = funcEntity.isBuiltIn() ?
+								ir.getBuiltInFunction(IRFunction.parseName(funcEntity)) :
+								ir.getFunction(IRFunction.parseName(funcEntity));
+
 		VirtualReg resReg = new VirtualReg(null);
 
-		currentBB.appendInst(new IRFunctionCall(irFunction, resReg, args, currentBB));
+		if(irFunction.isTrivial()) {
+			assert args.size() == 1;
+			currentBB.appendInst(new IRLoad(resReg, args.get(0), 0, currentBB));
+		}
+		else {
+			currentBB.appendInst(new IRFunctionCall(irFunction, resReg, args, currentBB));
+		}
+
 		node.setRegValue(resReg);
 
 		if (node.hasFlowBB()) {
@@ -747,7 +760,12 @@ public class IRBuilder extends ASTBaseVisitor {
 
 	@Override
 	public void visit(StringConstNode node) {
-		node.setRegValue(new StaticStr(node.getValue()));
+		StaticStr staticStr = ir.staticStrMap.get(node.getValue());
+		if (staticStr == null) {
+			staticStr = new StaticStr(node.getValue());
+			ir.staticStrMap.put(node.getValue(), staticStr);
+		}
+		node.setRegValue(staticStr);
 	}
 
 	@Override

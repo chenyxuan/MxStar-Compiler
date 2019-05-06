@@ -34,6 +34,14 @@ public class BasicBlock {
 		return tailInst;
 	}
 
+	public void setHeadInst(IRInstruction headInst) {
+		this.headInst = headInst;
+	}
+
+	public void setTailInst(IRInstruction tailInst) {
+		this.tailInst = tailInst;
+	}
+
 	public void appendInst(IRInstruction inst) {
 		if(headInst == null) {
 			headInst = tailInst = inst;
@@ -51,6 +59,16 @@ public class BasicBlock {
 		else {
 			join(inst.getPrevInst(), pInst);
 			join(pInst, inst);
+		}
+	}
+	public void insertInst(IRInstruction inst, IRInstruction nInst) {
+		if(inst == tailInst) {
+			tailInst = nInst;
+			join(inst, nInst);
+		}
+		else {
+			join(nInst, inst.getNextInst());
+			join(inst, nInst);
 		}
 	}
 

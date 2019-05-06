@@ -10,6 +10,7 @@ public class IRMove extends IRInstruction {
 		super(parentBlock);
 		this.dest = dest;
 		this.src = src;
+		reloadRegLists();
 	}
 
 	public IRRegister getDest() {

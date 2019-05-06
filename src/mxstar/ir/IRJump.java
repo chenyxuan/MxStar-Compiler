@@ -8,6 +8,7 @@ public class IRJump extends IRJumpInst {
 	public IRJump(BasicBlock targetBB, BasicBlock parentBB) {
 		super(parentBB);
 		this.targetBB = targetBB;
+		reloadRegLists();
 	}
 
 	@Override

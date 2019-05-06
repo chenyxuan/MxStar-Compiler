@@ -44,12 +44,13 @@ public class IRBinaryOp extends IRInstruction {
 
 	public void setLhs(RegValue lhs) {
 		this.lhs = lhs;
+		reloadRegLists();
 	}
 
 	public void setRhs(RegValue rhs) {
 		this.rhs = rhs;
+		reloadRegLists();
 	}
-
 
 	public boolean isCommutativeOp() {
 		return op == Ops.ADD || op == Ops.MUL || op == Ops.BIT_AND || op == Ops.BIT_OR || op == Ops.BIT_XOR;
