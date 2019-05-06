@@ -19,6 +19,7 @@ public class SemanticAnalyser extends ASTBaseVisitor {
 	private int inLoop = 0;
 	private int currentOffset = 0;
 	private List<FuncEntity> builtInFuncEntityList = new ArrayList<>();
+	private boolean isMemberVar = false;
 
 	public SemanticAnalyser() {}
 
@@ -202,7 +203,7 @@ public class SemanticAnalyser extends ASTBaseVisitor {
 		VarEntity varEntity = new VarEntity(node);
 		node.setVarEntity(varEntity);
 
-		if(currentClassEntity != null) {
+		if(isMemberVar) {
 			varEntity.setMember(true);
 			varEntity.setAddrOffset(currentOffset);
 			currentOffset += varEntity.getType().getVarSize();
@@ -258,8 +259,10 @@ public class SemanticAnalyser extends ASTBaseVisitor {
 		classEntity.setScope(currentScope);
 
 		currentOffset = 0;
+		isMemberVar = true;
 		for(Node varMemberNode : node.getVarMember()) varMemberNode.accept(this);
 		classEntity.setWidth(currentOffset);
+		isMemberVar = false;
 
 		for(FuncDefNode funcMemberNode : node.getFuncMember()) {
 			FuncEntity funcEntity = new FuncEntity(funcMemberNode, currentClassEntity);

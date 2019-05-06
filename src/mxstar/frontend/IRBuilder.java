@@ -350,8 +350,8 @@ public class IRBuilder extends ASTBaseVisitor {
 		else if (node instanceof IdentifierExprNode) {
 			Entity idEntity = ((IdentifierExprNode) node).getEntity();
 
-			if(idEntity instanceof  VarEntity && ((VarEntity) idEntity).isMember()) {
-				assert (((VarEntity) idEntity).getIRRegister() == null);
+			if(idEntity instanceof VarEntity && ((VarEntity) idEntity).isMember()) {
+				if(((VarEntity) idEntity).getIRRegister() != null) throw new Error("wtf");
 				return true;
 			}
 			else {
@@ -635,9 +635,7 @@ public class IRBuilder extends ASTBaseVisitor {
 		VarEntity varEntity = (VarEntity) node.getEntity();
 
 		if (varEntity.getIRRegister() == null) {
-			System.err.println( node.location().toString() );
 			IRRegister thisReg = currentFunction.getFuncEntity().getThisEntity().getIRRegister();
-			System.err.println( node.location().toString() );
 
 			if (wantAddr) {
 				node.setAddrValue(thisReg);
