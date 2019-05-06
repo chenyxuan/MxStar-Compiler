@@ -107,4 +107,45 @@ public class IRComparison extends IRInstruction {
 		}
 		return retOp;
 	}
+	public static Ops reverse(Ops op) {
+		Ops retOp = null;
+		switch (op) {
+			case GT:
+				retOp = Ops.LT;
+				break;
+			case LT:
+				retOp = Ops.GT;
+				break;
+			case GEQ:
+				retOp = Ops.LEQ;
+				break;
+			case LEQ:
+				retOp = Ops.GEQ;
+				break;
+			case EQ:
+				retOp = Ops.EQ;
+				break;
+			case NEQ:
+				retOp = Ops.NEQ;
+				break;
+		}
+		return retOp;
+	}
+	public static int getResult(Ops op,int x,int y) {
+		switch (op) {
+			case GT:
+				return x > y ? 1 : 0;
+			case LT:
+				return x < y ? 1 : 0;
+			case GEQ:
+				return x >= y ? 1 : 0;
+			case LEQ:
+				return x <= y ? 1 : 0;
+			case EQ:
+				return x == y ? 1 : 0;
+			case NEQ:
+				return x != y ? 1 : 0;
+		}
+		return -1;
+	}
 }

@@ -94,30 +94,41 @@ public class Main {
 		SemanticAnalyser analyser = SemanticAnalyse(astRoot);
 
 		IRRoot ir = buildIR(astRoot, analyser);
+		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 
-		if(irOutS != null) (new IRPrinter(irOutS)).visit(ir);
-//		System.err.println("ir1 ok");
 		new BinaryOpProcessor(ir).run();
-		if(irOutS != null) (new IRPrinter(irOutS)).visit(ir);
-//		System.err.println("ir2 ok");
 		new StaticDataProcessor(ir).run();
-		if(irOutS != null) (new IRPrinter(irOutS)).visit(ir);
-//		System.err.println("ir3 ok");
 		new FuncArgProcessor(ir).run();
-		if(irOutS != null) (new IRPrinter(irOutS)).visit(ir);
-//		System.err.println("ir4 ok");
-		new RegLivenessAnalyser(ir).run();
-		if(irOutS != null) (new IRPrinter(irOutS)).visit(ir);
-//		System.err.println("ir5 ok");
+		new RegLifetimeAnalyser(ir).run();
 		new RegisterAllocator(ir).run();
-		if(irOutS != null) (new IRPrinter(irOutS)).visit(ir);
-//		System.err.println("ir6 ok");
 		new NASMTransformer(ir).run();
-		if(irOutS != null) (new IRPrinter(irOutS)).visit(ir);
-//		System.err.println("ir7 ok");
 		new NASMPrinter(outS).visit(ir);
-		if(irOutS != null) (new IRPrinter(irOutS)).visit(ir);
-//		System.err.println("ir8 ok");
+
+		/*
+		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
+		System.err.println("ir1 ok");
+		new BinaryOpProcessor(ir).run();
+		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
+		System.err.println("ir2 ok");
+		new StaticDataProcessor(ir).run();
+		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
+		System.err.println("ir3 ok");
+		new FuncArgProcessor(ir).run();
+		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
+		System.err.println("ir4 ok");
+		new RegLifetimeAnalyser(ir).run();
+		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
+		System.err.println("ir5 ok");
+		new RegisterAllocator(ir).run();
+		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
+		System.err.println("ir6 ok");
+		new NASMTransformer(ir).run();
+		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
+		System.err.println("ir7 ok");
+		new NASMPrinter(outS).visit(ir);
+		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
+		System.err.println("ir8 ok");
+		*/
 
 	}
 

@@ -83,6 +83,10 @@ public class RegisterAllocator {
         nodes.clear();
         smallNodes.clear();
 
+        for (VirtualReg paraReg : irFunction.getParaRegs()) {
+            getInfo(paraReg);
+        }
+
         for (BasicBlock bb : irFunction.getAllBB()) {
             for (IRInstruction inst = bb.getHeadInst(); inst != null; inst = inst.getNextInst()) {
                 IRRegister definedReg = inst.getDefinedReg();
@@ -195,7 +199,6 @@ public class RegisterAllocator {
     private void updateInst(IRFunction func) {
         for (BasicBlock bb : func.getAllBB()) {
             for (IRInstruction inst = bb.getHeadInst(); inst != null; inst = inst.getNextInst()) {
-
                 if (inst instanceof IRFunctionCall) {
                     List<RegValue> args = ((IRFunctionCall) inst).getArgs();
                     for (int i = 0; i < args.size(); ++i) {

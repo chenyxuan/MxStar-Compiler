@@ -450,7 +450,7 @@ public class IRBuilder extends ASTBaseVisitor {
 	@Override
 	public void visit(BinaryExprNode node) {
 
-		VirtualReg resReg = new VirtualReg(null);
+		RegValue resReg = new VirtualReg(null);
 
 		switch (node.getOp()) {
 			case LOG_AND:
@@ -496,7 +496,7 @@ public class IRBuilder extends ASTBaseVisitor {
 				node.setRegValue(resReg);
 				currentBB.appendInst(new IRBinaryOp(
 						IRBinaryOp.trans(node.getOp()),
-						resReg,
+						(VirtualReg) resReg,
 						node.getLhs().getRegValue(),
 						node.getRhs().getRegValue(),
 						currentBB
@@ -517,14 +517,26 @@ public class IRBuilder extends ASTBaseVisitor {
 
 				node.getLhs().accept(this);
 				node.getRhs().accept(this);
+
+				RegValue lhsReg = node.getLhs().getRegValue();
+				RegValue rhsReg = node.getRhs().getRegValue();
+				IRComparison.Ops op = IRComparison.trans(node.getOp());
+
+				if(lhsReg instanceof IntImm && rhsReg instanceof IntImm) {
+					resReg = new IntImm(IRComparison.getResult(op, ((IntImm) lhsReg).getValue(), ((IntImm) rhsReg).getValue()));
+				}
+				else {
+					if(lhsReg instanceof IntImm) {
+						RegValue tmpReg = lhsReg;
+						lhsReg = rhsReg;
+						rhsReg = tmpReg;
+						op = IRComparison.reverse(op);
+					}
+
+					currentBB.appendInst(new IRComparison(op, (VirtualReg) resReg, lhsReg, rhsReg, currentBB));
+				}
+
 				node.setRegValue(resReg);
-				currentBB.appendInst(new IRComparison(
-						IRComparison.trans(node.getOp()),
-						resReg,
-						node.getLhs().getRegValue(),
-						node.getRhs().getRegValue(),
-						currentBB
-				));
 
 				if (node.hasFlowBB()) {
 					currentBB.setJumpInst(new IRBranch(resReg, node.getTrueBB(), node.getFalseBB(), currentBB));

@@ -66,12 +66,10 @@ public class IRFunctionCall extends IRInstruction {
 		for (RegValue arg : args) {
 			copyArgs.add((RegValue) renameMap.getOrDefault(arg, arg));
 		}
-		return new IRFunctionCall(
-				func,
-				(IRRegister) renameMap.getOrDefault(dest, dest),
-				copyArgs,
-				(BasicBlock) renameMap.getOrDefault(getParentBB(), getParentBB())
-		);
+		IRRegister copyDest = (IRRegister) renameMap.getOrDefault(dest, dest);
+		BasicBlock copyBB = (BasicBlock) renameMap.getOrDefault(getParentBB(), getParentBB());
+
+		return new IRFunctionCall(func, copyDest, copyArgs, copyBB);
 	}
 
 	public void accept(IRVisitor visitor) {
