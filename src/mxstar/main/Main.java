@@ -61,7 +61,7 @@ public class Main {
 		if (irOutFile != null) irOutS = new PrintStream(new FileOutputStream(irOutFile));
 		else irOutS = new PrintStream(new FileOutputStream("ir.txt"));
 		if (outFile != null) outS = new PrintStream(new FileOutputStream(outFile));
-		else outS = new PrintStream(new FileOutputStream("output.txt"));
+		else outS = System.out;
 
 		try {
 			compile();
@@ -95,15 +95,22 @@ public class Main {
 
 		IRRoot ir = buildIR(astRoot, analyser);
 
-		if(irOutS != null) (new IRPrinter(irOutS)).visit(ir);
+		System.err.println("ir1 ok");
 		new BinaryOpProcessor(ir).run();
+		System.err.println("ir2 ok");
 		new StaticDataProcessor(ir).run();
+		System.err.println("ir3 ok");
 		new FuncArgProcessor(ir).run();
+		System.err.println("ir4 ok");
 		new RegLivenessAnalyser(ir).run();
+		System.err.println("ir5 ok");
 		new RegisterAllocator(ir).run();
-//		if(irOutS != null) (new IRPrinter(irOutS)).visit(ir);
+		System.err.println("ir6 ok");
+		if(irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 		new NASMTransformer(ir).run();
+		System.err.println("ir7 ok");
 		new NASMPrinter(outS).visit(ir);
+		System.err.println("ir8 ok");
 	}
 
 	private static ASTRootNode buildAST() throws Exception {

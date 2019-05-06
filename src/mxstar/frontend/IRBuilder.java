@@ -790,47 +790,51 @@ public class IRBuilder extends ASTBaseVisitor {
 
 		switch (node.getOp()) {
 			case ADD:
-				calleeFunc = ir.getFunction("__string_concat");
+				calleeFunc = ir.getBuiltInFunction("__string_concat");
 				break;
 			case EQ:
-				calleeFunc = ir.getFunction("__string_eq");
+				calleeFunc = ir.getBuiltInFunction("__string_eq");
 				break;
 			case NEQ:
-				calleeFunc = ir.getFunction("__string_neq");
+				calleeFunc = ir.getBuiltInFunction("__string_neq");
 				break;
 			case LT:
-				calleeFunc = ir.getFunction("__string_lt");
+				calleeFunc = ir.getBuiltInFunction("__string_lt");
 				break;
 			case LEQ:
-				calleeFunc = ir.getFunction("__string_leq");
+				calleeFunc = ir.getBuiltInFunction("__string_leq");
 				break;
 			case GT:
-				calleeFunc = ir.getFunction("__string_lt");
+				calleeFunc = ir.getBuiltInFunction("__string_lt");
 				toReverse = true;
 				break;
 			case GEQ:
-				calleeFunc = ir.getFunction("__string_leq");
+				calleeFunc = ir.getBuiltInFunction("__string_leq");
 				toReverse = true;
 				break;
 			default:
-				assert false;
+				throw new Error("can't find string op");
 		}
 
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
 
 		List<RegValue> args = new ArrayList<>();
-		if(!toReverse) {
+		if (!toReverse) {
 			args.add(node.getLhs().getRegValue());
 			args.add(node.getRhs().getRegValue());
-		}
-		else {
+		} else {
 			args.add(node.getRhs().getRegValue());
 			args.add(node.getRhs().getRegValue());
 		}
 
 		VirtualReg resReg = new VirtualReg(null);
 		currentBB.appendInst(new IRFunctionCall(calleeFunc, resReg, args, currentBB));
+
+		if(calleeFunc == null) {
+			System.err.println(node.getOp().toString());
+			throw new Error("string");
+		}
 
 		node.setRegValue(resReg);
 

@@ -58,6 +58,7 @@ public class IRFunction {
 			for (IRInstruction inst = bb.getHeadInst(); inst != null; inst = inst.getNextInst()) {
 				if (inst instanceof IRFunctionCall) {
 					calleeSet.add(((IRFunctionCall) inst).getFunc());
+					if(((IRFunctionCall) inst).getFunc() == null) throw new Error("?");
 				}
 			}
 		}
