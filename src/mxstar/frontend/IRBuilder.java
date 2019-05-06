@@ -415,7 +415,7 @@ public class IRBuilder extends ASTBaseVisitor {
 
 				currentBB.appendInst(new IRBinaryOp(op, resReg, exprNode.getRegValue(), new IntImm(1), currentBB));
 				RealAssign(exprNode, resReg, toMemory);
-				exprNode.setRegValue(resReg);
+				node.setRegValue(resReg);
 
 				wantAddr = outerWantAddr;
 				break;
@@ -684,6 +684,8 @@ public class IRBuilder extends ASTBaseVisitor {
 		} else {
 			IRAssign(node.getLhs().getRegValue(), 0, node.getRhs(), false);
 		}
+
+		node.setRegValue(node.getRhs().getRegValue());
 	}
 
 	private void IRNewArray(VirtualReg dest, ArrayType nType, List<RegValue> dimRegs, List<IRRegister> sizeRegs, int post) {

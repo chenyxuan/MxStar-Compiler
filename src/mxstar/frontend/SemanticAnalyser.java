@@ -322,7 +322,7 @@ public class SemanticAnalyser extends ASTBaseVisitor {
 	public void visit(ForStmtNode node) {
 		++inLoop;
 		super.visit(node);
-		if(!(node.getCond().getType() instanceof BoolType)) {
+		if(node.getCond() != null && !(node.getCond().getType() instanceof BoolType)) {
 			throw new SemanticError("BoolType Condition Expected", node.location());
 		}
 		--inLoop;

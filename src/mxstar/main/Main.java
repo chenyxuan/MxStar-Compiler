@@ -93,19 +93,10 @@ public class Main {
 
 		SemanticAnalyser analyser = SemanticAnalyse(astRoot);
 
+		System.err.println("semantic test ok");
 		IRRoot ir = buildIR(astRoot, analyser);
 		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 
-		new BinaryOpProcessor(ir).run();
-		new StaticDataProcessor(ir).run();
-		new FuncArgProcessor(ir).run();
-		new RegLifetimeAnalyser(ir).run();
-		new RegisterAllocator(ir).run();
-		new NASMTransformer(ir).run();
-		new NASMPrinter(outS).visit(ir);
-
-		/*
-		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 		System.err.println("ir1 ok");
 		new BinaryOpProcessor(ir).run();
 		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
@@ -128,8 +119,16 @@ public class Main {
 		new NASMPrinter(outS).visit(ir);
 		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 		System.err.println("ir8 ok");
-		*/
 
+		if (astOutS != null) return;
+
+		new BinaryOpProcessor(ir).run();
+		new StaticDataProcessor(ir).run();
+		new FuncArgProcessor(ir).run();
+		new RegLifetimeAnalyser(ir).run();
+		new RegisterAllocator(ir).run();
+		new NASMTransformer(ir).run();
+		new NASMPrinter(outS).visit(ir);
 	}
 
 	private static ASTRootNode buildAST() throws Exception {
