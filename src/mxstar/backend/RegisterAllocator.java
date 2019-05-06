@@ -184,7 +184,9 @@ public class RegisterAllocator {
                 }
 
                 if (info.color == null) {
-                    info.color = new StackSlot(reg.getName());
+                    StackSlot stackSlot = new StackSlot(reg.getName());
+                    info.color = stackSlot;
+                    irFunction.stackSlots.add(stackSlot);
                 }
             }
         }
