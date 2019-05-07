@@ -15,6 +15,23 @@ public class IRRoot {
 	private PhysicalReg physicalReg0 = null, physicalReg1 = null;
 	public Map<String, StaticStr> staticStrMap = new HashMap<>();
 
+
+	public static class ForRecord {
+		public BasicBlock condBB, stepBB, bodyBB, afterBB;
+
+		public ForRecord(BasicBlock condBB,
+						 BasicBlock stepBB,
+						 BasicBlock bodyBB,
+						 BasicBlock afterBB) {
+			this.condBB = condBB;
+			this.stepBB = stepBB;
+			this.bodyBB = bodyBB;
+			this.afterBB = afterBB;
+		}
+	}
+
+	public List<ForRecord> forRecordList = new ArrayList<>();
+
 	public IRRoot() {}
 
 	public void addBuiltInFunctions(List<FuncEntity> funcEntities) {

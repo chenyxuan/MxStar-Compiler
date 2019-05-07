@@ -267,12 +267,14 @@ public class IRBuilder extends ASTBaseVisitor {
 	@Override
 	public void visit(ForStmtNode node) {
 		BasicBlock condBB = new BasicBlock(currentFunction, FOR_COND);
-		BasicBlock bodyBB = new BasicBlock(currentFunction, FOR_BODY);
 		BasicBlock stepBB = new BasicBlock(currentFunction, FOR_STEP);
+		BasicBlock bodyBB = new BasicBlock(currentFunction, FOR_BODY);
 		BasicBlock afterBB = new BasicBlock(currentFunction, FOR_AFTER);
 
 		BasicBlock outerLoopStepBB = currentLoopStepBB;
 		BasicBlock outerLoopAfterBB = currentLoopAfterBB;
+
+		ir.forRecordList.add(new IRRoot.ForRecord(condBB, stepBB, bodyBB, afterBB));
 
 		currentLoopStepBB = stepBB;
 		currentLoopAfterBB = afterBB;

@@ -13,6 +13,12 @@ public class BasicBlock {
 
 	private HashSet<BasicBlock> destBBSet = new HashSet<>();
 
+	public void clear() {
+		headInst = tailInst = null;
+		escaped = false;
+		destBBSet.clear();
+	}
+
 	public BasicBlock(IRFunction function, String name) {
 		this.function = function;
 		this.name = name;
