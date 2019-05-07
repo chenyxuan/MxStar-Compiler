@@ -310,11 +310,16 @@ public class IRPrinter implements IRVisitor {
 
 	@Override
 	public void visit(IRPop node) {
-		out.printf("    Pop @%s\n", node.getPhysicalReg().getName());
+		out.print("    Pop @");
+		node.getPhysicalReg().accept(this);
+		out.println();
 	}
 
 	@Override
-	public void visit(IRPush node) {
-		out.printf("    Push @%s\n", node.getValue());
+	public void visit(IRPush node)
+	{
+		out.print("    Push @");
+		node.getValue().accept(this);
+		out.println();
 	}
 }

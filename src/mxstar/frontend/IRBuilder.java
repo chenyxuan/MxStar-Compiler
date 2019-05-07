@@ -520,6 +520,14 @@ public class IRBuilder extends ASTBaseVisitor {
 						node.setOp(BinaryExprNode.Ops.SHR);
 					}
 
+					if(node.getOp() == BinaryExprNode.Ops.MUL
+							&& node.getRhs().getRegValue() instanceof IntImm
+							&& ((IntImm) node.getRhs().getRegValue()).getValue() == 8) {
+
+						node.getRhs().setRegValue(new IntImm(3));
+						node.setOp(BinaryExprNode.Ops.SHL);
+					}
+
 					currentBB.appendInst(new IRBinaryOp(
 							IRBinaryOp.trans(node.getOp()),
 							(VirtualReg) resReg,

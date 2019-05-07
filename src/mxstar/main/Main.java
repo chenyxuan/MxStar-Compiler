@@ -98,10 +98,11 @@ public class Main {
 		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 
 		IRTransform(ir);
-		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 
 		new NASMTransformer(ir).run();
 		new NASMExtraRemoval(ir).run();
+		
+		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 		new NASMPrinter(outS).visit(ir);
 	}
 
@@ -134,6 +135,5 @@ public class Main {
 		new FuncArgProcessor(ir).run();
 		new RegLifetimeAnalyser(ir).run();
 		new RegisterAllocator(ir).run();
-
 	}
 }
