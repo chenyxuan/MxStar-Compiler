@@ -25,6 +25,7 @@ public class IRFunction {
 	public Set<PhysicalReg> usedPhysicalGeneralRegs = new HashSet<>();
 	private boolean builtIn = false;
 	private boolean isTrivial = false;
+	private boolean isMember = false;
 
 	public boolean isTrivial() {
 		return isTrivial;
@@ -32,6 +33,14 @@ public class IRFunction {
 
 	public void setTrivial(boolean trivial) {
 		isTrivial = trivial;
+	}
+
+	public void setMember(boolean member) {
+		isMember = member;
+	}
+
+	public boolean isMember() {
+		return isMember;
 	}
 
 	public IRFunction(FuncEntity funcEntity) {

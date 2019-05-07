@@ -75,7 +75,9 @@ public class IRBuilder extends ASTBaseVisitor {
 			if (declNode instanceof ClassDeclNode) {
 				ClassDeclNode classDeclNode = (ClassDeclNode) declNode;
 				for(FuncDefNode funcDefNode : classDeclNode.getFuncMember()) {
-					ir.addFunction(new IRFunction(funcDefNode.getFuncEntity()));
+					IRFunction irFunction = new IRFunction(funcDefNode.getFuncEntity());
+					ir.addFunction(irFunction);
+					irFunction.setMember(true);
 					funcDefNodeList.add(funcDefNode);
 				}
 			}
@@ -502,6 +504,22 @@ public class IRBuilder extends ASTBaseVisitor {
 					));
 				}
 				else {
+					if(node.getOp() == BinaryExprNode.Ops.MUL
+						&& node.getRhs().getRegValue() instanceof IntImm
+						&& ((IntImm) node.getRhs().getRegValue()).getValue() == 2) {
+
+						node.getRhs().setRegValue(new IntImm(1));
+						node.setOp(BinaryExprNode.Ops.SHL);
+					}
+
+					if(node.getOp() == BinaryExprNode.Ops.DIV
+							&& node.getRhs().getRegValue() instanceof IntImm
+							&& ((IntImm) node.getRhs().getRegValue()).getValue() == 2) {
+
+						node.getRhs().setRegValue(new IntImm(1));
+						node.setOp(BinaryExprNode.Ops.SHR);
+					}
+
 					currentBB.appendInst(new IRBinaryOp(
 							IRBinaryOp.trans(node.getOp()),
 							(VirtualReg) resReg,

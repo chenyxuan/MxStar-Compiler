@@ -164,22 +164,36 @@ public class NASMPrinter implements IRVisitor {
     @Override
     public void visit(IRBinaryOp node) {
         if (node.getOp() == DIV || node.getOp() == MOD) {
-            out.print("\t\tmov\t\trbx, ");
-            node.getRhs().accept(this);
-            out.println();
-            out.print("\t\tmov\t\trax, ");
-            node.getLhs().accept(this);
-            out.println();
+            if(!(node.getRhs() instanceof PhysicalReg && ((PhysicalReg) node.getRhs()).getName().equals("rbx"))) {
+                out.print("\t\tmov\t\trbx, ");
+                node.getRhs().accept(this);
+                out.println();
+            }
+
+            if(!(node.getLhs() instanceof PhysicalReg && ((PhysicalReg) node.getLhs()).getName().equals("rax"))) {
+                out.print("\t\tmov\t\trax, ");
+                node.getLhs().accept(this);
+                out.println();
+            }
+
             out.println("\t\tmov\t\t" + preg0.getName() + ", rdx");
+
             out.println("\t\tcqo");
             out.println("\t\tidiv\trbx");
-            out.print("\t\tmov\t\t");
-            node.getDest().accept(this);
             if (node.getOp() == DIV) {
-                out.println(", rax");
+                if(!(node.getDest() instanceof PhysicalReg && ((PhysicalReg) node.getDest()).getName().equals("rax"))) {
+                    out.print("\t\tmov\t\t");
+                    node.getDest().accept(this);
+                    out.println(", rax");
+                }
             } else {
-                out.println(", rdx");
+                if(!(node.getDest() instanceof PhysicalReg && ((PhysicalReg) node.getDest()).getName().equals("rdx"))) {
+                    out.print("\t\tmov\t\t");
+                    node.getDest().accept(this);
+                    out.println(", rdx");
+                }
             }
+
             out.println("\t\tmov\t\trdx, " + preg0.getName());
 
         } else if (node.getOp() == SHL ||

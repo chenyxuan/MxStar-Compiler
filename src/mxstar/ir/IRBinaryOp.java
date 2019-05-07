@@ -130,8 +130,6 @@ public class IRBinaryOp extends IRInstruction {
 				break;
 			case BIT_XOR:
 				retOp = Ops.BIT_XOR;
-			default:
-				assert false;
 		}
 		return retOp;
 	}

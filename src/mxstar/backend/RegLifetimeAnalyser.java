@@ -76,9 +76,43 @@ public class RegLifetimeAnalyser {
         }
     }
 
+    private boolean tryEliminate(IRFunction irFunction) {
+        boolean result = false;
+
+        List<BasicBlock> reversedOrder = irFunction.getAllBB();
+        for (BasicBlock bb : reversedOrder) {
+            for (IRInstruction inst = bb.getTailInst(), prevInst; inst != null; inst = prevInst) {
+                prevInst = inst.getPrevInst();
+                if (inst instanceof IRBinaryOp || inst instanceof IRComparison ||
+                        inst instanceof IRLoad || inst instanceof IRMove || inst instanceof IRUnaryOp ||
+                        inst instanceof IRHeapAlloc) {
+                    IRRegister dest = inst.getDefinedReg();
+                    VirtualReg keyDest = (VirtualReg) dest;
+
+                    if (dest == null || !inst.liveOut.contains(keyDest)) {
+                        result = true;
+                        inst.remove();
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
     public void run() {
         for(IRFunction irFunction : ir.getFunctionList()) {
             regLivenessAnalyse(irFunction);
+        }
+
+        while(true) {
+            boolean flag = false;
+
+            for(IRFunction irFunction : ir.getFunctionList()) {
+                if(tryEliminate(irFunction)) flag = true;
+                regLivenessAnalyse(irFunction);
+            }
+
+            if(!flag) break;
         }
     }
 }
