@@ -152,11 +152,16 @@ public class NASMPrinter implements IRVisitor {
             default:
                 assert false;
         }
-        out.print("\t\tmov\t\t");
-        node.getDest().accept(this);
-        out.print(", ");
-        node.getRhs().accept(this);
-        out.print("\n\t\t" + op + "\t\t");
+        if(node.getDest() instanceof PhysicalReg && node.getRhs() instanceof PhysicalReg) {
+            if(!((PhysicalReg) node.getDest()).getName().equals(((PhysicalReg) node.getRhs()).getName())) {
+                out.print("\t\tmov\t\t");
+                node.getDest().accept(this);
+                out.print(", ");
+                node.getRhs().accept(this);
+                out.println();
+            }
+        }
+        out.print("\t\t" + op + "\t\t");
         node.getDest().accept(this);
         out.println();
     }

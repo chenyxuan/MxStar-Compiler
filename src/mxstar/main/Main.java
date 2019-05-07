@@ -130,6 +130,7 @@ public class Main {
 	}
 
 	private static void IRTransform(IRRoot ir) {
+		new ExprMerger(ir).run();
 		new BinaryOpProcessor(ir).run();
 		new StaticDataProcessor(ir).run();
 		new FuncArgProcessor(ir).run();
