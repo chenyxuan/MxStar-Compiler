@@ -148,9 +148,9 @@ public class IRBinaryOp extends IRInstruction {
 			case MOD:
 				return y != 0 ? x % y : -1;
 			case SHL:
-				return y >= 0 ? x >> y : -1;
-			case SHR:
 				return y >= 0 ? x << y : -1;
+			case SHR:
+				return y >= 0 ? x >> y : -1;
 			case BIT_AND:
 				return x & y;
 			case BIT_OR:
