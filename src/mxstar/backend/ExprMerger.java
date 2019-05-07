@@ -24,49 +24,51 @@ public class ExprMerger {
     public void run() {
         for(IRFunction irFunction : ir.getFunctionList()) {
             for(BasicBlock bb : irFunction.getAllBB()) {
-                for(IRInstruction inst = bb.getHeadInst(), nextInst;
-                    inst != null;
-                    inst = nextInst) {
+                for (IRInstruction inst = bb.getHeadInst(), nextInst;
+                     inst != null;
+                     inst = nextInst) {
                     nextInst = inst.getNextInst();
 
                     IRInstruction knownInst = inst.getPrevInst();
 
-                    if(inst instanceof IRBinaryOp && ((IRBinaryOp) inst).getOp() == IRBinaryOp.Ops.ADD) {
+                    if (inst instanceof IRBinaryOp && ((IRBinaryOp) inst).getOp() == IRBinaryOp.Ops.ADD) {
 
-                        if(((IRBinaryOp) inst).getDest() instanceof StaticData
-                            || ((IRBinaryOp) inst).getLhs() instanceof StaticData
-                            || ((IRBinaryOp) inst).getRhs() instanceof StaticData) continue;
+                        if (((IRBinaryOp) inst).getDest() instanceof StaticData
+                                || ((IRBinaryOp) inst).getLhs() instanceof StaticData
+                                || ((IRBinaryOp) inst).getRhs() instanceof StaticData) continue;
 
                         Set<IRRegister> changedRegs = new HashSet<>();
                         Set<IRRegister> usedRegs = new HashSet<>();
 
-                        for(int i = 0; knownInst != null && i < STEP_LIM; i++) {
-                            if(knownInst instanceof IRBinaryOp
-                                && checkSame(((IRBinaryOp) knownInst).getLhs(), ((IRBinaryOp) inst).getLhs())
-                                && checkSame(((IRBinaryOp) knownInst).getRhs(), ((IRBinaryOp) inst).getRhs())
-                                && !changedRegs.contains(knownInst.getDefinedReg())
+                        for (int i = 0; knownInst != null && i < STEP_LIM; i++) {
+                            if (knownInst instanceof IRBinaryOp
+                                    && checkSame(((IRBinaryOp) knownInst).getLhs(), ((IRBinaryOp) inst).getLhs())
+                                    && checkSame(((IRBinaryOp) knownInst).getRhs(), ((IRBinaryOp) inst).getRhs())
+                                    && !changedRegs.contains(knownInst.getDefinedReg())
                             ) {
                                 RegValue lhs = ((IRBinaryOp) knownInst).getLhs();
                                 RegValue rhs = ((IRBinaryOp) knownInst).getRhs();
-                                if(lhs instanceof IRRegister && changedRegs.contains(lhs)) continue;
-                                if(rhs instanceof IRRegister && changedRegs.contains(rhs)) continue;
+                                if (lhs instanceof IRRegister && changedRegs.contains(lhs)) continue;
+                                if (rhs instanceof IRRegister && changedRegs.contains(rhs)) continue;
+
+                                if (((IRBinaryOp) knownInst).getDest() instanceof StaticData) continue;
+                                ;
 
                                 IRMove rInst = new IRMove(((IRBinaryOp) inst).getDest(), knownInst.getDefinedReg(), bb);
 
-                                if(changedRegs.contains(inst.getDefinedReg()) || usedRegs.contains(inst.getDefinedReg())) {
+                                if (changedRegs.contains(inst.getDefinedReg()) || usedRegs.contains(inst.getDefinedReg())) {
                                     bb.insertInst(inst, rInst);
-                                }
-                                else {
+                                } else {
                                     bb.insertInst(knownInst, rInst);
                                 }
                                 bb.removeInst(inst);
                                 break;
                             }
 
-                            if(knownInst.getDefinedReg() != null)
+                            if (knownInst.getDefinedReg() != null)
                                 changedRegs.add(knownInst.getDefinedReg());
 
-                            if(knownInst.getUsedRegisterList() != null)
+                            if (knownInst.getUsedRegisterList() != null)
                                 usedRegs.addAll(knownInst.getUsedRegisterList());
 
 
