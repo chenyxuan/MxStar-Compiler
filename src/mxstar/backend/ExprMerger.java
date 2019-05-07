@@ -58,13 +58,9 @@ public class ExprMerger {
                                 if (checkSame(rhs, ((IRBinaryOp) knownInst).getDest())) continue;
 
                                 IRMove rInst = new IRMove(((IRBinaryOp) inst).getDest(), knownInst.getDefinedReg(), bb);
-                                if(rhs instanceof IntImm) {
-                                    System.err.println(lhs.toString());
-                                    System.err.println(((IntImm) rhs).getValue());
-                                }
-                                bb.insertInst(inst, rInst);
 
                                 if (changedRegs.contains(inst.getDefinedReg()) || usedRegs.contains(inst.getDefinedReg())) {
+                                    bb.insertInst(inst, rInst);
                                 } else {
                                     bb.insertInst(knownInst, rInst);
                                 }
