@@ -114,6 +114,10 @@ public class IRFunction {
 		return allBB;
 	}
 
+	public void clearBBList() {
+		allBB = null;
+	}
+
 	public void setBuiltIn(boolean builtIn) {
 		this.builtIn = builtIn;
 	}
