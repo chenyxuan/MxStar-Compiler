@@ -493,14 +493,25 @@ public class IRBuilder extends ASTBaseVisitor {
 
 				node.getLhs().accept(this);
 				node.getRhs().accept(this);
+
+				if(node.getLhs().getRegValue() instanceof IntImm && node.getRhs().getRegValue() instanceof IntImm) {
+					resReg = new IntImm(IRBinaryOp.getResult(
+							node.getOp(),
+							((IntImm) node.getLhs().getRegValue()).getValue(),
+							((IntImm) node.getRhs().getRegValue()).getValue()
+					));
+				}
+				else {
+					currentBB.appendInst(new IRBinaryOp(
+							IRBinaryOp.trans(node.getOp()),
+							(VirtualReg) resReg,
+							node.getLhs().getRegValue(),
+							node.getRhs().getRegValue(),
+							currentBB
+					));
+				}
+
 				node.setRegValue(resReg);
-				currentBB.appendInst(new IRBinaryOp(
-						IRBinaryOp.trans(node.getOp()),
-						(VirtualReg) resReg,
-						node.getLhs().getRegValue(),
-						node.getRhs().getRegValue(),
-						currentBB
-				));
 				break;
 
 			case LEQ:

@@ -164,7 +164,6 @@ public class NASMPrinter implements IRVisitor {
     @Override
     public void visit(IRBinaryOp node) {
         if (node.getOp() == DIV || node.getOp() == MOD) {
-            // to be optimized: not pushing rdx
             out.print("\t\tmov\t\trbx, ");
             node.getRhs().accept(this);
             out.println();
@@ -172,7 +171,7 @@ public class NASMPrinter implements IRVisitor {
             node.getLhs().accept(this);
             out.println();
             out.println("\t\tmov\t\t" + preg0.getName() + ", rdx");
-            out.println("\t\tcdq");
+            out.println("\t\tcqo");
             out.println("\t\tidiv\trbx");
             out.print("\t\tmov\t\t");
             node.getDest().accept(this);
@@ -183,28 +182,6 @@ public class NASMPrinter implements IRVisitor {
             }
             out.println("\t\tmov\t\trdx, " + preg0.getName());
 
-            /*
-            // to be optimized: not pushing rdx, rbx
-            out.println("\t\tpush\trbx");
-            out.print("\t\tmov\t\trax, ");
-            node.getLhs().accept(this);
-            out.println();
-            out.print("\t\tmov\t\trbx, ");
-            node.getRhs().accept(this);
-            out.println();
-            out.println("\t\tpush\trdx");
-            out.println("\t\tcdq");
-            out.println("\t\tidiv\trbx");
-            out.println("\t\tmov\t\trbx, qword [rsp+8]");
-            out.print("\t\tmov\t\t");
-            node.getDest().accept(this);
-            if (node.getOp() == DIV) {
-                out.println(", rax");
-            } else {
-                out.println(", rdx");
-            }
-            out.println("\t\tpop\t\trdx");
-            out.println("\t\tadd\t\trsp, 8");*/
         } else if (node.getOp() == SHL ||
                 node.getOp() == SHR) {
             out.println("\t\tmov\t\trbx, rcx");
@@ -221,21 +198,6 @@ public class NASMPrinter implements IRVisitor {
             out.print("\t\tand\t\t");
             node.getLhs().accept(this);
             out.println(", -1");
-
-            /*out.println("\t\tpush\trcx");
-            out.print("\t\tmov\t\trcx, ");
-            node.getRhs().accept(this);
-            if (node.getOp() == SHL) {
-                out.print("\n\t\tsal\t\t");
-            } else {
-                out.print("\n\t\tsar\t\t");
-            }
-            node.getLhs().accept(this);
-            out.println(", cl");
-            out.println("\t\tpop\t\trcx");
-            out.print("\t\tand\t\t");
-            node.getLhs().accept(this);
-            out.println(", -1");*/
         } else {
             String op = "";
             switch (node.getOp()) {

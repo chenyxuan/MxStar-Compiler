@@ -98,6 +98,7 @@ public class Main {
 		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 
 		IRTransform(ir);
+		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 
 		new NASMTransformer(ir).run();
 		new NASMExtraRemoval(ir).run();

@@ -135,4 +135,29 @@ public class IRBinaryOp extends IRInstruction {
 		}
 		return retOp;
 	}
+	public static int getResult(BinaryExprNode.Ops op,int x,int y) {
+		switch (op) {
+			case ADD:
+				return x + y;
+			case SUB:
+				return x - y;
+			case MUL:
+				return x * y;
+			case DIV:
+				return y != 0 ? x / y : -1;
+			case MOD:
+				return y != 0 ? x % y : -1;
+			case SHL:
+				return y >= 0 ? x >> y : -1;
+			case SHR:
+				return y >= 0 ? x << y : -1;
+			case BIT_AND:
+				return x & y;
+			case BIT_OR:
+				return x | y;
+			case BIT_XOR:
+				return x ^ y;
+		}
+		return -1;
+	}
 }
