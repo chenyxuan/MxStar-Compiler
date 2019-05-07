@@ -46,8 +46,13 @@ public class ExprMerger {
 
                                 IRMove rInst = new IRMove(((IRBinaryOp) inst).getDest(), knownInst.getDefinedReg(), bb);
 
+                                if(changedReg.contains(inst.getDefinedReg())) {
+                                    bb.insertInst(inst, rInst);
+                                }
+                                else {
+                                    bb.insertInst(knownInst, rInst);
+                                }
                                 bb.removeInst(inst);
-                                bb.insertInst(knownInst, rInst);
                                 break;
                             }
 
@@ -78,8 +83,13 @@ public class ExprMerger {
                             ) {
                                 IRMove rInst = new IRMove(((IRMove) inst).getDest(), knownInst.getDefinedReg(), bb);
 
+                                if(changedReg.contains(inst.getDefinedReg())) {
+                                    bb.insertInst(inst, rInst);
+                                }
+                                else {
+                                    bb.insertInst(knownInst, rInst);
+                                }
                                 bb.removeInst(inst);
-                                bb.insertInst(knownInst, rInst);
                                 break;
                             }
 
