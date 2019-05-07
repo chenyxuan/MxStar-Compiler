@@ -16,6 +16,7 @@ public class ExprMerger {
     }
 
     private boolean checkSame(RegValue lhs,RegValue rhs) {
+
         if(lhs instanceof IntImm && rhs instanceof IntImm) {
             return ((IntImm) lhs).getValue() == ((IntImm) rhs).getValue();
         }
@@ -42,6 +43,7 @@ public class ExprMerger {
 
                         for (int i = 0; knownInst != null && i < STEP_LIM; i++) {
                             if (knownInst instanceof IRBinaryOp
+                                    && ((IRBinaryOp) knownInst).getOp() == IRBinaryOp.Ops.ADD
                                     && checkSame(((IRBinaryOp) knownInst).getLhs(), ((IRBinaryOp) inst).getLhs())
                                     && checkSame(((IRBinaryOp) knownInst).getRhs(), ((IRBinaryOp) inst).getRhs())
                                     && !changedRegs.contains(knownInst.getDefinedReg())
@@ -52,12 +54,17 @@ public class ExprMerger {
                                 if (rhs instanceof IRRegister && changedRegs.contains(rhs)) continue;
 
                                 if (((IRBinaryOp) knownInst).getDest() instanceof StaticData) continue;
-                                ;
+                                if (checkSame(lhs, ((IRBinaryOp) knownInst).getDest())) continue;
+                                if (checkSame(rhs, ((IRBinaryOp) knownInst).getDest())) continue;
 
                                 IRMove rInst = new IRMove(((IRBinaryOp) inst).getDest(), knownInst.getDefinedReg(), bb);
+                                if(rhs instanceof IntImm) {
+                                    System.err.println(lhs.toString());
+                                    System.err.println(((IntImm) rhs).getValue());
+                                }
+                                bb.insertInst(inst, rInst);
 
                                 if (changedRegs.contains(inst.getDefinedReg()) || usedRegs.contains(inst.getDefinedReg())) {
-                                    bb.insertInst(inst, rInst);
                                 } else {
                                     bb.insertInst(knownInst, rInst);
                                 }
