@@ -101,7 +101,7 @@ public class Main {
 
 		new NASMTransformer(ir).run();
 		new NASMExtraRemoval(ir).run();
-		
+
 		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 		new NASMPrinter(outS).visit(ir);
 	}

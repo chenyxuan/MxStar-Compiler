@@ -198,20 +198,31 @@ public class NASMPrinter implements IRVisitor {
 
         } else if (node.getOp() == SHL ||
                 node.getOp() == SHR) {
-            out.println("\t\tmov\t\trbx, rcx");
-            out.print("\t\tmov\t\trcx, ");
-            node.getRhs().accept(this);
-            if (node.getOp() == SHL) {
-                out.print("\n\t\tsal\t\t");
-            } else {
-                out.print("\n\t\tsar\t\t");
+
+            if(node.getRhs() instanceof IntImm) {
+                if (node.getOp() == SHL) {
+                    out.print("\t\tsal\t\t");
+                } else {
+                    out.print("\t\tsar\t\t");
+                }
+                node.getLhs().accept(this);
+                out.print(", ");
+                node.getRhs().accept(this);
+                out.println();
             }
-            node.getLhs().accept(this);
-            out.println(", cl");
-            out.println("\t\tmov\t\trcx, rbx");
-            out.print("\t\tand\t\t");
-            node.getLhs().accept(this);
-            out.println(", -1");
+            else {
+                out.println("\t\tmov\t\trbx, rcx");
+                out.print("\t\tmov\t\trcx, ");
+                node.getRhs().accept(this);
+                if (node.getOp() == SHL) {
+                    out.print("\n\t\tsal\t\t");
+                } else {
+                    out.print("\n\t\tsar\t\t");
+                }
+                node.getLhs().accept(this);
+                out.println(", cl");
+                out.println("\t\tmov\t\trcx, rbx");
+            }
         } else {
             String op = "";
             switch (node.getOp()) {
