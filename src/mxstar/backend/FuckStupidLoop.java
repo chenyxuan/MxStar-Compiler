@@ -60,7 +60,7 @@ public class FuckStupidLoop {
             if(!flag) {
                 record.condBB.clear();
                 record.condBB.setJumpInst(new IRJump(record.afterBB, record.condBB));
-                record.condBB.getFunction().clearBBList();
+                record.condBB.getFunction().recalcuAllBB();
             }
         }
     }

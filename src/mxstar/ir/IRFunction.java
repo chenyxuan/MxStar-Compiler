@@ -114,8 +114,10 @@ public class IRFunction {
 		return allBB;
 	}
 
-	public void clearBBList() {
-		allBB = null;
+	public void recalcuAllBB()
+	{
+		allBB.clear();
+		dfs(getBeginBB(), new HashSet<>());
 	}
 
 	public void setBuiltIn(boolean builtIn) {
