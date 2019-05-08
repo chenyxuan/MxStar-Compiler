@@ -95,14 +95,14 @@ public class Main {
 
 		System.err.println("semantic test ok");
 		IRRoot ir = buildIR(astRoot, analyser);
-		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
+//		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 
 		IRTransform(ir);
 
 		new NASMTransformer(ir).run();
 		new NASMExtraRemoval(ir).run();
 
-		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
+//		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 		new NASMPrinter(outS).visit(ir);
 	}
 
@@ -130,6 +130,10 @@ public class Main {
 	}
 
 	private static void IRTransform(IRRoot ir) {
+        if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
+		new InlineProcessor(ir).run();
+        if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
+
 		new FuckStupidLoop(ir).run();
 		new ExprMerger(ir).run();
 

@@ -1,5 +1,8 @@
 package mxstar.ir;
 
+import mxstar.ast.ForStmtNode;
+import mxstar.ast.StmtNode;
+
 import java.util.HashSet;
 
 import static mxstar.ir.IRInstruction.join;
@@ -12,6 +15,8 @@ public class BasicBlock {
 	private boolean escaped = false;
 
 	private HashSet<BasicBlock> destBBSet = new HashSet<>();
+
+	public ForStmtNode forNode = null;
 
 	public void clear() {
 		headInst = tailInst = null;

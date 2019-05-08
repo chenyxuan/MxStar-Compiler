@@ -100,6 +100,7 @@ public class IRBuilder extends ASTBaseVisitor {
 			IRAssign(globalInit.getDest(), 0, globalInit.getSrc(), false);
 		}
 		currentBB.setJumpInst(new IRReturn(null, currentBB));
+		currentFunction.setEndBB(currentBB);
 
 		for(FuncDefNode funcDefNode : funcDefNodeList) {
 			visit(funcDefNode);
@@ -158,6 +159,10 @@ public class IRBuilder extends ASTBaseVisitor {
 			}
 
 			endBB.setJumpInst(new IRReturn(retReg, endBB));
+			currentFunction.setEndBB(endBB);
+		}
+		else {
+			currentFunction.setEndBB(irReturnList.get(0).getParentBB());
 		}
 	}
 
@@ -272,10 +277,14 @@ public class IRBuilder extends ASTBaseVisitor {
 		BasicBlock bodyBB = new BasicBlock(currentFunction, FOR_BODY);
 		BasicBlock afterBB = new BasicBlock(currentFunction, FOR_AFTER);
 
+		condBB.forNode = node; stepBB.forNode = node;
+		bodyBB.forNode = node; afterBB.forNode = node;
+
 		BasicBlock outerLoopStepBB = currentLoopStepBB;
 		BasicBlock outerLoopAfterBB = currentLoopAfterBB;
 
-		ir.forRecordList.add(new IRRoot.ForRecord(condBB, stepBB, bodyBB, afterBB));
+		node.forRecord = new IRRoot.ForRecord(condBB, stepBB, bodyBB, afterBB);
+		ir.forRecordList.add(node.forRecord);
 
 		currentLoopStepBB = stepBB;
 		currentLoopAfterBB = afterBB;

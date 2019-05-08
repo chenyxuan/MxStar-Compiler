@@ -1,10 +1,13 @@
 package mxstar.ast;
 
+import mxstar.ir.IRRoot;
 import mxstar.utility.Location;
 
 public class ForStmtNode extends LoopStmtNode {
 	private ExprNode init, cond, step;
 	private StmtNode stmt;
+
+	public IRRoot.ForRecord forRecord = null;
 
 	public ForStmtNode(ExprNode init, ExprNode cond, ExprNode step, StmtNode stmt, Location location) {
 		this.init = init;

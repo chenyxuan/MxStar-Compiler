@@ -10,6 +10,7 @@ public class IRFunction {
 	private String name;
 
 	private BasicBlock beginBB = null;
+	private BasicBlock endBB = null;
 	private List<IRReturn> irReturns = new ArrayList<>();
 	private List<VirtualReg> paraRegs = new ArrayList<>();
 	private List<BasicBlock> allBB = null;
@@ -43,6 +44,11 @@ public class IRFunction {
 		return isMember;
 	}
 
+	public IRFunction() {
+		funcEntity = null;
+		name = "unknown";
+	}
+
 	public IRFunction(FuncEntity funcEntity) {
 		this.funcEntity = funcEntity;
 		this.name = parseName(funcEntity);
@@ -56,9 +62,25 @@ public class IRFunction {
 		return name.equals( "main");
 	}
 
+	public void setParaRegs(List<VirtualReg> paraRegs) {
+		this.paraRegs = paraRegs;
+	}
+
 	public BasicBlock getBeginBB() {
 		if(beginBB != null) return beginBB;
 		return beginBB = new BasicBlock(this, name + FUNC_ENTRY);
+	}
+
+	public void setBeginBB(BasicBlock beginBB) {
+		this.beginBB = beginBB;
+	}
+
+	public BasicBlock getEndBB() {
+		return endBB;
+	}
+
+	public void setEndBB(BasicBlock endBB) {
+		this.endBB = endBB;
 	}
 
 	public void updateCalleeSet() {
@@ -109,12 +131,12 @@ public class IRFunction {
 	public List<BasicBlock> getAllBB() {
 		if(allBB == null) {
 			allBB = new ArrayList<>();
-			dfs(getBeginBB(), new HashSet<>());
+			reAllBB();
 		}
 		return allBB;
 	}
 
-	public void recalcuAllBB()
+	public void reAllBB()
 	{
 		allBB.clear();
 		dfs(getBeginBB(), new HashSet<>());

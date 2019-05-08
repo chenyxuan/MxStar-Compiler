@@ -57,6 +57,11 @@ public class IRRoot {
 		return builtInFunctionList;
 	}
 
+	public void removeFunc(String string) {
+		functionList.remove(functionMap.get(string));
+		functionMap.remove(string);
+	}
+
 	public void addFunction(IRFunction function) {
 		functionMap.put(function.getName(), function);
 		functionList.add(function);
