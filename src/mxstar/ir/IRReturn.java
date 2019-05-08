@@ -2,7 +2,7 @@ package mxstar.ir;
 
 import java.util.Map;
 
-public class IRReturn extends IRJumpInst {
+public class  IRReturn extends IRJumpInst {
 	private RegValue retValue;
 
 	public IRReturn(RegValue retValue, BasicBlock parentBB) {

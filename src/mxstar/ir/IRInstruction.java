@@ -34,8 +34,17 @@ abstract public class IRInstruction {
 		getParentBB().insertInst(this, pInst);
 	}
 
+	public void replace(IRInstruction inst) {
+		removed = true;
+		inst.setPrevInst(prevInst);
+		inst.setNextInst(nextInst);
+		if (prevInst != null) prevInst.setNextInst(inst);
+		if (nextInst != null) nextInst.setPrevInst(inst);
+		if (this == parentBB.getHeadInst()) parentBB.setHeadInst(inst);
+		if (this == parentBB.getTailInst()) parentBB.setTailInst(inst);
+	}
+
 	public void remove() {
-		assert !removed;
 		removed = true;
 		if (prevInst != null) prevInst.setNextInst(nextInst);
 		if (nextInst != null) nextInst.setPrevInst(prevInst);

@@ -1,5 +1,6 @@
 package mxstar.backend;
 
+import mxstar.frontend.IRPrinter;
 import mxstar.ir.*;
 
 import java.util.*;
@@ -11,7 +12,7 @@ public class RegLifetimeAnalyser {
         this.ir = ir;
     }
 
-    private void regLivenessAnalyse(IRFunction irFunction) {
+    private void regLifetimeAnalyse(IRFunction irFunction) {
         List<BasicBlock> reversedList = new ArrayList<>(irFunction.getAllBB());
         Collections.reverse(reversedList);
 
@@ -29,6 +30,7 @@ public class RegLifetimeAnalyser {
             boolean flag = false;
 
             for(BasicBlock block : reversedList) {
+
                 for(IRInstruction inst = block.getTailInst(); inst != null; inst = inst.getPrevInst()) {
                     tempIn.clear();
                     tempOut.clear();
@@ -43,8 +45,9 @@ public class RegLifetimeAnalyser {
                         }
                     }
                     else {
-                        assert (inst.getNextInst() != null);
-                        tempOut.addAll(inst.getNextInst().liveIn);
+                        if(inst.getNextInst() != null) {
+                            tempOut.addAll(inst.getNextInst().liveIn);
+                        }
                     }
 
                     tempIn.addAll(tempOut);
@@ -99,18 +102,120 @@ public class RegLifetimeAnalyser {
         return result;
     }
 
-    public void run() {
-        for(IRFunction irFunction : ir.getFunctionList()) {
-            regLivenessAnalyse(irFunction);
+    private Map<BasicBlock, BasicBlock> jumpTargetBBMap = new HashMap<>();
+
+    private BasicBlock replaceJumpTarget(BasicBlock bb) {
+        BasicBlock ret = bb, query = jumpTargetBBMap.get(bb);
+        while (query != null) {
+            ret = query;
+            query = jumpTargetBBMap.get(query);
         }
+        return ret;
+    }
+
+    private void removeBlankBB(IRFunction func) {
+        jumpTargetBBMap.clear();
+        for (BasicBlock bb : func.getAllBB()) {
+            if (bb.getHeadInst() == bb.getTailInst()) {
+                IRInstruction inst = bb.getHeadInst();
+                if (inst instanceof IRJump) {
+                    jumpTargetBBMap.put(bb, ((IRJump) inst).getTargetBB());
+                }
+            }
+        }
+        for (BasicBlock bb : func.getAllBB()) {
+            if (bb.getTailInst() instanceof IRJump) {
+                IRJump jumpInst = (IRJump) bb.getTailInst();
+                jumpInst.setTargetBB(replaceJumpTarget(jumpInst.getTargetBB()));
+            } else if (bb.getTailInst() instanceof IRBranch) {
+                IRBranch branchInst = (IRBranch) bb.getTailInst();
+                branchInst.setThenBB(replaceJumpTarget(branchInst.getThenBB()));
+                branchInst.setElseBB(replaceJumpTarget(branchInst.getElseBB()));
+                if (branchInst.getThenBB() == branchInst.getElseBB()) {
+                    branchInst.replace(new IRJump(bb, branchInst.getThenBB()));
+                }
+            }
+        }
+        func.reAllBB();
+    }
+
+    private void funkStupidLoop() {
+
+        for(IRRoot.ForRecord record : ir.forRecordList) {
+            if(record.removed) continue;
+
+            List<BasicBlock> bbList = new ArrayList<>();
+
+            bbList.add(record.condBB);
+            bbList.add(record.stepBB);
+            bbList.add(record.bodyBB);
+            boolean flag = false;
+
+            IRInstruction nextPartInst = record.afterBB.getHeadInst();
+
+            for(BasicBlock bb : bbList) {
+                for(IRInstruction inst = bb.getHeadInst(); inst != null; inst = inst.getNextInst()) {
+                    if(inst instanceof IRFunctionCall && !((IRFunctionCall) inst).getFunc().isOrphan()) {
+                        flag = true;
+                    }
+                    else if (inst.getDefinedReg() != null) {
+                        if(inst.getDefinedReg() instanceof StaticData) {
+                            flag = true;
+                        }
+                        else {
+                            VirtualReg virtualReg = (VirtualReg) inst.getDefinedReg();
+                            if (nextPartInst != null && nextPartInst.liveIn.contains(virtualReg)) {
+                                flag = true;
+                            }
+                        }
+                    }
+                    else if(inst instanceof IRStore || inst instanceof IRPush || inst instanceof IRReturn) {
+                        flag = true;
+                    }
+                    else if(inst instanceof IRJump) {
+                        if((!bbList.contains(((IRJump) inst).getTargetBB()) && ((IRJump) inst).getTargetBB() != record.afterBB)) {
+                            flag = true;
+                        }
+                    }
+                    else if(inst instanceof IRBranch) {
+                        if((!bbList.contains(((IRBranch) inst).getThenBB()) && ((IRBranch) inst).getThenBB() != record.afterBB)
+                                || (!bbList.contains(((IRBranch) inst).getElseBB()) && ((IRBranch) inst).getElseBB() != record.afterBB)) {
+                            flag = true;
+                        }
+                    }
+                }
+            }
+
+            if(!flag) {
+                record.removed = true;
+                record.condBB.clear();
+                record.condBB.setJumpInst(new IRJump(record.afterBB, record.condBB));
+                record.condBB.getFunction().reAllBB();
+            }
+        }
+
+        for(IRFunction irFunction : ir.getFunctionList()) {
+            irFunction.updateCalleeSet();
+        }
+        ir.updateCalleeSet();
+    }
+
+    public void run() {
+
+        for(IRFunction irFunction : ir.getFunctionList()) {
+            regLifetimeAnalyse(irFunction);
+        }
+        funkStupidLoop();
 
         while(true) {
             boolean flag = false;
 
             for(IRFunction irFunction : ir.getFunctionList()) {
                 if(tryEliminate(irFunction)) flag = true;
-                regLivenessAnalyse(irFunction);
+                removeBlankBB(irFunction);
+                regLifetimeAnalyse(irFunction);
             }
+            funkStupidLoop();
 
             if(!flag) break;
         }

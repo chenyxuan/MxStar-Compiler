@@ -55,6 +55,10 @@ public class IRJump extends IRJumpInst {
 		return null;
 	}
 
+	public void setTargetBB(BasicBlock targetBB) {
+		this.targetBB = targetBB;
+	}
+
 	public void accept(IRVisitor visitor) {
 		visitor.visit(this);
 	}

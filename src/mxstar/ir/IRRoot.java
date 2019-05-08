@@ -18,6 +18,7 @@ public class IRRoot {
 
 	public static class ForRecord {
 		public BasicBlock condBB, stepBB, bodyBB, afterBB;
+		public boolean removed = false;
 
 		public ForRecord(BasicBlock condBB,
 						 BasicBlock stepBB,
