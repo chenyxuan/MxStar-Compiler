@@ -124,9 +124,9 @@ public class NASMPrinter implements IRVisitor {
         }
         out.print("\t\tcmp\t\t");
         node.getCond().accept(this);
-        out.println(", 1");
-        out.printf("\t\tje\t\t%s\n", bbId(node.getThenBB()));
-        out.printf("\t\tjmp\t\t%s\n", bbId(node.getElseBB()));
+        out.println(", 0");
+        out.printf("\t\tje\t\t%s\n", bbId(node.getElseBB()));
+        out.printf("\t\tjmp\t\t%s\n", bbId(node.getThenBB()));
     }
 
     @Override

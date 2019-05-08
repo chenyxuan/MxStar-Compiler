@@ -27,6 +27,15 @@ public class IRFunction {
 	private boolean builtIn = false;
 	private boolean isTrivial = false;
 	private boolean isMember = false;
+	private boolean isOrphan = false;
+
+	public void setOrphan(boolean orphan) {
+		isOrphan = orphan;
+	}
+
+	public boolean isOrphan() {
+		return isOrphan;
+	}
 
 	public boolean isTrivial() {
 		return isTrivial;

@@ -25,5 +25,6 @@ public class GlobalSymbols {
 							ARRAY_CLASS_NAME = "__array_class_";
 
 	public static int       REG_SIZE = 8,
-							SIZE_PERCH = 8;
+							SIZE_PERCH = 8,
+							LOG_REG_SIZE = 3;
 }

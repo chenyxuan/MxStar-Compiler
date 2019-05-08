@@ -94,13 +94,11 @@ public class BasicBlock {
 	}
 
 	public void setJumpInst(IRJumpInst inst) {
-		assert !escaped;
 		escaped = true;
 		inst.addedTo(this);
 	}
 
 	public void removeJumpInst() {
-		assert escaped;
 		escaped = false;
 		((IRJumpInst) tailInst).removedFrom(this);
 	}
