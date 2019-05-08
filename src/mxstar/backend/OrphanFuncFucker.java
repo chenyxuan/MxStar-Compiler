@@ -81,7 +81,8 @@ public class OrphanFuncFucker {
                 || irFunction.getName().equals("main")
                 || irFunction.getParaRegs().size() > 1) continue;
 
-//          System.err.println(irFunction.getName());
+            System.err.println("orphan : " + irFunction.getName());
+
             BasicBlock checkBB = new BasicBlock(irFunction,"fast_check");
             BasicBlock fastReturnBB = new BasicBlock(irFunction, "fast_return");
             BasicBlock newEndBB = new BasicBlock(irFunction,"slow_return");

@@ -132,11 +132,16 @@ public class Main {
 	private static void IRTransform(IRRoot ir) {
 //		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 		new OrphanFuncFucker(ir).run();
+		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 		new InlineProcessor(ir).run();
+		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 		new ExprMerger(ir).run();
+		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 
 		new BinaryOpProcessor(ir).run();
+		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 		new StaticDataProcessor(ir).run();
+		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 		new FuncArgProcessor(ir).run();
 		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 		new RegLifetimeAnalyser(ir).run();

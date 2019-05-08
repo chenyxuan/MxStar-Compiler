@@ -185,7 +185,7 @@ public class InlineProcessor {
 
         if(oldEndBB == null) {
             System.err.println(calleeFunc.getName());
-            throw new Error("null EndBB");
+            throw new Error("Null Old EndBB");
         }
 
         BasicBlock newEndBB = new BasicBlock(callerFunc, oldEndBB.getName());
@@ -227,7 +227,7 @@ public class InlineProcessor {
                 if (forRec.afterBB == oldBB) forRec.afterBB = newBB;
             }
             for (IRInstruction inst = oldBB.getHeadInst(); inst != null; inst = inst.getNextInst()) {
-                for (RegValue usedRegValue : inst.getUsedRegisterList()) {
+                for (RegValue usedRegValue : inst.getUsedRegValueList()) {
                     copyRegValue(renameMap, usedRegValue);
                 }
                 if (inst.getDefinedReg() != null) {
