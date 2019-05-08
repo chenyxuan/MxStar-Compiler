@@ -14,6 +14,10 @@ public class IntConstNode extends ConstNode {
 		return value;
 	}
 
+	public void setValue(int value) {
+		this.value = value;
+	}
+
 	public void accept(ASTVisitor visitor) {
 		visitor.visit(this);
 	}

@@ -32,7 +32,7 @@ public class ExprMerger {
 
                     IRInstruction knownInst = inst.getPrevInst();
 
-                    if (inst instanceof IRBinaryOp && ((IRBinaryOp) inst).getOp() == IRBinaryOp.Ops.ADD) {
+                    if (inst instanceof IRBinaryOp) {
 
                         if (((IRBinaryOp) inst).getDest() instanceof StaticData
                                 || ((IRBinaryOp) inst).getLhs() instanceof StaticData
@@ -43,7 +43,7 @@ public class ExprMerger {
 
                         for (int i = 0; knownInst != null && i < STEP_LIM; i++) {
                             if (knownInst instanceof IRBinaryOp
-                                    && ((IRBinaryOp) knownInst).getOp() == IRBinaryOp.Ops.ADD
+                                    && ((IRBinaryOp) knownInst).getOp() == ((IRBinaryOp) inst).getOp()
                                     && checkSame(((IRBinaryOp) knownInst).getLhs(), ((IRBinaryOp) inst).getLhs())
                                     && checkSame(((IRBinaryOp) knownInst).getRhs(), ((IRBinaryOp) inst).getRhs())
                                     && !changedRegs.contains(knownInst.getDefinedReg())

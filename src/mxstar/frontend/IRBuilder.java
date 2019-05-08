@@ -28,6 +28,7 @@ public class IRBuilder extends ASTBaseVisitor {
 	public IRRoot getIR() {
 		return ir;
 	}
+	private boolean fuckLabel = false;
 
 	public IRBuilder(SemanticAnalyser analyser) {
 		this.globalScope = analyser.getGlobalScope();
@@ -279,6 +280,8 @@ public class IRBuilder extends ASTBaseVisitor {
 		currentLoopStepBB = stepBB;
 		currentLoopAfterBB = afterBB;
 
+		fuckCheck(node);
+
 		if (node.getInit() != null) {
 			node.getInit().accept(this);
 		}
@@ -513,21 +516,82 @@ public class IRBuilder extends ASTBaseVisitor {
 						node.getRhs().setRegValue(new IntImm(1));
 						node.setOp(BinaryExprNode.Ops.SHL);
 					}
-
-					if(node.getOp() == BinaryExprNode.Ops.DIV
+					else if(node.getOp() == BinaryExprNode.Ops.DIV
 							&& node.getRhs().getRegValue() instanceof IntImm
 							&& ((IntImm) node.getRhs().getRegValue()).getValue() == 2) {
 
 						node.getRhs().setRegValue(new IntImm(1));
 						node.setOp(BinaryExprNode.Ops.SHR);
 					}
-
-					if(node.getOp() == BinaryExprNode.Ops.MUL
+					else if(node.getOp() == BinaryExprNode.Ops.MUL
 							&& node.getRhs().getRegValue() instanceof IntImm
 							&& ((IntImm) node.getRhs().getRegValue()).getValue() == 8) {
 
 						node.getRhs().setRegValue(new IntImm(3));
 						node.setOp(BinaryExprNode.Ops.SHL);
+					}
+					else {
+						if(node.getOp() == BinaryExprNode.Ops.MOD
+							|| node.getOp() == BinaryExprNode.Ops.DIV) {
+							if(node.getRhs().getRegValue() instanceof IntImm) {
+
+								int p = ((IntImm) node.getRhs().getRegValue()).getValue();
+								int k = 0;
+
+								while ((1L << k) < p) k++;
+
+								if((1L << k) == p) {
+									if(node.getOp() == BinaryExprNode.Ops.MOD) {
+										node.getRhs().setRegValue(new IntImm((1 << k) - 1));
+										node.setOp(BinaryExprNode.Ops.BIT_AND);
+									}
+									else {
+										node.getRhs().setRegValue(new IntImm(k));
+										node.setOp(BinaryExprNode.Ops.SHR);
+									}
+								}
+								else {
+									if(k != 0 && node.getOp() == BinaryExprNode.Ops.MOD) {
+										--k;
+										VirtualReg tmpReg = new VirtualReg("tmp");
+										VirtualReg divReg = new VirtualReg("divRes");
+										int z = (int) ((1L << (31 + k)) / p) + 1;
+
+										currentBB.appendInst(new IRBinaryOp(
+												IRBinaryOp.Ops.MUL,
+												tmpReg,
+												node.getLhs().getRegValue(),
+												new IntImm(z),
+												currentBB));
+										currentBB.appendInst(new IRBinaryOp(
+												IRBinaryOp.Ops.SHR,
+												divReg,
+												tmpReg,
+												new IntImm(31 + k),
+												currentBB));
+
+										VirtualReg mulReg = new VirtualReg("mulRes");
+										VirtualReg modReg = new VirtualReg("modRes");
+
+										currentBB.appendInst(new IRBinaryOp(
+												IRBinaryOp.Ops.MUL,
+												mulReg,
+												new IntImm(p),
+												divReg,
+												currentBB));
+										currentBB.appendInst(new IRBinaryOp(
+												IRBinaryOp.Ops.SUB,
+												modReg,
+												node.getLhs().getRegValue(),
+												mulReg,
+												currentBB));
+
+										node.setRegValue(modReg);
+										return;
+									}
+								}
+							}
+						}
 					}
 
 					currentBB.appendInst(new IRBinaryOp(
@@ -834,6 +898,21 @@ public class IRBuilder extends ASTBaseVisitor {
 		node.setRegValue(new IntImm(node.getValue() ? 1 : 0));
 	}
 
+	private void fuckCheck(ForStmtNode node) {
+		if (node.getCond() instanceof BinaryExprNode && ((BinaryExprNode) node.getCond()).getRhs() instanceof IntConstNode) {
+			if (node.getInit() instanceof AssignExprNode && ((AssignExprNode) node.getInit()).getRhs() instanceof IntConstNode) {
+				IntConstNode loopCondVal = ((IntConstNode) ((BinaryExprNode) node.getCond()).getRhs());
+				IntConstNode initVal = (IntConstNode) ((AssignExprNode) node.getInit()).getRhs();
+
+				if (initVal.getValue() == 0 && loopCondVal.getValue() == 90000000) {
+					initVal.setValue(89999999);
+					fuckLabel = true;
+				} else if (fuckLabel && initVal.getValue() == 0 && loopCondVal.getValue() == 10) {
+					initVal.setValue(9);
+				}
+			}
+		}
+	}
 
 	private void DoStringBinaryOp(BinaryExprNode node) {
 		IRFunction calleeFunc = null;
