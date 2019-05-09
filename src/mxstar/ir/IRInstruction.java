@@ -11,8 +11,6 @@ abstract public class IRInstruction {
 	protected List<IRRegister> usedRegisterList = new ArrayList<>();
 	protected List<RegValue> usedRegValueList = new ArrayList<>();
 
-	private boolean removed = false;
-
 	public IRInstruction(BasicBlock parentBB) {
 		this.parentBB = parentBB;
 	}
@@ -35,7 +33,6 @@ abstract public class IRInstruction {
 	}
 
 	public void replace(IRInstruction inst) {
-		removed = true;
 		inst.setPrevInst(prevInst);
 		inst.setNextInst(nextInst);
 		if (prevInst != null) prevInst.setNextInst(inst);
@@ -45,7 +42,6 @@ abstract public class IRInstruction {
 	}
 
 	public void remove() {
-		removed = true;
 		if (prevInst != null) prevInst.setNextInst(nextInst);
 		if (nextInst != null) nextInst.setPrevInst(prevInst);
 		if (this instanceof IRJumpInst) {

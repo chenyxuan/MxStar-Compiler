@@ -130,12 +130,14 @@ public class Main {
 	}
 
 	private static void IRTransform(IRRoot ir) {
-//		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
+		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
+		new StupidBranchFucker(ir).run();
+		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 		new OrphanFuncFucker(ir).run();
 		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 		new InlineProcessor(ir).run();
 		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
-		new ExprMerger(ir).run();
+//		new ExprMerger(ir).run();
 		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 
 		new BinaryOpProcessor(ir).run();
