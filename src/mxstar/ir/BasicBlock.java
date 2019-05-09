@@ -10,6 +10,7 @@ import static mxstar.ir.IRInstruction.join;
 public class BasicBlock {
 	private IRFunction function;
 	private String name;
+	private int idx;
 
 	private IRInstruction headInst = null, tailInst = null;
 	private boolean escaped = false;
@@ -22,6 +23,14 @@ public class BasicBlock {
 		headInst = tailInst = null;
 		escaped = false;
 		destBBSet.clear();
+	}
+
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
+
+	public int getIdx() {
+		return idx;
 	}
 
 	public BasicBlock(IRFunction function, String name) {

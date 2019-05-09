@@ -503,7 +503,7 @@ public class IRBuilder extends ASTBaseVisitor {
 			case SUB:
 
 				if(node.getLhs().getType() instanceof StringType) {
-					DoStringBinaryOp(node);
+					doStringBinaryOp(node);
 					break;
 				}
 
@@ -623,7 +623,7 @@ public class IRBuilder extends ASTBaseVisitor {
 			case EQ:
 
 				if(node.getLhs().getType() instanceof StringType) {
-					DoStringBinaryOp(node);
+					doStringBinaryOp(node);
 					break;
 				}
 
@@ -923,8 +923,8 @@ public class IRBuilder extends ASTBaseVisitor {
 		}
 	}
 
-	private void DoStringBinaryOp(BinaryExprNode node) {
-		IRFunction calleeFunc = null;
+	private void doStringBinaryOp(BinaryExprNode node) {
+		IRFunction calleeFunc;
 		boolean toReverse = false;
 
 		switch (node.getOp()) {

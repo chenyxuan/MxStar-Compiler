@@ -149,6 +149,9 @@ public class IRFunction {
 	{
 		allBB.clear();
 		dfs(getBeginBB(), new HashSet<>());
+		for(int i = 0; i < allBB.size(); i++) {
+			allBB.get(i).setIdx(i);
+		}
 	}
 
 	public void setBuiltIn(boolean builtIn) {
