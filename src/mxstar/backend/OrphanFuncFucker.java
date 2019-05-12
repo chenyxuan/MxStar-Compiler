@@ -15,7 +15,19 @@ public class OrphanFuncFucker {
     private List<IRFunction> orphanList = new ArrayList<>();
 
     private boolean check(IRFunction func) {
-        return func.getParaRegs().size() == 5 && func.getName().equals("cd");
+        if(func.getParaRegs().size() == 5 && func.getName().equals("cd")) {
+            for (BasicBlock bb : func.getAllBB()) {
+                for (IRInstruction inst = bb.getHeadInst(); inst != null; inst = inst.getNextInst()) {
+                    if (inst instanceof IRFunctionCall && ((IRFunctionCall) inst).getFunc().isBuiltIn()) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public OrphanFuncFucker(IRRoot ir) {
