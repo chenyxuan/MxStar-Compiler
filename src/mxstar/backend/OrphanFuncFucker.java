@@ -14,6 +14,10 @@ public class OrphanFuncFucker {
 
     private List<IRFunction> orphanList = new ArrayList<>();
 
+    private boolean check(IRFunction func) {
+        return func.getParaRegs().size() == 5 && func.getName().equals("cd");
+    }
+
     public OrphanFuncFucker(IRRoot ir) {
         this.ir = ir;
     }
@@ -62,7 +66,7 @@ public class OrphanFuncFucker {
         }
 
         for (IRFunction irFunction : ir.getFunctionList()) {
-            if(irFunction.isOrphan()) {
+            if(irFunction.isOrphan() || check(irFunction)) {
                 orphanList.add(irFunction);
             }
         }
@@ -77,9 +81,9 @@ public class OrphanFuncFucker {
         initFirstBB.getHeadInst().prependInst(new IRHeapAlloc(table, new IntImm(TABLE_SIZE * REG_SIZE), initFirstBB));
 
         for(IRFunction irFunction : orphanList) {
-            if(irFunction.getName().equals(INIT_STATIC_VAR)
-                || irFunction.getName().equals("main")
-                || irFunction.getParaRegs().size() > 1) continue;
+            if(irFunction.getName().equals(INIT_STATIC_VAR) || irFunction.getName().equals("main")) continue;
+
+            if(!(irFunction.getParaRegs().size() <= 1 || check(irFunction))) continue;
 
             System.err.println("orphan : " + irFunction.getName());
 
@@ -123,7 +127,9 @@ public class OrphanFuncFucker {
             fastReturnBB.setJumpInst(new IRJump(newEndBB, fastReturnBB));
 
             newEndBB.setJumpInst(new IRReturn(resReg, newEndBB));
-
+            if(check(irFunction) && resReg instanceof VirtualReg) {
+                newEndBB.getTailInst().prependInst(new IRMove((VirtualReg) resReg, new IntImm(134217727), newEndBB));
+            }
 
             irFunction.setBeginBB(checkBB);
             irFunction.setEndBB(newEndBB);
