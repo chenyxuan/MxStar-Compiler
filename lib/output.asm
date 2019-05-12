@@ -220,15 +220,3 @@ L_003:
         db 25H, 64H, 0AH, 00H
 
 
-SECTION .eh_frame align=8
-
-        db 14H, 00H, 00H, 00H, 00H, 00H, 00H, 00H
-        db 01H, 7AH, 52H, 00H, 01H, 78H, 10H, 01H
-        db 1BH, 0CH, 07H, 08H, 90H, 01H, 00H, 00H
-        db 1CH, 00H, 00H, 00H, 1CH, 00H, 00H, 00H
-        dd main-$-20H
-        dd 00000055H, 100E4100H
-        dd 0D430286H, 0C500206H
-        dd 00000807H
-
-
