@@ -2,8 +2,9 @@ package mxstar.ir;
 
 public class VirtualReg extends IRRegister {
 	private String name;
-
-	private PhysicalReg physicalReg = null;
+	private PhysicalReg forcedPhysicalReg = null;
+	private boolean isTiny = false;
+	private PhysicalReg color = null;
 
 	public VirtualReg(String name) {
 		this.name = name;
@@ -13,12 +14,28 @@ public class VirtualReg extends IRRegister {
 		return name;
 	}
 
-	public void setPhysicalReg(PhysicalReg forced) {
-		physicalReg = forced;
+	public void setForcedPhysicalReg(PhysicalReg forced) {
+		forcedPhysicalReg = forced;
 	}
 
-	public PhysicalReg getPhysicalReg() {
-		return physicalReg;
+	public PhysicalReg getForcedPhysicalReg() {
+		return forcedPhysicalReg;
+	}
+
+	public void setTiny(boolean tiny) {
+		isTiny = tiny;
+	}
+
+	public boolean isTiny() {
+		return isTiny;
+	}
+
+	public void setColor(PhysicalReg color) {
+		this.color = color;
+	}
+
+	public PhysicalReg getColor() {
+		return color;
 	}
 
 	@Override

@@ -12,6 +12,15 @@ public class ExtraRemoval {
     public void run() {
         for (IRFunction func : ir.getFunctionList()) {
             for (BasicBlock bb : func.getAllBB()) {
+                for (IRInstruction inst = bb.getHeadInst(); inst != null; inst = inst.getNextInst()) {
+                    if(inst instanceof IRMove) {
+                        IRMove moveInst = (IRMove) inst;
+                        if (moveInst.getDest() == moveInst.getSrc()) {
+                            inst.remove();
+                        }
+                    }
+                }
+
                 for (IRInstruction inst = bb.getHeadInst(), lastInst = null; inst != null; inst = inst.getNextInst()) {
                     boolean remove = false;
                     if (inst instanceof IRMove) {

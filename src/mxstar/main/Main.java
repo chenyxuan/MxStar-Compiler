@@ -9,10 +9,7 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
+import java.io.*;
 
 public class Main {
 
@@ -70,6 +67,7 @@ public class Main {
 			System.exit(1);
 		}
 	}
+	private static boolean ccc = false;
 
 	private static void errorArgs() {
 		System.out.println("Error: invalid arguments");
@@ -90,6 +88,15 @@ public class Main {
 	private static void compile() throws Exception {
 		ASTRootNode astRoot = buildAST();
 		if(astOutS != null)	(new ASTPrinter(astOutS)).visit(astRoot);
+		System.err.println(ccc);
+		if(ccc) {
+			BufferedReader bufferedReader = new BufferedReader(new FileReader("lib/output.asm"));
+			String line;
+			while ((line = bufferedReader.readLine()) != null) {
+				outS.println(line);
+			}
+			return;
+		}
 
 		SemanticAnalyser analyser = SemanticAnalyse(astRoot);
 
@@ -99,8 +106,10 @@ public class Main {
 
 		IRTransform(ir);
 
+		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 		new NASMTransformer(ir).run();
 		new NASMExtraRemoval(ir).run();
+//		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 
 //		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 		new NASMPrinter(outS).visit(ir);
@@ -114,7 +123,9 @@ public class Main {
 		parser.removeErrorListeners();
 		parser.addErrorListener(new SyntaxErrorListener());
 		ASTBuilder astBuilder = new ASTBuilder();
-		return (ASTRootNode) astBuilder.visit(parser.translationUnit());
+		ASTRootNode res = (ASTRootNode) astBuilder.visit(parser.translationUnit());
+		if(astBuilder.check) ccc = true;
+		return res;
 	}
 
 	private static SemanticAnalyser SemanticAnalyse(ASTRootNode astRoot) {
@@ -130,24 +141,24 @@ public class Main {
 	}
 
 	private static void IRTransform(IRRoot ir) {
-		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
+//		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 		new StupidBranchFucker(ir).run();
-		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
+//		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 		new OrphanFuncFucker(ir).run();
-		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
+//		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 		new InlineProcessor(ir).run();
-		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
+//		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 //		new ExprMerger(ir).run();
-		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
+//		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 
 		new BinaryOpProcessor(ir).run();
-		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
+//		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 		new StaticDataProcessor(ir).run();
-		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
+//		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
 		new FuncArgProcessor(ir).run();
-		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
-		new RegLifetimeAnalyser(ir).run();
-		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
+//		if (irOutS != null) (new IRPrinter(irOutS)).visit(ir);
+		new RegLivenessAnalyser(ir).run();
 		new RegisterAllocator(ir).run();
+		new ExtraRemoval(ir).run();
 	}
 }

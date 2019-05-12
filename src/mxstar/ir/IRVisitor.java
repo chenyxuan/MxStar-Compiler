@@ -22,4 +22,5 @@ public interface IRVisitor {
 	void visit(PhysicalReg node);
 	void visit(IRPush node);
 	void visit(IRPop node);
+	void visit(StackSlot node);
 }

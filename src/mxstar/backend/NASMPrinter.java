@@ -16,7 +16,7 @@ public class NASMPrinter implements IRVisitor {
     private PrintStream out;
     private Map<String, Integer> idCounter = new HashMap<>();
     private Map<Object, String> idMap = new HashMap<>();
-    private PhysicalReg preg0;
+    private PhysicalReg tempPhsiycalReg;
 
     public NASMPrinter(PrintStream out) {
         this.out = out;
@@ -50,7 +50,7 @@ public class NASMPrinter implements IRVisitor {
 
     @Override
     public void visit(IRRoot node) {
-        preg0 = node.getPhysicalReg0();
+        tempPhsiycalReg = node.getReversedRegister();
 
         idMap.put(node.getFunction("main").getBeginBB(), "main");
 
@@ -185,7 +185,7 @@ public class NASMPrinter implements IRVisitor {
                 out.println();
             }
 
-            out.println("\t\tmov\t\t" + preg0.getName() + ", rdx");
+            out.println("\t\tmov\t\t" + tempPhsiycalReg.getName() + ", rdx");
 
             out.println("\t\tcqo");
             out.println("\t\tidiv\trbx");
@@ -203,7 +203,7 @@ public class NASMPrinter implements IRVisitor {
                 }
             }
 
-            out.println("\t\tmov\t\trdx, " + preg0.getName());
+            out.println("\t\tmov\t\trdx, " + tempPhsiycalReg.getName());
 
         } else if (node.getOp() == SHL ||
                 node.getOp() == SHR) {
@@ -509,5 +509,10 @@ public class NASMPrinter implements IRVisitor {
             default:
                 return null;
         }
+    }
+
+    @Override
+    public void visit(StackSlot node) {
+        throw new Error("wtf");
     }
 }

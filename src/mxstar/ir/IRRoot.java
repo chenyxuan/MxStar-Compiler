@@ -12,7 +12,7 @@ public class IRRoot {
 	private List<IRFunction> builtInFunctionList = new ArrayList<>();
 	private List<StaticData> staticDataList = new ArrayList<>();
 	private int maxArgsNum = 0;
-	private PhysicalReg physicalReg0 = null, physicalReg1 = null;
+	private PhysicalReg reversedRegister = null;
 	public Map<String, StaticStr> staticStrMap = new HashMap<>();
 
 
@@ -91,20 +91,12 @@ public class IRRoot {
 		return maxArgsNum;
 	}
 
-	public void setPhysicalReg0(PhysicalReg physicalReg0) {
-		this.physicalReg0 = physicalReg0;
+	public void setReversedRegister(PhysicalReg reversedRegister) {
+		this.reversedRegister = reversedRegister;
 	}
 
-	public void setPhysicalReg1(PhysicalReg physicalReg1) {
-		this.physicalReg1 = physicalReg1;
-	}
-
-	public PhysicalReg getPhysicalReg0() {
-		return physicalReg0;
-	}
-
-	public PhysicalReg getPhysicalReg1() {
-		return physicalReg1;
+	public PhysicalReg getReversedRegister() {
+		return reversedRegister;
 	}
 
 	public void updateCalleeSet() {

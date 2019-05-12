@@ -12,7 +12,9 @@ public class StackSlot extends IRRegister {
     }
 
     @Override
-    public void accept(IRVisitor visitor) {}
+    public void accept(IRVisitor visitor) {
+        visitor.visit(this);
+    }
 
     @Override
     public RegValue copy() {

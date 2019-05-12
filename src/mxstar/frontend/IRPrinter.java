@@ -316,6 +316,11 @@ public class IRPrinter implements IRVisitor {
 	}
 
 	@Override
+	public void visit(StackSlot node) {
+		out.print("StackSlot");
+	}
+
+	@Override
 	public void visit(IRPush node)
 	{
 		out.print("    Push @");
