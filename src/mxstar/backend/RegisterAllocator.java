@@ -119,7 +119,7 @@ public class RegisterAllocator {
         build();
 
         System.err.println(initial.size());
-        if(initial.size() > 1024 && first) {
+        if(initial.size() > 512 && first) {
             new NaiveRegisterAllocator(ir).run();
         }
         else {
