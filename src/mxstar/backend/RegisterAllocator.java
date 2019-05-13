@@ -110,7 +110,7 @@ public class RegisterAllocator {
         }
     }
 
-    static boolean first = true;
+    private static boolean first = true;
 
     public void run () {
         new RegLivenessAnalyser(ir).run();

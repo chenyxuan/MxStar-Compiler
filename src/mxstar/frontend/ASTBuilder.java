@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ASTBuilder extends MxStarBaseVisitor<Node> {
-	public boolean check = false;
-
 	public Node visitTranslationUnit(MxStarParser.TranslationUnitContext ctx) {
 		List<Node> decls = new ArrayList<>();
 
@@ -29,10 +27,6 @@ public class ASTBuilder extends MxStarBaseVisitor<Node> {
 	public Node visitFunctionDefinition(MxStarParser.FunctionDefinitionContext ctx) {
 		TypeNode returnType = null;
 		String name = ctx.ID().getText();
-
-		if(name.equals("addtag_ro")) {
-			check = true;
-		}
 
 		List<VarDeclNode> parameterList = new ArrayList<>();
 

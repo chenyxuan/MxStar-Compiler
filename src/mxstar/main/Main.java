@@ -67,7 +67,6 @@ public class Main {
 			System.exit(1);
 		}
 	}
-	private static boolean ccc = false;
 
 	private static void errorArgs() {
 		System.out.println("Error: invalid arguments");
@@ -88,16 +87,6 @@ public class Main {
 	private static void compile() throws Exception {
 		ASTRootNode astRoot = buildAST();
 		if(astOutS != null)	(new ASTPrinter(astOutS)).visit(astRoot);
-		System.err.println(ccc);
-		if(ccc) {
-			BufferedReader bufferedReader = new BufferedReader(new FileReader("lib/output.asm"));
-			String line;
-			while ((line = bufferedReader.readLine()) != null) {
-				outS.println(line);
-			}
-			return;
-		}
-
 		SemanticAnalyser analyser = SemanticAnalyse(astRoot);
 
 		System.err.println("semantic test ok");
@@ -124,7 +113,6 @@ public class Main {
 		parser.addErrorListener(new SyntaxErrorListener());
 		ASTBuilder astBuilder = new ASTBuilder();
 		ASTRootNode res = (ASTRootNode) astBuilder.visit(parser.translationUnit());
-		if(astBuilder.check) ccc = true;
 		return res;
 	}
 
