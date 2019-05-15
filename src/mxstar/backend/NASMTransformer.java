@@ -32,7 +32,6 @@ public class NASMTransformer {
                 if (preg.isCalleeSave()) funcInfo.usedCalleeSaveRegs.add(preg);
                 if (preg.isCallerSave()) funcInfo.usedCallerSaveRegs.add(preg);
             }
-            // could be optimized
             funcInfo.usedCalleeSaveRegs.add(rbx);
             funcInfo.usedCalleeSaveRegs.add(rbp);
 
@@ -40,7 +39,6 @@ public class NASMTransformer {
             for (int i = 0; i < funcInfo.numStackSlot; ++i) {
                 funcInfo.stackSlotOffsetMap.put(irFunction.stackSlots.get(i), i * REG_SIZE);
             }
-            // for rsp alignment
             if ((funcInfo.usedCalleeSaveRegs.size() + funcInfo.numStackSlot) % 2 == 0) {
                 ++funcInfo.numStackSlot;
             }
@@ -71,7 +69,6 @@ public class NASMTransformer {
         for (IRFunction irFunction : ir.getFunctionList()) {
             FuncInfo funcInfo = funcInfoMap.get(irFunction);
 
-            // transform function entry
             BasicBlock entryBB = irFunction.getBeginBB();
             IRInstruction firstInst = entryBB.getHeadInst();
             for (PhysicalReg preg : funcInfo.usedCalleeSaveRegs) {
@@ -87,7 +84,6 @@ public class NASMTransformer {
                         IRFunction calleeFunc = ((IRFunctionCall) inst).getFunc();
                         FuncInfo calleeInfo = funcInfoMap.get(calleeFunc);
 
-                        // push caller save registers which would be changed by callee
                         int numPushCallerSave = 0;
                         for (PhysicalReg preg : funcInfo.usedCallerSaveRegs) {
                             if (preg.isArg6() && preg.getArg6Idx() < irFunction.getParaRegs().size()) continue;
@@ -96,21 +92,18 @@ public class NASMTransformer {
                                 inst.prependInst(new IRPush(preg, inst.getParentBB()));
                             }
                         }
-
-                        // push argument registers
+                        
                         int numPushArg6Regs = irFunction.getParaRegs().size() <= 6 ? irFunction.getParaRegs().size() : 6;
                         for (int i = 0; i < numPushArg6Regs; ++i) {
                             inst.prependInst(new IRPush(arg6.get(i), inst.getParentBB()));
                         }
                         numPushCallerSave += numPushArg6Regs;
 
-                        // set arguments
                         boolean extraPush = false;
                         List<RegValue> args = ((IRFunctionCall) inst).getArgs();
                         List<Integer> arg6BakOffset = new ArrayList<>();
                         Map<PhysicalReg, Integer> arg6BakOffsetMap = new HashMap<>();
 
-                        // for rsp alignment
                         if ((numPushCallerSave + calleeInfo.numExtraArgs) % 2 == 1) {
                             extraPush = true;
                             inst.prependInst(new IRPush(new IntImm(0), inst.getParentBB()));
@@ -162,51 +155,38 @@ public class NASMTransformer {
                             inst.prependInst(new IRBinaryOp(IRBinaryOp.Ops.ADD, rsp, rsp, new IntImm(bakOffset * REG_SIZE), inst.getParentBB()));
                         }
 
-                        // get return value
                         if (((IRFunctionCall) inst).getDest() != null) {
                             inst.appendInst(new IRMove(((IRFunctionCall) inst).getDest(), rax, inst.getParentBB()));
                         }
 
-                        // restore caller save registers
                         for (PhysicalReg preg : funcInfo.usedCallerSaveRegs) {
                             if (preg.isArg6() && preg.getArg6Idx() < irFunction.getParaRegs().size()) continue;
                             if (calleeInfo.recursiveUsedRegs.contains(preg)) {
                                 inst.appendInst(new IRPop(inst.getParentBB(), preg));
                             }
                         }
-
-                        // restore argument registers
                         for (int i = 0; i < numPushArg6Regs; ++i) {
                             inst.appendInst(new IRPop(inst.getParentBB(), arg6.get(i)));
                         }
 
-                        // remove extra arguments
                         if (calleeInfo.numExtraArgs > 0 || extraPush) {
                             int numPushArg = extraPush ? calleeInfo.numExtraArgs + 1 : calleeInfo.numExtraArgs;
                             inst.appendInst(new IRBinaryOp(IRBinaryOp.Ops.ADD, rsp, rsp, new IntImm(numPushArg * REG_SIZE), inst.getParentBB()));
                         }
                     } else if (inst instanceof IRHeapAlloc) {
-                        // push caller save registers which would be changed by callee
                         int numPushCallerSave = 0;
                         for (PhysicalReg preg : funcInfo.usedCallerSaveRegs) {
                             ++numPushCallerSave;
-                            // could be optimized known which reg would not be changed by malloc
                             inst.prependInst(new IRPush(preg, inst.getParentBB()));
                         }
-                        // set arg
                         inst.prependInst(new IRMove(rdi, ((IRHeapAlloc) inst).getAllocSize(), inst.getParentBB()));
-                        // for rsp alignment
                         if (numPushCallerSave % 2 == 1) {
                             inst.prependInst(new IRPush(new IntImm(0), inst.getParentBB()));
                         }
-                        // get return value
                         inst.appendInst(new IRMove(((IRHeapAlloc) inst).getDest(), rax, inst.getParentBB()));
-                        // restore caller save registers
                         for (PhysicalReg preg : funcInfo.usedCallerSaveRegs) {
-                            // could be optimized known which reg would not be changed by malloc
                             inst.appendInst(new IRPop(inst.getParentBB(), preg));
                         }
-                        // restore rsp
                         if (numPushCallerSave % 2 == 1) {
                             inst.appendInst(new IRBinaryOp(IRBinaryOp.Ops.ADD, rsp, rsp, new IntImm(REG_SIZE), inst.getParentBB()));
                         }
@@ -224,7 +204,6 @@ public class NASMTransformer {
                             ((IRStore) inst).setAddr(rbp);
                         }
                     } else if (inst instanceof IRMove) {
-                        // remove useless move: a <- a
                         if (((IRMove) inst).getSrc() == ((IRMove) inst).getDest()) {
                             inst.remove();
                         }
